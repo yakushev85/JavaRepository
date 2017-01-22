@@ -3,7 +3,9 @@ package chartbuilderfx.oleksandr.iakushev.com.calculatorfx;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -86,12 +88,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         DisplayMetrics size = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(size);
         int maxWidth = size.widthPixels;
+        int maxHeight = size.heightPixels;
         int padding = (int) getResources().getDimension(R.dimen.activity_horizontal_margin);
         int btnWidth = (maxWidth - 2 * padding) / 6;
+        int btnHeight = (int) (maxHeight*0.7/7.0);
 
         for (int btnID : BUTTONS) {
             Button btnItem = (Button) this.findViewById(btnID);
             btnItem.setWidth(btnWidth);
+            btnItem.setHeight(btnHeight);
         }
     }
 
@@ -107,7 +112,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (id == R.id.action_exit) {
             this.finish();
         } else if (id == R.id.action_about) {
-            this.showToastLong(getString(R.string.created_by));
+            AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+            alertDialog.setTitle("About");
+            alertDialog.setMessage(getString(R.string.created_by));
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
         } else if (id == R.id.action_copy_text) {
             ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText(
