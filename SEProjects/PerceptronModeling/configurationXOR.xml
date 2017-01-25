@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<network>
+		<incount>2</incount>
+		<neuroncount>1</neuroncount>
+	</network>
+	<learningdata>
+		<dataitem>
+			<invector>00</invector>
+			<output>0</output>
+		</dataitem>
+		<dataitem>	
+			<invector>01</invector>
+			<output>1</output>
+		</dataitem>
+		<dataitem>	
+			<invector>10</invector>
+			<output>1</output>
+		</dataitem>
+		<dataitem>	
+			<invector>11</invector>
+			<output>0</output>
+		</dataitem>
+	</learningdata>
+	<exam>
+		<exitem>
+			<testvector>11</testvector>
+			<answer>0</answer>
+		</exitem>
+		<exitem>
+			<testvector>10</testvector>
+			<answer>1</answer>
+		</exitem>
+		<exitem>
+			<testvector>01</testvector>
+			<answer>1</answer>
+		</exitem>
+		<exitem>
+			<testvector>00</testvector>
+			<answer>0</answer>
+		</exitem>		
+	</exam>
+</configuration>
