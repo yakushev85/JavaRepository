@@ -12,17 +12,19 @@ import com.alex.yakushev.app.torrentslistvisualizer.model.MovieInfo;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Oleksandr on 10-Sep-17.
  */
 
 public class YtsRecycleListAdapter extends RecyclerView.Adapter<YtsRecycleListAdapter.ViewHolder> {
-    private MovieInfo[] mMovies;
+    private List<MovieInfo> mMovies;
     private Context mContext;
+    private MovieInfoOnClickListener onClickListener;
 
-    public YtsRecycleListAdapter(Collection<MovieInfo> movies, Context context) {
-        this.mMovies = movies.toArray(new MovieInfo[] {});
+    public YtsRecycleListAdapter(List<MovieInfo> movies, Context context) {
+        this.mMovies = movies;
         this.mContext = context;
     }
 
@@ -47,18 +49,26 @@ public class YtsRecycleListAdapter extends RecyclerView.Adapter<YtsRecycleListAd
 
     @Override
     public void onBindViewHolder(YtsRecycleListAdapter.ViewHolder holder, int position) {
-        holder.titleListItem.setText(mMovies[position].getTitle());
+        holder.titleListItem.setText(mMovies.get(position).getTitle());
         Picasso.with(mContext)
-                .load(mMovies[position].getMediumCoverImage())
+                .load(mMovies.get(position).getMediumCoverImage())
                 .into(holder.imageListItem);
+
+        if (onClickListener != null) {
+            holder.itemView.setOnClickListener(v -> onClickListener.onClick(mMovies.get(position)));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mMovies.length;
+        return mMovies.size();
     }
 
-    public MovieInfo getMovieByPosition(int position) {
-        return mMovies[position];
+    public interface MovieInfoOnClickListener {
+        void onClick(MovieInfo movieInfo);
+    }
+
+    public void setOnClickListener(MovieInfoOnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
     }
 }

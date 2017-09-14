@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.alex.yakushev.app.torrentslistvisualizer.model.MovieInfo;
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnFr
         setContentView(R.layout.activity_main);
 
         if (!isNetworkConnected()) {
+            Toast.makeText(this, "No connection to internet!", Toast.LENGTH_LONG).show();
             return;
         }
 

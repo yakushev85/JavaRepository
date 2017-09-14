@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -29,9 +30,11 @@ public class DataMovie implements Parcelable {
 
     @SerializedName("movie_count")
     private int movieCount;
+    @SerializedName("limit")
     private int limit;
     @SerializedName("page_number")
     private int pageNumber;
+    @SerializedName("movies")
     private List<MovieInfo> movies;
 
     public DataMovie() {}
@@ -67,6 +70,6 @@ public class DataMovie implements Parcelable {
     }
 
     public List<MovieInfo> getMovies() {
-        return (movies==null)?new ArrayList<>():movies;
+        return (movies==null)?Collections.emptyList():movies;
     }
 }

@@ -42,4 +42,13 @@ public class DetailedFragment extends Fragment {
 
         return layoutView;
     }
+
+    public static DetailedFragment create(MovieInfo movieInfo) {
+        DetailedFragment listFragment = new DetailedFragment();
+        Bundle bundle = new Bundle();
+
+        bundle.putParcelable(MovieInfo.class.getName(), movieInfo);
+        listFragment.setArguments(bundle);
+        return listFragment;
+    }
 }

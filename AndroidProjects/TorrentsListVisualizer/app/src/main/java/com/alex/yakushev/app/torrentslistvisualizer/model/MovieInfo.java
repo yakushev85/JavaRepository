@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,17 +14,25 @@ import java.util.List;
  */
 
 public class MovieInfo implements Parcelable {
+    @SerializedName("id")
     private int id;
+    @SerializedName("url")
     private String url;
+    @SerializedName("title")
     private String title;
     @SerializedName("title_english")
     private String titleEnglish;
     @SerializedName("title_long")
     private String titleLong;
+    @SerializedName("year")
     private int year;
+    @SerializedName("rating")
     private float rating;
+    @SerializedName("runtime")
     private int runtime;
+    @SerializedName("genres")
     private List<String> genres;
+    @SerializedName("summary")
     private String summary;
     @SerializedName("background_image")
     private String backgroundImage;
@@ -123,7 +132,7 @@ public class MovieInfo implements Parcelable {
     }
 
     public List<String> getGenres() {
-        return (genres == null)?new ArrayList<>():genres;
+        return (genres == null)? Collections.emptyList():genres;
     }
 
     public String getSummary() {

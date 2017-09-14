@@ -19,11 +19,7 @@ public class DetailedActivity extends FragmentActivity {
         MovieInfo movieInfo = getIntent().getParcelableExtra(MovieInfo.class.getName());
 
         if (listFragment == null) {
-            listFragment = new DetailedFragment();
-            Bundle bundle = new Bundle();
-
-            bundle.putParcelable(MovieInfo.class.getName(), movieInfo);
-            listFragment.setArguments(bundle);
+            listFragment = DetailedFragment.create(movieInfo);
 
             fm.beginTransaction()
                     .add(R.id.detailed_fragment_container, listFragment)

@@ -22,9 +22,11 @@ public class GeneralMoviesData implements Parcelable {
         }
     };
 
+    @SerializedName("status")
     private String status;
     @SerializedName("status_message")
     private String statusMessage;
+    @SerializedName("data")
     private DataMovie data;
 
     public GeneralMoviesData() {}
