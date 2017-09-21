@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_date">xxxxxXXXXX 2013</string>
+	<string name="text_ok">OK</string>
+	<string name="text_back">Back</string>
+	<string name="turn_left">&lt;&lt;</string>
+	<string name="turn_right">&gt;&gt;</string>
+    <string name="app_name">Schedule SumDU</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+	<string name="default_value">Default</string>
+	<string name="beg_date">Begin date:</string>
+	<string name="end_date">End date:</string>
+	<string name="chs_teacher">Choose teacher:</string>
+	<string name="chs_room">Choose room:</string>
+	<string name="chs_group">Choose group:</string>
+	<string name="snd_req">Send request!</string>
+	<string name="exit">Exit</string>
+</resources>

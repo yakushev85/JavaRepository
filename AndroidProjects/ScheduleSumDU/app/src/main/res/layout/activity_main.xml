@@ -1,0 +1,112 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="schedule.sumdu.edu.ua.schedulesumdu.MainActivity" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dateinputafter"
+        android:layout_alignParentTop="true"
+        android:text="@string/beg_date"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <schedule.sumdu.edu.ua.schedulesumdu.components.EditViewDateM
+        android:id="@+id/dateinputbefore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dateinputafter"
+        android:layout_below="@+id/textView1"
+        android:ems="10"
+        android:gravity="center"
+        android:textSize="@dimen/Default_SizeText" />
+
+    <schedule.sumdu.edu.ua.schedulesumdu.components.EditViewDateM
+        android:id="@+id/dateinputafter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2"
+        android:ems="10"
+        android:gravity="center"
+        android:textSize="@dimen/Default_SizeText" />
+
+    <schedule.sumdu.edu.ua.schedulesumdu.components.EditViewListM
+        android:id="@+id/editTeacher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textTeacher"
+        android:layout_alignRight="@+id/dateinputafter"
+        android:layout_below="@+id/textTeacher"
+        android:ems="10" />
+
+    <schedule.sumdu.edu.ua.schedulesumdu.components.EditViewListM
+        android:id="@+id/editGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textGroup"
+        android:layout_alignRight="@+id/editTeacher"
+        android:layout_below="@+id/textGroup"
+        android:ems="10" />
+
+    <schedule.sumdu.edu.ua.schedulesumdu.components.EditViewListM
+        android:id="@+id/editRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textRoom"
+        android:layout_alignRight="@+id/editGroup"
+        android:layout_below="@+id/textRoom"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dateinputbefore"
+        android:layout_below="@+id/dateinputbefore"
+        android:text="@string/end_date"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textTeacher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dateinputafter"
+        android:layout_below="@+id/dateinputafter"
+        android:text="@string/chs_teacher"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editTeacher"
+        android:layout_below="@+id/editTeacher"
+        android:text="@string/chs_group"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editGroup"
+        android:layout_below="@+id/editGroup"
+        android:text="@string/chs_room"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/btnOKList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/snd_req" />
+
+</RelativeLayout>

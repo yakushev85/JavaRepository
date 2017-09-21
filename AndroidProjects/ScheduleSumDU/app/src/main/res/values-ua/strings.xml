@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_date">xxxxxXXXXX 2013</string>
+	<string name="text_ok">Далі</string>
+	<string name="text_back">Вернути</string>
+	<string name="turn_left">&lt;&lt;</string>
+	<string name="turn_right">&gt;&gt;</string>
+    <string name="app_name">Розклад СумДУ</string>
+    <string name="action_settings">Настройки</string>
+    <string name="hello_world">Привіт світ!</string>
+	<string name="default_value">За умовчанням</string>
+	<string name="beg_date">Початкова дата:</string>
+	<string name="end_date">Кінцева дата:</string>
+	<string name="chs_teacher">Виберіть викладача:</string>
+	<string name="chs_room">Виберіть аудиторію:</string>
+	<string name="chs_group">Виберіть групу:</string>
+	<string name="snd_req">Послати запрос!</string>
+	<string name="exit">Вихід</string>
+</resources>
