@@ -9,8 +9,6 @@ import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -22,6 +20,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +34,7 @@ import schedule.sumdu.edu.ua.schedulesumdu.model.ScheduleItem;
 import schedule.sumdu.edu.ua.schedulesumdu.service.ServiceSumduApi;
 import schedule.sumdu.edu.ua.schedulesumdu.service.SumduApi;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener {
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     private final int ID_EDIT_DATE_BEFORE = 210;
@@ -42,9 +43,19 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private final int ID_EDIT_GROUP = 213;
     private final int ID_EDIT_ROOM = 214;
 
-    private EditViewDateM mEditViewDateBefore, mEditViewDateAfter;
-    private EditViewListM mEditTeacher, mEditGroup, mEditRoom;
-    private Button mButtonSend;
+    @BindView(R.id.dateinputbefore)
+    EditViewDateM mEditViewDateBefore;
+    @BindView(R.id.dateinputafter)
+    EditViewDateM mEditViewDateAfter;
+    @BindView(R.id.editTeacher)
+    EditViewListM mEditTeacher;
+    @BindView(R.id.editGroup)
+    EditViewListM mEditGroup;
+    @BindView(R.id.editRoom)
+    EditViewListM mEditRoom;
+    @BindView(R.id.btnSend)
+    Button mButtonSend;
+
     private ServiceSumduApi mInternalApi;
 
     @Override
@@ -52,12 +63,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mEditViewDateBefore = (EditViewDateM) this.findViewById(R.id.dateinputbefore);
-        mEditViewDateAfter = (EditViewDateM) this.findViewById(R.id.dateinputafter);
-        mEditTeacher = (EditViewListM) this.findViewById(R.id.editTeacher);
-        mEditGroup = (EditViewListM) this.findViewById(R.id.editGroup);
-        mEditRoom = (EditViewListM) this.findViewById(R.id.editRoom);
-        mButtonSend = (Button) this.findViewById(R.id.btnOKList);
+        ButterKnife.bind(this);
 
         initComponents();
 
@@ -71,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     }
 
     private void initComponents() {
-        mButtonSend.setOnClickListener(this);
         mButtonSend.setEnabled(false);
 
         mEditViewDateAfter.setDateViewNowPlusWeek();
@@ -127,25 +132,23 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v == mButtonSend) {
-            mButtonSend.setEnabled(false);
-            String teacher = mEditTeacher.getText().toString();
-            String group = mEditGroup.getText().toString();
-            String room = mEditRoom.getText().toString();
+    @OnClick(R.id.btnSend)
+    public void onClickSend() {
+        mButtonSend.setEnabled(false);
+        String teacher = mEditTeacher.getText().toString();
+        String group = mEditGroup.getText().toString();
+        String room = mEditRoom.getText().toString();
 
-            if (teacher.equals("") && group.equals("") && room.equals("")) {
-                mButtonSend.setEnabled(true);
-                showToastShort("Choose teacher or group or room!");
-                return;
-            }
-
-            String dateFrom = mEditViewDateBefore.getText().toString();
-            String dateTo = mEditViewDateAfter.getText().toString();
-
-            requestToScheduleItems(group, teacher, room, dateFrom, dateTo);
+        if (teacher.equals("") && group.equals("") && room.equals("")) {
+            mButtonSend.setEnabled(true);
+            showToastShort("Choose teacher or group or room!");
+            return;
         }
+
+        String dateFrom = mEditViewDateBefore.getText().toString();
+        String dateTo = mEditViewDateAfter.getText().toString();
+
+        requestToScheduleItems(group, teacher, room, dateFrom, dateTo);
     }
 
     private void requestToScheduleItems(String group, String teacher, String room,
@@ -168,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             @Override
             public void onFailure(Call<List<ScheduleItem>> call, Throwable t) {
                 Log.e(TAG, "Error in Callback<List<ScheduleItem>> ", t);
-                showToastLong(t.getMessage());
+                showToastShort(t.getMessage());
                 mButtonSend.setEnabled(true);
             }
         });
@@ -196,12 +199,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     private void showToastShort(String txt) {
         Toast toast = Toast.makeText(getApplicationContext(), txt, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-        toast.show();
-    }
-
-    private void showToastLong(String txt) {
-        Toast toast = Toast.makeText(getApplicationContext(), txt, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         toast.show();
     }
