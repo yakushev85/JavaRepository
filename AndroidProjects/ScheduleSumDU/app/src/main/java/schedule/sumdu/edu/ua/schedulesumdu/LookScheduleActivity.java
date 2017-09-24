@@ -2,11 +2,15 @@ package schedule.sumdu.edu.ua.schedulesumdu;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -27,14 +31,57 @@ public class LookScheduleActivity extends AppCompatActivity {
             }
 
         });
-        ListView listView = (ListView) this.findViewById(R.id.listView1);
-
-        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         Bundle bundle = this.getIntent().getExtras();
-        List<ScheduleItem> listItems = bundle.getParcelableArrayList(ID_SCHEDULE_ITEMS);
+        List<ScheduleItem> scheduleItems = bundle.getParcelableArrayList(ID_SCHEDULE_ITEMS);
 
-        ArrayAdapter<ScheduleItem> adapter = new ArrayAdapter<>(this, R.layout.item_list, listItems);
-        listView.setAdapter(adapter);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.scheduleRecyclerView);
+
+        RecyclerView.LayoutManager layoutManager =
+                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                DividerItemDecoration.VERTICAL);
+
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        recyclerView.setAdapter(new ScheduleRecyclerAdapter(scheduleItems));
+    }
+
+    private class ScheduleRecyclerAdapter extends RecyclerView.Adapter {
+        private List<ScheduleItem> mScheduleItems;
+
+        public ScheduleRecyclerAdapter(List<ScheduleItem> scheduleItems) {
+            mScheduleItems = scheduleItems;
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            TextView mTitleListView;
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+
+                mTitleListView = (TextView) itemView.findViewById(R.id.titleListView);
+            }
+        }
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, parent, false);
+
+            return new ScheduleRecyclerAdapter.ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            ((ScheduleRecyclerAdapter.ViewHolder) holder).mTitleListView
+                    .setText(mScheduleItems.get(position).toString());
+        }
+
+        @Override
+        public int getItemCount() {
+            return mScheduleItems.size();
+        }
     }
 }
