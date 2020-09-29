@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TorrentsListVisualizer.iml" filepath="$PROJECT_DIR$/.idea/modules/TorrentsListVisualizer.iml" group="TorrentsListVisualizer" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="TorrentsListVisualizer/app" />
+    </modules>
+  </component>
+</project>
