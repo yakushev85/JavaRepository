@@ -27,7 +27,9 @@
         android:inputType="text"
         android:maxLines="1"
         android:textSize="16sp"
-        android:paddingBottom="3dp" />
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp"
+        android:layout_marginBottom="2dp"/>
 
     <Button
         android:id="@+id/buttond1"
