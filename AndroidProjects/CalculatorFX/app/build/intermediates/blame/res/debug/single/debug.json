@@ -1,0 +1,78 @@
+[
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_launcher.png.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\drawable\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\drawable_red_button_shape.xml.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\drawable\\red_button_shape.xml"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\drawable_background_bitmap.xml.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\drawable\\background_bitmap.xml"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\drawable_editx_shape.xml.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\drawable\\editx_shape.xml"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\drawable_blue_button_selector.xml.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\drawable\\blue_button_selector.xml"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\drawable_red_button_selector.xml.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\drawable\\red_button_selector.xml"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\drawable_green_button_selector.xml.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\drawable\\green_button_selector.xml"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\menu_main.xml.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\menu\\main.xml"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_result.xml.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\layout\\activity_result.xml"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\drawable_textured_paper.png.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\drawable\\textured_paper.png"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\drawable_editfunc_shape.xml.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\drawable\\editfunc_shape.xml"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\drawable_blue_button_shape.xml.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\drawable\\blue_button_shape.xml"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\drawable_green_button_shape.xml.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\drawable\\green_button_shape.xml"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\drawable_grey_button_shape.xml.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\drawable\\grey_button_shape.xml"
+    },
+    {
+        "merged": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_main.xml.flat",
+        "source": "D:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\CalculatorFX\\app\\src\\main\\res\\layout\\activity_main.xml"
+    }
+]

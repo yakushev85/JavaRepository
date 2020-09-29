@@ -1,0 +1,4 @@
+#Tue Sep 29 15:40:39 EEST 2020
+base.0=D\:\\WorkspaceJava\\GeneralJavaRepository\\AndroidProjects\\SoBlocks\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

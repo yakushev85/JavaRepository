@@ -1,0 +1,65 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="chartbuilderfx.oleksandr.iakushev.com.calculatorfx"
+4    android:versionCode="2"
+5    android:versionName="1.1" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="15"
+8-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="26" />
+9-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml
+10
+11    <application
+11-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:5:5-19:19
+12        android:allowBackup="true"
+12-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:6:9-35
+13        android:debuggable="true"
+14        android:icon="@mipmap/ic_launcher"
+14-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:7:9-43
+15        android:label="@string/app_name"
+15-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:8:9-41
+16        android:supportsRtl="true"
+16-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:9:9-35
+17        android:testOnly="true"
+18        android:theme="@style/AppTheme" >
+18-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:10:9-40
+19        <activity
+19-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:11:9-17:20
+20            android:name="chartbuilderfx.oleksandr.iakushev.com.calculatorfx.MainActivity"
+20-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:11:19-47
+21            android:screenOrientation="portrait" >
+21-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:11:48-84
+22            <intent-filter>
+22-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:12:13-16:29
+23                <action android:name="android.intent.action.MAIN" />
+23-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:13:17-69
+23-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:13:25-66
+24
+25                <category android:name="android.intent.category.LAUNCHER" />
+25-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:15:17-77
+25-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:15:27-74
+26            </intent-filter>
+27        </activity>
+28        <activity
+28-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:18:9-99
+29            android:name="chartbuilderfx.oleksandr.iakushev.com.calculatorfx.ResultActivity"
+29-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:18:19-49
+30            android:screenOrientation="portrait" />
+30-->D:\WorkspaceJava\GeneralJavaRepository\AndroidProjects\CalculatorFX\app\src\main\AndroidManifest.xml:18:51-87
+31
+32        <meta-data
+32-->[com.android.support:appcompat-v7:26.1.0] C:\Users\oleks\.gradle\caches\transforms-2\files-2.1\d83d1b2906b010fc2c13f0c9b7d3c61d\appcompat-v7-26.1.0\AndroidManifest.xml:26:9-28:38
+33            android:name="android.support.VERSION"
+33-->[com.android.support:appcompat-v7:26.1.0] C:\Users\oleks\.gradle\caches\transforms-2\files-2.1\d83d1b2906b010fc2c13f0c9b7d3c61d\appcompat-v7-26.1.0\AndroidManifest.xml:27:13-51
+34            android:value="26.1.0" />
+34-->[com.android.support:appcompat-v7:26.1.0] C:\Users\oleks\.gradle\caches\transforms-2\files-2.1\d83d1b2906b010fc2c13f0c9b7d3c61d\appcompat-v7-26.1.0\AndroidManifest.xml:28:13-35
+35        <meta-data
+35-->[android.arch.lifecycle:runtime:1.0.0] C:\Users\oleks\.gradle\caches\transforms-2\files-2.1\ad64e64e382a8943e8c32803e67dfeee\runtime-1.0.0\AndroidManifest.xml:25:9-27:47
+36            android:name="android.arch.lifecycle.VERSION"
+36-->[android.arch.lifecycle:runtime:1.0.0] C:\Users\oleks\.gradle\caches\transforms-2\files-2.1\ad64e64e382a8943e8c32803e67dfeee\runtime-1.0.0\AndroidManifest.xml:26:13-58
+37            android:value="27.0.0-SNAPSHOT" />
+37-->[android.arch.lifecycle:runtime:1.0.0] C:\Users\oleks\.gradle\caches\transforms-2\files-2.1\ad64e64e382a8943e8c32803e67dfeee\runtime-1.0.0\AndroidManifest.xml:27:13-44
+38    </application>
+39
+40</manifest>
