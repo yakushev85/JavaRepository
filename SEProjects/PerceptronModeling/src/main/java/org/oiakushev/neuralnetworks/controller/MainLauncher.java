@@ -10,11 +10,9 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
-import org.apache.log4j.Logger;
 import org.oiakushev.neuralnetworks.entity.Perceptron;
 import org.oiakushev.neuralnetworks.entity.TeachDataEntity;
 import org.oiakushev.neuralnetworks.learning.BasicPerceptronLearningProcess;
-import org.oiakushev.neuralnetworks.logger.PerceptronModelingLogger;
 
 public class MainLauncher {
 	private static final String CONFIGURATION_FILE_NAME = "configuration.xml";
@@ -24,13 +22,8 @@ public class MainLauncher {
 	private static final String OUTPUT_TAG = "output";
 	private static final String TESTVECTOR_TAG = "testvector";
 	private static final String ANSWER_TAG = "answer";
-	private static Logger logger;
 	
 	public static void main(String args[]) throws XMLStreamException, IOException {
-		PerceptronModelingLogger.cleanLogFile();
-		logger = PerceptronModelingLogger.getConfiguredLogger(MainLauncher.class);
-		
-		logger.warn("MainLauncher.main()");
 		System.out.println("Initialization...");
 		XMLInputFactory xmlFactory = XMLInputFactory.newInstance();
 		xmlFactory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
@@ -107,8 +100,7 @@ public class MainLauncher {
 			}
 			
 			perceptron.setDataForTeaching(teachData.toArray(new TeachDataEntity[teachData.size()]));
-			
-			logger.warn(perceptron);
+
 			System.out.println("Learning...");
 			BasicPerceptronLearningProcess learningProcess = new BasicPerceptronLearningProcess(perceptron);
 			learningProcess.start();
@@ -118,12 +110,8 @@ public class MainLauncher {
 				String outputStr = vectorToString(perceptron.execute(examItem.getVector()));
 				String answerStr = vectorToString(examItem.getOutput());
 				String mark = (outputStr.equals(answerStr))? "PASSED": "FAILED";
-				
-				logger.warn("Network("+vectorToString(examItem.getVector())+")="+outputStr+
-						" Expected:"+answerStr+". Test is "+mark+".");
 			}
-			
-			logger.warn("Done.");
+
 			System.out.println("Done.");
 		} finally {
 			xmlReader.close();

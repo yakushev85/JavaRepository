@@ -4,16 +4,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
 import org.oiakushev.neuralnetworks.entity.Neuron;
 import org.oiakushev.neuralnetworks.entity.Perceptron;
 import org.oiakushev.neuralnetworks.entity.TeachDataEntity;
-import org.oiakushev.neuralnetworks.logger.PerceptronModelingLogger;
 
 public class BasicPerceptronLearningProcess {
 	public static final String EXCEL_STATISTICS_FILENAME = "learning_data.xls";
 	public static final double DELTA_VALUE_KOEF = 0.1;
-	private static Logger logger = PerceptronModelingLogger.getConfiguredLogger(BasicPerceptronLearningProcess.class);
 	
 	public final int MAX_LEARNING_ITERATIONS = 1000;
 	
@@ -34,13 +31,9 @@ public class BasicPerceptronLearningProcess {
 			fileWriter.write("Iteration\tMistake\n");
 			int currentIteration = 1;
 			int outputError = Integer.MAX_VALUE-1; 
-			
-			logger.warn("BasicPerceptronLearningProcess.start()");
-			logger.warn("\n"+perceptron.getCurrentState());
+
 			while (outputError > 0 && currentIteration < MAX_LEARNING_ITERATIONS) {
-				logger.warn("Iteration "+currentIteration+" is processing...");
 				outputError = iteration();
-				logger.warn("\n"+perceptron.getCurrentState());
 				fileWriter.write(currentIteration+"\t"+outputError+"\n");
 				currentIteration++;
 			}
@@ -93,8 +86,6 @@ public class BasicPerceptronLearningProcess {
 				}
 			}
 		}
-		
-		logger.warn("Total Errors: "+totalErrorSum);
 		
 		return totalErrorSum;
 	}
