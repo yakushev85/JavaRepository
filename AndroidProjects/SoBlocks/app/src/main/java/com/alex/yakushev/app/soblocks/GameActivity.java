@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.alex.yakushev.app.soblocks.model.DrawThread;
 import com.alex.yakushev.app.soblocks.model.ScoreStorage;
+import com.alex.yakushev.app.soblocks.view.GameCanvas;
 
 import java.io.File;
 

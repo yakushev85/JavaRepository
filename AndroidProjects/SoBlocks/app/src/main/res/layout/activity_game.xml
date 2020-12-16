@@ -39,7 +39,7 @@
             android:textStyle="normal|bold|italic" />
     </LinearLayout>
 
-    <com.alex.yakushev.app.soblocks.GameCanvas
+    <com.alex.yakushev.app.soblocks.view.GameCanvas
         android:id="@+id/gameCanvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
