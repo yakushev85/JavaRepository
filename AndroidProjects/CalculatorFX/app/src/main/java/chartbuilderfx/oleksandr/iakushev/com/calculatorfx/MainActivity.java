@@ -20,7 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static int[] BUTTONS = {
+    private static final int[] BUTTONS = {
             R.id.buttonBuildChart,
             R.id.buttond0,
             R.id.buttond1,
