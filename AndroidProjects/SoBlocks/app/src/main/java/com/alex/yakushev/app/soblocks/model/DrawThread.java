@@ -30,17 +30,17 @@ public class DrawThread extends Thread {
     public static final int INVERSE_COLOR_CUB_BOTTOM = 0xFFAFAFAF;
 
     private boolean runFlag;
-    private SurfaceHolder surfaceHolder;
-    private GameSpace gameSpace;
-    private Paint paintCub, paintCubNextFigure, paintGameBorder;
-    private Rect rectCub;
+    private final SurfaceHolder surfaceHolder;
+    private final GameSpace gameSpace;
+    private final Paint paintCub, paintCubNextFigure, paintGameBorder;
+    private final Rect rectCub;
     private boolean isNeedToReDraw;
     private int sizeCubX, sizeCubY, sizeCub, offsetX, offsetY;
     private int maxCanvasWidth, maxCanvasHeight;
     private float bottomOffset;
     private File scoreFile;
-    private Path polyPath;
-    private DrawThreadListener listener;
+    private final Path polyPath;
+    private final DrawThreadListener listener;
 
     public DrawThread(SurfaceHolder surfaceHolder, GameSpace gameSpace, DrawThreadListener listener) {
         runFlag = false;
@@ -114,7 +114,7 @@ public class DrawThread extends Thread {
 
                     sizeCubX =  maxCanvasWidth / GameSpace.SPACE_NX;
                     sizeCubY =  maxCanvasHeight / GameSpace.SPACE_NY;
-                    sizeCub = (sizeCubX > sizeCubY)?sizeCubY:sizeCubX;
+                    sizeCub = Math.min(sizeCubX, sizeCubY);
                     offsetX = (maxCanvasWidth-GameSpace.SPACE_NX*sizeCub)/2;
                     offsetY = (maxCanvasHeight-GameSpace.SPACE_NY*sizeCub)/2;
 

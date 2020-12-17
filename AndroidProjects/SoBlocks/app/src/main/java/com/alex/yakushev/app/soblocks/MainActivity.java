@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         this.findViewById(R.id.btnStartGame).setOnClickListener(this);
         this.findViewById(R.id.btnScore).setOnClickListener(this);
-        this.findViewById(R.id.btnExit).setOnClickListener(this);
 
         MobileAds.initialize(getApplicationContext(), AD_APP_ID);
 
@@ -39,8 +38,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (view.getId() == R.id.btnScore) {
             Intent intentScoreGame = new Intent(this, ScoreActivity.class);
             startActivity(intentScoreGame);
-        } else if (view.getId() == R.id.btnExit) {
-            this.finish();
         }
     }
 

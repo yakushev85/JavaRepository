@@ -3,7 +3,7 @@ package com.alex.yakushev.app.soblocks.model;
 public class GameFigure {
 	static public final int FIGURES_N = 19;
 	static public final int FIGURES_MAXCOLORS = 6;
-	static public final int FIGURES_X[][] = {
+	static public final int[][] FIGURES_X = {
 			{0,1,1,2},
 			{1,0,1,0},
 			
@@ -37,7 +37,7 @@ public class GameFigure {
 			{0,2,1,1},
 			{0,1,2,2}
 	};
-	static public final int FIGURES_Y[][] = {
+	static public final int[][] FIGURES_Y = {
 			{0,0,1,1},
 			{0,1,1,2},
 			
@@ -72,9 +72,9 @@ public class GameFigure {
 			{1,1,0,2}
 	};
 	
-	private int figureCubX[];
-	private int figureCubY[];
-	private int figureCubC[];
+	private int[] figureCubX;
+	private int[] figureCubY;
+	private int[] figureCubC;
 	private int figureType;
 	
 	GameFigure() {

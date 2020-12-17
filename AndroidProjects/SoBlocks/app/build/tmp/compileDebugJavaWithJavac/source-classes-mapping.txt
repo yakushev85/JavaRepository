@@ -1,0 +1,23 @@
+com/alex/yakushev/app/soblocks/model/ScoreStorage.java
+ com.alex.yakushev.app.soblocks.model.ScoreStorage
+com/alex/yakushev/app/soblocks/MainActivity.java
+ com.alex.yakushev.app.soblocks.MainActivity
+com/alex/yakushev/app/soblocks/model/DrawThread.java
+ com.alex.yakushev.app.soblocks.model.DrawThread
+ com.alex.yakushev.app.soblocks.model.DrawThread$DrawThreadListener
+com/alex/yakushev/app/soblocks/view/GameCanvas.java
+ com.alex.yakushev.app.soblocks.view.GameCanvas
+com/alex/yakushev/app/soblocks/GameActivity.java
+ com.alex.yakushev.app.soblocks.GameActivity
+com/alex/yakushev/app/soblocks/BuildConfig.java
+ com.alex.yakushev.app.soblocks.BuildConfig
+com/alex/yakushev/app/soblocks/model/GameFigure.java
+ com.alex.yakushev.app.soblocks.model.GameFigure
+com/alex/yakushev/app/soblocks/model/GameSpace.java
+ com.alex.yakushev.app.soblocks.model.GameSpace
+com/alex/yakushev/app/soblocks/model/ScoreData.java
+ com.alex.yakushev.app.soblocks.model.ScoreData
+com/alex/yakushev/app/soblocks/ScoreActivity.java
+ com.alex.yakushev.app.soblocks.ScoreActivity
+com/alex/yakushev/app/soblocks/ScoreArrayAdapter.java
+ com.alex.yakushev.app.soblocks.ScoreArrayAdapter

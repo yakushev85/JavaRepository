@@ -1,6 +1,7 @@
 package com.alex.yakushev.app.soblocks;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +20,9 @@ import java.util.List;
 public class ScoreArrayAdapter  extends ArrayAdapter<ScoreData> {
     private static final long LATEST_SCORES_TIME = 5000; // 5 seconds
 
-    private Context wordContext;
-    private List<ScoreData> scoreList;
-    private int listViewResourceId;
+    private final Context wordContext;
+    private final List<ScoreData> scoreList;
+    private final int listViewResourceId;
 
     public ScoreArrayAdapter(Context context, int listViewResourceId, List<ScoreData> listOfScores) {
         super(context, listViewResourceId, listOfScores);
@@ -30,7 +31,8 @@ public class ScoreArrayAdapter  extends ArrayAdapter<ScoreData> {
         this.listViewResourceId = listViewResourceId;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    @NonNull
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) wordContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 

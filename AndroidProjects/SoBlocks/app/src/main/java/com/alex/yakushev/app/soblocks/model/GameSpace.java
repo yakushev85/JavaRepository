@@ -20,10 +20,10 @@ public class GameSpace {
 	public static final int SPACE_NX = 15;
 	public static final int SPACE_NY = 25;
 	
-	private int spaceCub[][];
+	private final int[][] spaceCub;
 	private int curFigX0,curFigY0;
 	private int linesScore;
-	private Random rnd;
+	private final Random rnd;
 	
 	private GameFigure curFig, nextFig;
 	
