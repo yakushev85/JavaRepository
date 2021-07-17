@@ -1,7 +1,7 @@
 package com.alex.yakushev.app.torrentslistvisualizer
 
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 import com.alex.yakushev.app.torrentslistvisualizer.model.MovieInfo
 
 class DetailedActivity : FragmentActivity() {
@@ -10,7 +10,7 @@ class DetailedActivity : FragmentActivity() {
         setContentView(R.layout.activity_detailed)
 
         val fm = supportFragmentManager
-        val movieInfo: MovieInfo = intent.getParcelableExtra(MovieInfo::class.java.name)
+        val movieInfo: MovieInfo = intent.getParcelableExtra(MovieInfo::class.java.name)!!
 
         if (fm.findFragmentById(R.id.detailed_fragment_container) == null) {
             fm.beginTransaction()

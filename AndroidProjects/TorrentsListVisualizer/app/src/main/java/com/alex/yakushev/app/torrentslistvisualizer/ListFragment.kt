@@ -3,11 +3,11 @@ package com.alex.yakushev.app.torrentslistvisualizer
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,28 +55,43 @@ class ListFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        val currentOrientation = activity.resources.configuration.orientation
+        val currentOrientation = activity?.resources?.configuration?.orientation
         val layoutManager: RecyclerView.LayoutManager
         val dividerItemDecoration: DividerItemDecoration
 
         if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-            dividerItemDecoration = DividerItemDecoration(mRecyclerView?.context,
-                    DividerItemDecoration.HORIZONTAL)
+            layoutManager = LinearLayoutManager(
+                activity,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            dividerItemDecoration =
+                DividerItemDecoration(
+                    mRecyclerView?.context,
+                    DividerItemDecoration.HORIZONTAL
+                )
         } else {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            dividerItemDecoration = DividerItemDecoration(mRecyclerView?.context,
-                    DividerItemDecoration.VERTICAL)
+            layoutManager = LinearLayoutManager(
+                activity,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+            dividerItemDecoration =
+                DividerItemDecoration(
+                    mRecyclerView?.context,
+                    DividerItemDecoration.VERTICAL
+                )
         }
 
         mRecyclerView?.layoutManager = layoutManager
         mRecyclerView?.addItemDecoration(dividerItemDecoration)
-        mRecyclerView?.itemAnimator = DefaultItemAnimator()
-        mRecyclerView?.adapter = YtsRecycleListAdapter(ArrayList(), activity)
+        mRecyclerView?.itemAnimator =
+            DefaultItemAnimator()
+        mRecyclerView?.adapter = YtsRecycleListAdapter(ArrayList(), activity!!)
     }
 
     private fun initServiceApi() {
-        val serviceApplication = activity.applicationContext as YtsServiceApplication
+        val serviceApplication = activity?.applicationContext as YtsServiceApplication
         val moviesObservable = serviceApplication.serviceApi?.ytsApi?.listOfMovies!!
 
         mCompositeDisposable.add(
@@ -85,7 +100,7 @@ class ListFragment : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ inData: GeneralMoviesData? ->
                     val movieInfoList = inData?.data?.movies
-                    val listAdapter = YtsRecycleListAdapter(movieInfoList!!, activity)
+                    val listAdapter = YtsRecycleListAdapter(movieInfoList!!, activity!!)
 
                     listAdapter.setOnClickListener(object : YtsRecycleListAdapter.MovieInfoOnClickListener {
                         override fun onClick(movieInfo: MovieInfo) {

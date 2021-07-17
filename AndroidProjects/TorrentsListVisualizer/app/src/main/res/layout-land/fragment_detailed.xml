@@ -47,13 +47,7 @@
             android:id="@+id/descriptionDetailedView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/titleDetailedView"
-            android:layout_toRightOf="@+id/imageDetailedView"
-            android:layout_toEndOf="@+id/imageDetailedView" />
+            android:text="TextView"/>
 
     </ScrollView>
 </RelativeLayout>

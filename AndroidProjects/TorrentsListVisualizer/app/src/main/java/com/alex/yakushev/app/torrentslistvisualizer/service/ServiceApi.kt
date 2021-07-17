@@ -11,14 +11,14 @@ enum class ServiceApi {
     Instance;
 
     private val endPointUrl = "https://yts.ag"
-
     val ytsApi: YtsApi
-        get() {
-            val builder = Retrofit.Builder()
-            val retrofit = builder.baseUrl(endPointUrl)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build()
-            return retrofit.create(YtsApi::class.java)
-        }
+
+    init {
+        val builder = Retrofit.Builder()
+        val retrofit = builder.baseUrl(endPointUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build()
+        ytsApi = retrofit.create(YtsApi::class.java)
+    }
 }
