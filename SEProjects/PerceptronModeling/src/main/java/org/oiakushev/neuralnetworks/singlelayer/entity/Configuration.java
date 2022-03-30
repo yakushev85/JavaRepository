@@ -1,4 +1,4 @@
-package org.oiakushev.neuralnetworks.entity;
+package org.oiakushev.neuralnetworks.singlelayer.entity;
 
 import java.util.List;
 

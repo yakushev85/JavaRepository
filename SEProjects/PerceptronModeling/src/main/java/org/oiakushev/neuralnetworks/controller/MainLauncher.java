@@ -1,23 +1,28 @@
 package org.oiakushev.neuralnetworks.controller;
 
 import com.google.gson.Gson;
-import org.oiakushev.neuralnetworks.entity.Configuration;
-import org.oiakushev.neuralnetworks.entity.Perceptron;
-import org.oiakushev.neuralnetworks.entity.TeachDataEntity;
-import org.oiakushev.neuralnetworks.learning.BasicPerceptronLearningProcess;
+import org.oiakushev.neuralnetworks.multilayer.MultiNetConfiguration;
+import org.oiakushev.neuralnetworks.multilayer.MultiNetwork;
+import org.oiakushev.neuralnetworks.singlelayer.entity.Configuration;
+import org.oiakushev.neuralnetworks.singlelayer.entity.Perceptron;
+import org.oiakushev.neuralnetworks.singlelayer.entity.TeachDataEntity;
+import org.oiakushev.neuralnetworks.singlelayer.learning.BasicPerceptronLearningProcess;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
 public class MainLauncher {
-	private static final String CONFIGURATION_FILE_NAME = "configuration.json";
-	
 	public static void main(String[] args) throws IOException {
+//		testPerceptron();
+		testMultiNet();
+	}
+
+	private static void testPerceptron()  throws IOException {
 		System.out.println("Initialization...");
 		Gson gson = new Gson();
 
-		Configuration configuration = gson.fromJson(new FileReader(CONFIGURATION_FILE_NAME), Configuration.class);
+		Configuration configuration = gson.fromJson(new FileReader("configuration.json"), Configuration.class);
 
 		List<TeachDataEntity> teachData = configuration.getTeachData();
 
@@ -28,7 +33,7 @@ public class MainLauncher {
 		BasicPerceptronLearningProcess learningProcess = new BasicPerceptronLearningProcess(perceptron);
 		learningProcess.start();
 
-		System.out.println("Examing..");
+		System.out.println("Testing..");
 		for (TeachDataEntity examItem : teachData) {
 			String outputStr = vectorToString(perceptron.execute(examItem.getVector()));
 			String answerStr = vectorToString(examItem.getOutput());
@@ -38,11 +43,33 @@ public class MainLauncher {
 
 		System.out.println("Done.");
 	}
+
+	private static void testMultiNet()  throws IOException {
+		System.out.println("Initialization...");
+		Gson gson = new Gson();
+
+		MultiNetConfiguration configuration = gson.fromJson(new FileReader("configurationMulti.json"), MultiNetConfiguration.class);
+		MultiNetwork multiNetwork = new MultiNetwork(configuration);
+
+		System.out.println("Learning...");
+		multiNetwork.learn();
+
+		System.out.println("Testing..");
+		List<TeachDataEntity> teachData = configuration.getTeachData();
+		for (TeachDataEntity examItem : teachData) {
+			String outputStr = vectorToString(multiNetwork.execute(examItem.getVector()));
+			String answerStr = vectorToString(examItem.getOutput());
+			String mark = (outputStr.equals(answerStr))? "PASSED": "FAILED";
+			System.out.println(mark);
+		}
+
+		System.out.println("Done.");
+	}
 	
-	public static String vectorToString(int[] x) {
+	public static String vectorToString(double[] x) {
 		StringBuilder result = new StringBuilder();
-		for (int j : x) {
-			result.append(j);
+		for (double j : x) {
+			result.append(Math.round(j));
 		}
 		return result.toString();
 	}
