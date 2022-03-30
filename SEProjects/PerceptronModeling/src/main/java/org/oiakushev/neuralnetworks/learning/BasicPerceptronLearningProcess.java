@@ -1,12 +1,11 @@
 package org.oiakushev.neuralnetworks.learning;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import org.oiakushev.neuralnetworks.entity.Neuron;
 import org.oiakushev.neuralnetworks.entity.Perceptron;
 import org.oiakushev.neuralnetworks.entity.TeachDataEntity;
+
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class BasicPerceptronLearningProcess {
 	public static final String EXCEL_STATISTICS_FILENAME = "learning_data.xls";
@@ -14,9 +13,9 @@ public class BasicPerceptronLearningProcess {
 	
 	public final int MAX_LEARNING_ITERATIONS = 1000;
 	
-	private Perceptron perceptron;
-	private Neuron[] network;
-	private TeachDataEntity[] learningData;
+	private final Perceptron perceptron;
+	private final Neuron[] network;
+	private final TeachDataEntity[] learningData;
 	
 	public BasicPerceptronLearningProcess(Perceptron perceptron) {
 		this.perceptron = perceptron;
@@ -25,20 +24,16 @@ public class BasicPerceptronLearningProcess {
 	}
 	
 	public void start() throws IOException {
-		FileWriter fileWriter = null;
-		try {
-			fileWriter = new FileWriter(new File(EXCEL_STATISTICS_FILENAME));
+		try (FileWriter fileWriter = new FileWriter(EXCEL_STATISTICS_FILENAME)) {
 			fileWriter.write("Iteration\tMistake\n");
 			int currentIteration = 1;
-			int outputError = Integer.MAX_VALUE-1; 
+			int outputError = Integer.MAX_VALUE - 1;
 
 			while (outputError > 0 && currentIteration < MAX_LEARNING_ITERATIONS) {
 				outputError = iteration();
-				fileWriter.write(currentIteration+"\t"+outputError+"\n");
+				fileWriter.write(currentIteration + "\t" + outputError + "\n");
 				currentIteration++;
 			}
-		} finally {
-			fileWriter.close();
 		}
 	}
 	
