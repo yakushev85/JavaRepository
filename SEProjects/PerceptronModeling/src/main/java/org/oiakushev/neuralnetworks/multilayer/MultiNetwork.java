@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MultiNetwork {
-    public final int MAX_LEARNING_ITERATIONS = 1000;
+    public final int MAX_LEARNING_ITERATIONS = 100000;
     public static final double ALPHA_VALUE = 0.5;
     public static final double SPEED_VALUE = 0.5;
 
     private final MultiNetConfiguration configuration;
-    private ArrayList<Layer> layers;
+    private final ArrayList<Layer> layers;
 
     public MultiNetwork(MultiNetConfiguration configuration) {
         this.configuration = configuration;
@@ -60,6 +60,9 @@ public class MultiNetwork {
 
         while (outputError > 0 && currentIteration < MAX_LEARNING_ITERATIONS) {
             outputError = iteration();
+
+            System.out.println(currentIteration + ". error = " + outputError);
+
             currentIteration++;
         }
 
@@ -68,7 +71,7 @@ public class MultiNetwork {
     }
 
     private double iteration() {
-        double totalErrorSum = 0;
+        double totalErrorSum = 0.0;
         List<TeachDataEntity> learningData = configuration.getTeachData();
 
         for (TeachDataEntity teachData : learningData) {
@@ -79,22 +82,22 @@ public class MultiNetwork {
             // step 2 generate sigma for last layer and update errorSum
             for (int j=0;j<actualOutput.length;j++) {
                 layers.get(layers.size()-1).getNeurons().get(j).setSigma(
-                        -2*ALPHA_VALUE*actualOutput[j]*(1-actualOutput[j])*(expectedOutput[j]-actualOutput[j])
+                        -1.0*actualOutput[j]*(1-actualOutput[j])*(expectedOutput[j]-actualOutput[j])
                 );
 
                 totalErrorSum += (Math.abs(expectedOutput[j]-actualOutput[j]) > 0.5)? 1.0 : 0.0;
             }
 
-            // step 3 generate sigma for other layer
+            // step 3 generate sigma for other layers
             for (int i=layers.size()-2;i>=0;i--) {
                 for (int j=0;j<layers.get(i).getNeurons().size();j++) {
-                    double currentSigma = 0;
-                    double output = layers.get(i).getNeurons().get(j).generateOutput();
+                    double currentSigma = 0.0;
+                    double output = layers.get(i).getNeurons().get(j).getOutput();
                     double preSigma = output*(1-output);
 
                     for (int k=0;k<layers.get(i+1).getNeurons().size();k++) {
-                        currentSigma += layers.get(i).getNeurons().get(j).getWeight(j) *
-                                layers.get(i).getNeurons().get(j).getSigma();
+                        currentSigma += layers.get(i+1).getNeurons().get(k).getWeight(j) *
+                                layers.get(i+1).getNeurons().get(k).getSigma();
                     }
 
                     currentSigma = preSigma * currentSigma;

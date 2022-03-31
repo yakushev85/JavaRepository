@@ -13,17 +13,18 @@ public class Neuron {
 	private double default_value_weight;
 	private double sigma;
 	private double[] delta;
+	private double weightOffset;
 	
 	public Neuron(int inCount, double default_value_weight) {
 		this.inCount = inCount;
 		this.default_value_weight = default_value_weight;
-		weights = new double[inCount+1];
-		weights[0] = DEFAULT_VALUE_OFFSET_WIGHT;
-		for (int i=1;i<=this.inCount;i++) {
+		weights = new double[inCount];
+		weightOffset = DEFAULT_VALUE_OFFSET_WIGHT;
+		delta = new double[inCount];
+
+		for (int i=0;i<this.inCount;i++) {
 			weights[i] = this.default_value_weight * (0.1 + 0.8*Math.random());
 		}
-
-		delta = new double[inCount+1];
 	}
 	
 	public Neuron(int inCount) {
@@ -43,9 +44,9 @@ public class Neuron {
 	}
 	
 	public double generateOutput() {
-		net = weights[0];
-		for (int i=1;i<=inCount;i++) {
-			net += weights[i]*inVector[i-1];
+		net = weightOffset;
+		for (int i=0;i<inCount;i++) {
+			net += weights[i]*inVector[i];
 		}
 
 		output = 1 / (1 + Math.exp(-2 * DEFAULT_CONST_A * net));
@@ -54,7 +55,7 @@ public class Neuron {
 	}
 	
 	private void checkIndexWeight(int indexWeight) {
-		if (!(0<=indexWeight && indexWeight <= this.inCount)) {
+		if (!(0<=indexWeight && indexWeight < this.inCount)) {
 			throw new IllegalArgumentException("Index Weight out of bounds.");
 		}
 	}
@@ -99,5 +100,13 @@ public class Neuron {
 
 	public void setDelta(double[] delta) {
 		this.delta = delta;
+	}
+
+	public double getWeightOffset() {
+		return weightOffset;
+	}
+
+	public void setWeightOffset(double weightOffset) {
+		this.weightOffset = weightOffset;
 	}
 }

@@ -62,14 +62,15 @@ public class BasicPerceptronLearningProcess {
 					}
 					
 					if (prizW0Impact) {
-						currentNeuron.setWeight(0, 
-								currentNeuron.getWeight(0)+errorsMap[i][j]*(DELTA_VALUE_KOEF / perceptron.getInCount())); 
+						currentNeuron.setWeightOffset(currentNeuron.getWeightOffset() +
+								errorsMap[i][j]*(DELTA_VALUE_KOEF / perceptron.getInCount()));
 					} else {
 						for (int k=0;k<perceptron.getInCount();k++) {
 							if (inVector[k] > 0) {
 								double currentWeight = 
-										currentNeuron.getWeight(k+1)+errorsMap[i][j]*(DELTA_VALUE_KOEF / perceptron.getInCount());
-								currentNeuron.setWeight(k+1, currentWeight);
+										currentNeuron.getWeight(k) +
+												errorsMap[i][j]*(DELTA_VALUE_KOEF / perceptron.getInCount());
+								currentNeuron.setWeight(k, currentWeight);
 							}
 						}
 					}

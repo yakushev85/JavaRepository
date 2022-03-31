@@ -34,9 +34,9 @@ public class MainLauncher {
 		learningProcess.start();
 
 		System.out.println("Testing..");
-		for (TeachDataEntity examItem : teachData) {
-			String outputStr = vectorToString(perceptron.execute(examItem.getVector()));
-			String answerStr = vectorToString(examItem.getOutput());
+		for (TeachDataEntity testItem : teachData) {
+			String outputStr = vectorToString(perceptron.execute(testItem.getVector()));
+			String answerStr = vectorToString(testItem.getOutput());
 			String mark = (outputStr.equals(answerStr))? "PASSED": "FAILED";
 			System.out.println(mark);
 		}
@@ -56,9 +56,11 @@ public class MainLauncher {
 
 		System.out.println("Testing..");
 		List<TeachDataEntity> teachData = configuration.getTeachData();
-		for (TeachDataEntity examItem : teachData) {
-			String outputStr = vectorToString(multiNetwork.execute(examItem.getVector()));
-			String answerStr = vectorToString(examItem.getOutput());
+		for (TeachDataEntity testItem : teachData) {
+			String outputStr = vectorToString(multiNetwork.execute(testItem.getVector()));
+			String answerStr = vectorToString(testItem.getOutput());
+			System.out.println("Actual: " + outputStr);
+			System.out.println("Expected: " + answerStr);
 			String mark = (outputStr.equals(answerStr))? "PASSED": "FAILED";
 			System.out.println(mark);
 		}
