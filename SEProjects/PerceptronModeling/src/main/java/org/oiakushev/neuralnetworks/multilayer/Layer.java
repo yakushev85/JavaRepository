@@ -13,6 +13,12 @@ public class Layer {
         }
     }
 
+    public Layer(int inCount, int neuronLayerCount, double defNeuronValue) {
+        for (int i=0;i<neuronLayerCount;i++) {
+            neurons.add(new Neuron(inCount, defNeuronValue));
+        }
+    }
+
     public ArrayList<Neuron> getNeurons() {
         return neurons;
     }

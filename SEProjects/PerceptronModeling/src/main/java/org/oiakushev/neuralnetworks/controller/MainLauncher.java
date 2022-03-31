@@ -22,7 +22,8 @@ public class MainLauncher {
 		System.out.println("Initialization...");
 		Gson gson = new Gson();
 
-		Configuration configuration = gson.fromJson(new FileReader("configuration.json"), Configuration.class);
+		Configuration configuration =
+				gson.fromJson(new FileReader("configuration.json"), Configuration.class);
 
 		List<TeachDataEntity> teachData = configuration.getTeachData();
 
@@ -37,6 +38,8 @@ public class MainLauncher {
 		for (TeachDataEntity testItem : teachData) {
 			String outputStr = vectorToString(perceptron.execute(testItem.getVector()));
 			String answerStr = vectorToString(testItem.getOutput());
+			System.out.println("Actual: " + outputStr);
+			System.out.println("Expected: " + answerStr);
 			String mark = (outputStr.equals(answerStr))? "PASSED": "FAILED";
 			System.out.println(mark);
 		}
@@ -48,13 +51,14 @@ public class MainLauncher {
 		System.out.println("Initialization...");
 		Gson gson = new Gson();
 
-		MultiNetConfiguration configuration = gson.fromJson(new FileReader("configurationMulti.json"), MultiNetConfiguration.class);
+		MultiNetConfiguration configuration = gson.fromJson(
+				new FileReader("configurationMulti.json"), MultiNetConfiguration.class);
 		MultiNetwork multiNetwork = new MultiNetwork(configuration);
 
 		System.out.println("Learning...");
 		multiNetwork.learn();
 
-		System.out.println("Testing..");
+		System.out.println("Testing...");
 		List<TeachDataEntity> teachData = configuration.getTeachData();
 		for (TeachDataEntity testItem : teachData) {
 			String outputStr = vectorToString(multiNetwork.execute(testItem.getVector()));

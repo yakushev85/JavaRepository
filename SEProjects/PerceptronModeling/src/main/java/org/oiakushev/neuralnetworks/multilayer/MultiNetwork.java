@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MultiNetwork {
-    public final int MAX_LEARNING_ITERATIONS = 100000;
+    public static final int MAX_LEARNING_ITERATIONS = 100000;
     public static final double ALPHA_VALUE = 0.5;
     public static final double SPEED_VALUE = 0.5;
+    public static final double DEF_NEURON_WEIGHT_VALUE = 0.1;
 
     private final MultiNetConfiguration configuration;
     private final ArrayList<Layer> layers;
@@ -23,7 +24,7 @@ public class MultiNetwork {
         this.layers = new ArrayList<>();
 
         for (int neuronCount : neuronCounts) {
-            Layer layer = new Layer(preIn, neuronCount);
+            Layer layer = new Layer(preIn, neuronCount, DEF_NEURON_WEIGHT_VALUE);
             layers.add(layer);
             preIn = neuronCount;
         }

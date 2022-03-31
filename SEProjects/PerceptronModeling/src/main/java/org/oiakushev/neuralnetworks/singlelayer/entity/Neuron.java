@@ -1,11 +1,11 @@
 package org.oiakushev.neuralnetworks.singlelayer.entity;
 
 public class Neuron {
-	public static final double DEFAULT_VALUE_KOEF = 0.1;
+	public static final double DEFAULT_VALUE_K = 0.1;
 	public static final double DEFAULT_VALUE_OFFSET_WIGHT = 0.0;
 	public static final double DEFAULT_CONST_A = 8.0;
 	
-	private int inCount;
+	private final int inCount;
 	private double[] inVector;
 	private double[] weights;
 	private double net;
@@ -28,7 +28,7 @@ public class Neuron {
 	}
 	
 	public Neuron(int inCount) {
-		this(inCount, DEFAULT_VALUE_KOEF);
+		this(inCount, DEFAULT_VALUE_K);
 	}
 	
 	public void setInVector(double[] inVector) {
