@@ -1,4 +1,4 @@
-package org.oiakushev.neuralnetworks.singlelayer.entity;
+package org.oiakushev.neuralnetworks.general;
 
 public class TeachDataEntity {
 	private final double[] vector;

@@ -1,34 +1,24 @@
-package org.oiakushev.neuralnetworks.singlelayer.entity;
+package org.oiakushev.neuralnetworks.general;
 
 public class Neuron {
-	public static final double DEFAULT_VALUE_K = 0.1;
-	public static final double DEFAULT_VALUE_OFFSET_WIGHT = 0.0;
-	public static final double DEFAULT_CONST_A = 8.0;
-	
 	private final int inCount;
 	private double[] inVector;
 	private double[] weights;
 	private double net;
 	private double output;
-	private double default_value_weight;
 	private double sigma;
 	private double[] delta;
 	private double weightOffset;
 	
-	public Neuron(int inCount, double default_value_weight) {
+	public Neuron(int inCount, double initialWeightValue) {
 		this.inCount = inCount;
-		this.default_value_weight = default_value_weight;
-		weights = new double[inCount];
-		weightOffset = DEFAULT_VALUE_OFFSET_WIGHT;
-		delta = new double[inCount];
+		this.weights = new double[inCount];
+		this.weightOffset = 0.0;
+		this.delta = new double[inCount];
 
 		for (int i=0;i<this.inCount;i++) {
-			weights[i] = this.default_value_weight * (0.1 + 0.8*Math.random());
+			this.weights[i] = initialWeightValue * (0.1 + 0.8*Math.random());
 		}
-	}
-	
-	public Neuron(int inCount) {
-		this(inCount, DEFAULT_VALUE_K);
 	}
 	
 	public void setInVector(double[] inVector) {
@@ -49,7 +39,7 @@ public class Neuron {
 			net += weights[i]*inVector[i];
 		}
 
-		output = 1 / (1 + Math.exp(-2 * DEFAULT_CONST_A * net));
+		output = 1 / (1 + Math.exp(-1 * net));
 		
 		return output;
 	}

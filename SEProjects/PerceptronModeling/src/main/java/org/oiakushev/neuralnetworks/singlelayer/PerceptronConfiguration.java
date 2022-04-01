@@ -1,16 +1,16 @@
-package org.oiakushev.neuralnetworks.multilayer;
+package org.oiakushev.neuralnetworks.singlelayer;
 
 import org.oiakushev.neuralnetworks.general.TeachDataEntity;
 
 import java.util.List;
 
-public class MultiNetConfiguration {
+public class PerceptronConfiguration {
     private int inCount;
-    private int[] neuronCounts;
+    private int neuronCount;
+    private List<TeachDataEntity> teachData;
+    private double delta;
     private int maxLearningIterations;
     private double initialWeightValue;
-    private double alpha, speed;
-    private List<TeachDataEntity> teachData;
 
     public int getInCount() {
         return inCount;
@@ -20,12 +20,12 @@ public class MultiNetConfiguration {
         this.inCount = inCount;
     }
 
-    public int[] getNeuronCounts() {
-        return neuronCounts;
+    public int getNeuronCount() {
+        return neuronCount;
     }
 
-    public void setNeuronCounts(int[] neuronCounts) {
-        this.neuronCounts = neuronCounts;
+    public void setNeuronCount(int neuronCount) {
+        this.neuronCount = neuronCount;
     }
 
     public List<TeachDataEntity> getTeachData() {
@@ -34,6 +34,14 @@ public class MultiNetConfiguration {
 
     public void setTeachData(List<TeachDataEntity> teachData) {
         this.teachData = teachData;
+    }
+
+    public double getDelta() {
+        return delta;
+    }
+
+    public void setDelta(double delta) {
+        this.delta = delta;
     }
 
     public int getMaxLearningIterations() {
@@ -50,21 +58,5 @@ public class MultiNetConfiguration {
 
     public void setInitialWeightValue(double initialWeightValue) {
         this.initialWeightValue = initialWeightValue;
-    }
-
-    public double getAlpha() {
-        return alpha;
-    }
-
-    public void setAlpha(double alpha) {
-        this.alpha = alpha;
-    }
-
-    public double getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(double speed) {
-        this.speed = speed;
     }
 }

@@ -1,67 +1,53 @@
 package org.oiakushev.neuralnetworks.controller;
 
 import com.google.gson.Gson;
+import org.oiakushev.neuralnetworks.general.Network;
+import org.oiakushev.neuralnetworks.general.TeachDataEntity;
 import org.oiakushev.neuralnetworks.multilayer.MultiNetConfiguration;
 import org.oiakushev.neuralnetworks.multilayer.MultiNetwork;
-import org.oiakushev.neuralnetworks.singlelayer.entity.Configuration;
-import org.oiakushev.neuralnetworks.singlelayer.entity.Perceptron;
-import org.oiakushev.neuralnetworks.singlelayer.entity.TeachDataEntity;
-import org.oiakushev.neuralnetworks.singlelayer.learning.BasicPerceptronLearningProcess;
+import org.oiakushev.neuralnetworks.singlelayer.Perceptron;
+import org.oiakushev.neuralnetworks.singlelayer.PerceptronConfiguration;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
 public class MainLauncher {
+	private static final Gson gson = new Gson();
+
 	public static void main(String[] args) throws IOException {
-//		testPerceptron();
-		testMultiNet();
+		testPerceptron();
+//		testMultiNet();
 	}
 
 	private static void testPerceptron()  throws IOException {
-		System.out.println("Initialization...");
-		Gson gson = new Gson();
+		System.out.println("Perceptron initialization...");
 
-		Configuration configuration =
-				gson.fromJson(new FileReader("configuration.json"), Configuration.class);
+		PerceptronConfiguration configuration =
+				gson.fromJson(new FileReader("configurationPerceptron.json"), PerceptronConfiguration.class);
+		Perceptron perceptron = new Perceptron(configuration);
 
-		List<TeachDataEntity> teachData = configuration.getTeachData();
-
-		Perceptron perceptron = new Perceptron(configuration.getInCount(), configuration.getNeuronCount());
-		perceptron.setDataForTeaching(teachData.toArray(new TeachDataEntity[0]));
-
-		System.out.println("Learning...");
-		BasicPerceptronLearningProcess learningProcess = new BasicPerceptronLearningProcess(perceptron);
-		learningProcess.start();
-
-		System.out.println("Testing..");
-		for (TeachDataEntity testItem : teachData) {
-			String outputStr = vectorToString(perceptron.execute(testItem.getVector()));
-			String answerStr = vectorToString(testItem.getOutput());
-			System.out.println("Actual: " + outputStr);
-			System.out.println("Expected: " + answerStr);
-			String mark = (outputStr.equals(answerStr))? "PASSED": "FAILED";
-			System.out.println(mark);
-		}
-
-		System.out.println("Done.");
+		learnAndTestNet(perceptron, configuration.getTeachData());
 	}
 
 	private static void testMultiNet()  throws IOException {
-		System.out.println("Initialization...");
-		Gson gson = new Gson();
+		System.out.println("Multilayer network initialization...");
 
 		MultiNetConfiguration configuration = gson.fromJson(
 				new FileReader("configurationMulti.json"), MultiNetConfiguration.class);
 		MultiNetwork multiNetwork = new MultiNetwork(configuration);
 
+		learnAndTestNet(multiNetwork, configuration.getTeachData());
+	}
+
+	private static void learnAndTestNet(Network network, List<TeachDataEntity> teachData) {
 		System.out.println("Learning...");
-		multiNetwork.learn();
+		network.learn();
 
 		System.out.println("Testing...");
-		List<TeachDataEntity> teachData = configuration.getTeachData();
+
 		for (TeachDataEntity testItem : teachData) {
-			String outputStr = vectorToString(multiNetwork.execute(testItem.getVector()));
+			String outputStr = vectorToString(network.execute(testItem.getVector()));
 			String answerStr = vectorToString(testItem.getOutput());
 			System.out.println("Actual: " + outputStr);
 			System.out.println("Expected: " + answerStr);

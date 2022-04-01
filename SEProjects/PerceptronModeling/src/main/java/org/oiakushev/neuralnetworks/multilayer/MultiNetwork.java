@@ -1,17 +1,14 @@
 package org.oiakushev.neuralnetworks.multilayer;
 
-import org.oiakushev.neuralnetworks.singlelayer.entity.Neuron;
-import org.oiakushev.neuralnetworks.singlelayer.entity.TeachDataEntity;
+import org.oiakushev.neuralnetworks.general.Layer;
+import org.oiakushev.neuralnetworks.general.Network;
+import org.oiakushev.neuralnetworks.general.Neuron;
+import org.oiakushev.neuralnetworks.general.TeachDataEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiNetwork {
-    public static final int MAX_LEARNING_ITERATIONS = 100000;
-    public static final double ALPHA_VALUE = 0.5;
-    public static final double SPEED_VALUE = 0.5;
-    public static final double DEF_NEURON_WEIGHT_VALUE = 0.1;
-
+public class MultiNetwork implements Network {
     private final MultiNetConfiguration configuration;
     private final ArrayList<Layer> layers;
 
@@ -24,12 +21,13 @@ public class MultiNetwork {
         this.layers = new ArrayList<>();
 
         for (int neuronCount : neuronCounts) {
-            Layer layer = new Layer(preIn, neuronCount, DEF_NEURON_WEIGHT_VALUE);
+            Layer layer = new Layer(preIn, neuronCount, configuration.getInitialWeightValue());
             layers.add(layer);
             preIn = neuronCount;
         }
     }
 
+    @Override
     public double[] execute(double[] inVector) {
         double[] layerInVector = inVector;
 
@@ -55,11 +53,12 @@ public class MultiNetwork {
                 '}';
     }
 
+    @Override
     public void learn() {
         int currentIteration = 1;
         double outputError = Double.MAX_VALUE - 1;
 
-        while (outputError > 0 && currentIteration < MAX_LEARNING_ITERATIONS) {
+        while (outputError > 0 && currentIteration < configuration.getMaxLearningIterations()) {
             outputError = iteration();
 
             System.out.println(currentIteration + ". error = " + outputError);
@@ -74,6 +73,9 @@ public class MultiNetwork {
     private double iteration() {
         double totalErrorSum = 0.0;
         List<TeachDataEntity> learningData = configuration.getTeachData();
+
+        double alphaValue = configuration.getAlpha();
+        double speedValue = configuration.getSpeed();
 
         for (TeachDataEntity teachData : learningData) {
             // step 1 execute net with teach data
@@ -125,8 +127,8 @@ public class MultiNetwork {
                     double[] newDelta = new double[delta.length];
 
                     for (int i=0;i<delta.length;i++) {
-                        newDelta[i] = ALPHA_VALUE*delta[i] +
-                                (1-ALPHA_VALUE)*SPEED_VALUE*layers.get(k).getNeurons().get(j).getSigma()*output[i];
+                        newDelta[i] = alphaValue*delta[i] +
+                                (1-alphaValue)*speedValue*layers.get(k).getNeurons().get(j).getSigma()*output[i];
                     }
 
                     layers.get(k).getNeurons().get(j).setDelta(newDelta);
