@@ -42,6 +42,7 @@ public class MainController extends Application {
     @Override
     public void start(Stage mainStage) throws Exception {
         mainStage.setTitle("Favw Converter");
+        mainStage.setResizable(false);
 
         FlowPane mainPane = new FlowPane(Orientation.HORIZONTAL, 5, 5);
         mainPane.setAlignment(Pos.CENTER);

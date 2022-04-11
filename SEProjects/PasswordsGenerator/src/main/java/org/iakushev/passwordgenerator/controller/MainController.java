@@ -12,7 +12,7 @@ public class MainController {
 	static private final String DIGITS = "1234567890";
 	
 	private static String generateSinglePassword(int length, boolean hasAlphas, boolean hasDigits) {
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		
 		String alphabetic = (hasAlphas)?ALPHAS:"";
 		alphabetic += (hasDigits)?DIGITS:"";
@@ -20,10 +20,10 @@ public class MainController {
 		for (int i=0; i<length; i++) {
 			int countChar = (int) (Math.random() * alphabetic.length());
 			
-			result += alphabetic.charAt(countChar);
+			result.append(alphabetic.charAt(countChar));
 		}
 		
-		return result;
+		return result.toString();
 	}
 	
 	public static List<String> generatePasswords(int length, int counts, boolean hasAlphas, boolean hasDigits) {
@@ -36,7 +36,7 @@ public class MainController {
 		return results;
 	}
 	
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run()
 			{

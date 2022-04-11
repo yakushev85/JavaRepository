@@ -49,7 +49,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	}
 	
 	private void initializeWindow() {
-		this.setSize(600, 430);
+		this.setSize(700, 500);
 		this.setLocation(50, 50);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle(TXT_TITLE);
