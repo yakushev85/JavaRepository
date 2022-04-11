@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.oleksandr.iakushev.oenkeeper.controller.CreateController">
+    <children>
+        <TextField id="newStorageFileNameField" fx:id="newStorageFileNameField" editable="false" layoutX="39.0" layoutY="54.0" prefHeight="25.0" prefWidth="503.0" promptText="Press ... button to select filename" />
+        <Button id="selectFileNameButton" layoutX="551.0" layoutY="54.0" mnemonicParsing="false" onAction="#selectNewStorageFile" text="..." />
+        <PasswordField id="newStoragePasswordField" fx:id="newStoragePasswordField" layoutX="39.0" layoutY="107.0" prefHeight="25.0" prefWidth="535.0" promptText="Enter password" />
+        <PasswordField id="newPromtStoragePasswordField" fx:id="newPromtStoragePasswordField" layoutX="39.0" layoutY="154.0" prefHeight="25.0" prefWidth="535.0" promptText="Confirm password" />
+        <Button id="cancelNewStorageButton" layoutX="39.0" layoutY="200.0" mnemonicParsing="false" onAction="#cancelNewStorage" prefHeight="25.0" prefWidth="267.0" text="Cancel" />
+        <Button id="saveNewStorageButton" layoutX="339.0" layoutY="200.0" mnemonicParsing="false" onAction="#saveNewStorage" prefHeight="25.0" prefWidth="236.0" text="Save" />
+    </children>
+</Pane>

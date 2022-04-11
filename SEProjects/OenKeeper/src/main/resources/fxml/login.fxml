@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="208.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.oleksandr.iakushev.oenkeeper.controller.LoginController">
+    <children>
+        <Button id="buttonLogin" layoutX="20.0" layoutY="145.0" mnemonicParsing="false" onAction="#onClickLogin" prefHeight="25.0" prefWidth="564.0" text="Login" />
+        <PasswordField id="passwordField" fx:id="passwordField" layoutX="20.0" layoutY="93.0" onAction="#onPasswordEnteredAction" prefHeight="25.0" prefWidth="564.0" promptText="Enter password" />
+        <Button id="buttonOpenStorage" layoutX="433.0" layoutY="40.0" mnemonicParsing="false" onAction="#onClickOpenStorage" prefHeight="25.0" prefWidth="54.0" text="Open" />
+      <Button id="buttonCreateStorage" layoutX="500.0" layoutY="40.0" mnemonicParsing="false" onAction="#onCreateStorage" prefHeight="25.0" prefWidth="83.0" text="Create" />
+      <ComboBox id="storageCombo" fx:id="storageCombo" layoutX="20.0" layoutY="40.0" prefHeight="25.0" prefWidth="400.0" promptText="Select storage" />
+    </children>
+</Pane>
