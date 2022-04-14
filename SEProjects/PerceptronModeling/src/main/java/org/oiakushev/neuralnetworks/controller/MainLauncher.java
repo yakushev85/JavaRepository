@@ -3,10 +3,8 @@ package org.oiakushev.neuralnetworks.controller;
 import com.google.gson.Gson;
 import org.oiakushev.neuralnetworks.general.Network;
 import org.oiakushev.neuralnetworks.general.TeachDataEntity;
-import org.oiakushev.neuralnetworks.multilayer.MultiNetConfiguration;
+import org.oiakushev.neuralnetworks.multilayer.NetConfiguration;
 import org.oiakushev.neuralnetworks.multilayer.MultiNetwork;
-import org.oiakushev.neuralnetworks.singlelayer.Perceptron;
-import org.oiakushev.neuralnetworks.singlelayer.PerceptronConfiguration;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,42 +14,29 @@ public class MainLauncher {
 	private static final Gson gson = new Gson();
 
 	public static void main(String[] args) throws IOException {
-		testPerceptron();
-//		testMultiNet();
+		testMultiNet("configurationSingle.json");
+		testMultiNet("configurationMulti.json");
 	}
 
-	private static void testPerceptron()  throws IOException {
-		System.out.println("Perceptron initialization...");
+	private static void testMultiNet(String filename)  throws IOException {
+		System.out.println("Network initialization for " + filename + " ...");
 
-		PerceptronConfiguration configuration =
-				gson.fromJson(new FileReader("configurationPerceptron.json"), PerceptronConfiguration.class);
-		Perceptron perceptron = new Perceptron(configuration);
-
-		learnAndTestNet(perceptron, configuration.getTeachData());
-	}
-
-	private static void testMultiNet()  throws IOException {
-		System.out.println("Multilayer network initialization...");
-
-		MultiNetConfiguration configuration = gson.fromJson(
-				new FileReader("configurationMulti.json"), MultiNetConfiguration.class);
+		NetConfiguration configuration = gson.fromJson(
+				new FileReader(filename), NetConfiguration.class);
 		MultiNetwork multiNetwork = new MultiNetwork(configuration);
 
-		learnAndTestNet(multiNetwork, configuration.getTeachData());
-	}
-
-	private static void learnAndTestNet(Network network, List<TeachDataEntity> teachData) {
 		System.out.println("Learning...");
-		network.learn();
+		multiNetwork.learn(false);
 
 		System.out.println("Testing...");
+		List<TeachDataEntity> teachData = configuration.getTeachData();
 
 		for (TeachDataEntity testItem : teachData) {
-			String outputStr = vectorToString(network.execute(testItem.getVector()));
+			String outputStr = vectorToString(multiNetwork.execute(testItem.getVector()));
 			String answerStr = vectorToString(testItem.getOutput());
-			System.out.println("Actual: " + outputStr);
-			System.out.println("Expected: " + answerStr);
-			String mark = (outputStr.equals(answerStr))? "PASSED": "FAILED";
+			System.out.print("Actual: " + outputStr);
+			System.out.print(" Expected: " + answerStr);
+			String mark = (outputStr.equals(answerStr))? " PASSED": " FAILED";
 			System.out.println(mark);
 		}
 

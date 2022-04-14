@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MultiNetwork implements Network {
-    private final MultiNetConfiguration configuration;
+    private final NetConfiguration configuration;
     private final ArrayList<Layer> layers;
 
-    public MultiNetwork(MultiNetConfiguration configuration) {
+    public MultiNetwork(NetConfiguration configuration) {
         this.configuration = configuration;
 
         int[] neuronCounts = configuration.getNeuronCounts();
@@ -54,14 +54,15 @@ public class MultiNetwork implements Network {
     }
 
     @Override
-    public void learn() {
+    public void learn(boolean showInfo) {
         int currentIteration = 1;
         double outputError = Double.MAX_VALUE - 1;
 
         while (outputError > 0 && currentIteration < configuration.getMaxLearningIterations()) {
             outputError = iteration();
 
-            System.out.println(currentIteration + ". error = " + outputError);
+            if (showInfo)
+                System.out.println(currentIteration + ". error = " + outputError);
 
             currentIteration++;
         }

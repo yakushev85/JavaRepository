@@ -1,9 +1,10 @@
 {
   "inCount":25,
-  "neuronCount":3,
-  "delta": 0.01,
-  "maxLearningIterations": 1000,
+  "neuronCounts":[3],
+  "maxLearningIterations": 100000,
   "initialWeightValue": 0.1,
+  "alpha": 0.5,
+  "speed": 0.1,
   "teachData":
   [
     {
