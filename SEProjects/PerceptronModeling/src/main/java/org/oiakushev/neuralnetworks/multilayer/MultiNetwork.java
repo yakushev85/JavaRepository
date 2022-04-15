@@ -1,9 +1,6 @@
 package org.oiakushev.neuralnetworks.multilayer;
 
-import org.oiakushev.neuralnetworks.general.Layer;
-import org.oiakushev.neuralnetworks.general.Network;
-import org.oiakushev.neuralnetworks.general.Neuron;
-import org.oiakushev.neuralnetworks.general.TeachDataEntity;
+import org.oiakushev.neuralnetworks.general.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,10 +95,10 @@ public class MultiNetwork implements Network {
                     double currentSigma = 0.0;
                     double output = layers.get(i).getNeurons().get(j).getOutput();
                     double preSigma = output*(1-output);
+                    List<Neuron> currentLayer = layers.get(i+1).getNeurons();
 
-                    for (int k=0;k<layers.get(i+1).getNeurons().size();k++) {
-                        currentSigma += layers.get(i+1).getNeurons().get(k).getWeight(j) *
-                                layers.get(i+1).getNeurons().get(k).getSigma();
+                    for (Neuron neuron : currentLayer) {
+                        currentSigma += neuron.getWeight(j) * neuron.getSigma();
                     }
 
                     currentSigma = preSigma * currentSigma;
@@ -118,7 +115,7 @@ public class MultiNetwork implements Network {
                 } else {
                     output = new double[layers.get(k-1).getNeurons().size()];
 
-                    for (int l=0;l<layers.get(k-1).getNeurons().size();l++) {
+                    for (int l=0;l<output.length;l++) {
                         output[l] = layers.get(k-1).getNeurons().get(l).getOutput();
                     }
                 }
@@ -128,8 +125,9 @@ public class MultiNetwork implements Network {
                     double[] newDelta = new double[delta.length];
 
                     for (int i=0;i<delta.length;i++) {
-                        newDelta[i] = alphaValue*delta[i] +
-                                (1-alphaValue)*speedValue*layers.get(k).getNeurons().get(j).getSigma()*output[i];
+                        double currentSigma = layers.get(k).getNeurons().get(j).getSigma();
+                        newDelta[i] =
+                                alphaValue*delta[i]+(1-alphaValue)*speedValue*currentSigma*output[i];
                     }
 
                     layers.get(k).getNeurons().get(j).setDelta(newDelta);

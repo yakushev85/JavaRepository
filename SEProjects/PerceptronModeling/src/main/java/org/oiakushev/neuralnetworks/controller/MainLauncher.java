@@ -1,9 +1,8 @@
 package org.oiakushev.neuralnetworks.controller;
 
 import com.google.gson.Gson;
-import org.oiakushev.neuralnetworks.general.Network;
+import org.oiakushev.neuralnetworks.general.NetConfiguration;
 import org.oiakushev.neuralnetworks.general.TeachDataEntity;
-import org.oiakushev.neuralnetworks.multilayer.NetConfiguration;
 import org.oiakushev.neuralnetworks.multilayer.MultiNetwork;
 
 import java.io.FileReader;

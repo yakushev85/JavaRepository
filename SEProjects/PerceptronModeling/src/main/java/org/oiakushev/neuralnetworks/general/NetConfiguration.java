@@ -1,6 +1,4 @@
-package org.oiakushev.neuralnetworks.multilayer;
-
-import org.oiakushev.neuralnetworks.general.TeachDataEntity;
+package org.oiakushev.neuralnetworks.general;
 
 import java.util.List;
 
