@@ -12,30 +12,30 @@ import junit.framework.TestCase;
  * Unit test for ParserEval.
  */
 public class ParserEvalTest extends TestCase {
-	private static double DELTA = 0.000001;
+	private final static double DELTA = 0.000001;
 	
-	private static String TXT_TESTEQUATION1_W_PARAMS = "   (  2*1.1*sqrt(next_test-some_test*2)+(sin(1))^2+"
+	private final static String TXT_TESTEQUATION1_W_PARAMS = "   (  2*1.1*sqrt(next_test-some_test*2)+(sin(1))^2+"
 			+ "(cos(1))^2-atan(0^5)+tan(0.0)+asin(0)+acos(1)+ln(1.0)+exp(0)	)  /  4.2";
-	private static String TXT_PARAM1 = "some_test";
-	private static double VALUE_PARAM1 = 22.1;
-	private static String TXT_PARAM2 = "next_test";
-	private static double VALUE_PARAM2 = 45.9;
+	private final static String TXT_PARAM1 = "some_test";
+	private final static double VALUE_PARAM1 = 22.1;
+	private final static String TXT_PARAM2 = "next_test";
+	private final static double VALUE_PARAM2 = 45.9;
 	
-	private static String TXT_TESTEQUATION2__WOUT_PARAMS = "sin(456.7	/cos(3.45))*tan(   89.9)+asin(acos(0.56)*"
+	private final static String TXT_TESTEQUATION2__WOUT_PARAMS = "sin(456.7	/cos(3.45))*tan(   89.9)+asin(acos(0.56)*"
 			+ "asin(0.9)/1000)*atan(9.9)-(ln(234))^      (exp(1.1))      ";
 	
-	private static String TXT_TESTEQUATION3_DIVBYZERO = "(1/x)*cos(x*pi)+x+1";
-	private static String TXT_PARAM3 = "x";
-	private static double VALUE_PARAM3 = 0;
+	private final static String TXT_TESTEQUATION3_DIVBYZERO = "(1/x)*cos(x*pi)+x+1";
+	private final static String TXT_PARAM3 = "x";
+	private final static double VALUE_PARAM3 = 0;
 	
-	private static String TXT_TESTEQUATION4_INNER ="sin(cos(tan(sqrt(0)+1)+2*pi)+3*pi)";
-	private static String TXT_PARAMPI = "pi";
+	private final static String TXT_TESTEQUATION4_INNER ="sin(cos(tan(sqrt(0)+1)+2*pi)+3*pi)";
+	private final static String TXT_PARAMPI = "pi";
 	
-	private static String TXT_TESTEQUATION4_BIGDOUBLE = "sqrt(761782.78217482*2.76237)+sin(1.3627186472)";
+	private final static String TXT_TESTEQUATION4_BIGDOUBLE = "sqrt(761782.78217482*2.76237)+sin(1.3627186472)";
 	
-	private static String TXT_TESTEQUATION5_WRONG = "sin())((";
+	private final static String TXT_TESTEQUATION5_WRONG = "sin())((";
 	
-	private ParserEval parserEval;
+	private final ParserEval parserEval;
 	
     public ParserEvalTest( String testName ) {
         super(testName);
@@ -69,8 +69,8 @@ public class ParserEvalTest extends TestCase {
     		assertTrue(true);
     		return;
     	}
-    	
-    	assertTrue(false);
+
+		fail();
     }
     
     public void testInnerAndPiVariable() throws ParserEvaluateException, BadNumberEvaluateException {
@@ -90,7 +90,7 @@ public class ParserEvalTest extends TestCase {
     	try {
 	    	parserEval.setEquation("");
 	    	parserEval.evalEquation();
-	    	assertTrue(false);
+			fail();
     	} catch (ParserEvaluateException e) {
     		assertTrue(true);
     	}
