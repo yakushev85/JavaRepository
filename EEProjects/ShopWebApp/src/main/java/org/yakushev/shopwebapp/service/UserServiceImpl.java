@@ -42,7 +42,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public User update(User value) {
-		User oldValue = getById(value.getId());		value.setCreatedAt(null);
+		User oldValue = getById(value.getId());
+		value.setCreatedAt(null);
 		try {
 			User updatedValue = (new User()).merge(getById(value.getId()), value);
 			return userRepository.save(updatedValue);

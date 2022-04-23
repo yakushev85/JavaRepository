@@ -4,6 +4,7 @@ import org.yakushev.shopwebapp.util.MergeableBean;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "Transaction")
@@ -14,7 +15,7 @@ public class Transaction extends MergeableBean implements Serializable {
 	private String description;
 	private Long productId;
 	private Long userId;
-	private String createdAt;
+	private Date createdAt;
 
 	public void setId(Long id) {
 		this.id = id;
@@ -48,11 +49,11 @@ public class Transaction extends MergeableBean implements Serializable {
 		return userId;
 	}
 
-	public void setCreatedAt(String createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public String getCreatedAt() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
 

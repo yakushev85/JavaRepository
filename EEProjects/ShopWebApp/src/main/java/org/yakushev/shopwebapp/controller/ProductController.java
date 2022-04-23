@@ -6,6 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.yakushev.shopwebapp.model.Product;
 import org.yakushev.shopwebapp.service.ProductService;
+import org.yakushev.shopwebapp.service.UserService;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/products")
@@ -15,6 +19,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
     public String getAll() {
@@ -28,7 +35,9 @@ public class ProductController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
     @Transactional
-    public String add(@RequestBody Product product) {
+    public String add(@RequestBody Product product, HttpServletRequest request) {
+        product.setCreatedAt(new Date());
+        product.setCreatedBy(userService.getUserFromRequest(request).getUsername());
         return gson.toJson(productService.add(product));
     }
 

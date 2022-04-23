@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.yakushev.shopwebapp.model.Transaction;
 import org.yakushev.shopwebapp.service.TransactionService;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
@@ -29,6 +31,7 @@ public class TransactionController {
     @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
     @Transactional
     public String add(@RequestBody Transaction transaction) {
+        transaction.setCreatedAt(new Date());
         return gson.toJson(transactionService.add(transaction));
     }
 

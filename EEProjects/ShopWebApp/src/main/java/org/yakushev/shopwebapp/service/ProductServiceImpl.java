@@ -9,6 +9,7 @@ import org.yakushev.shopwebapp.repository.ProductRepository;
 import org.yakushev.shopwebapp.security.JwtTokenRepository;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -40,7 +41,8 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public Product update(Product value) {
-		Product oldValue = getById(value.getId());		value.setCreatedAt(null);
+		Product oldValue = getById(value.getId());
+		value.setCreatedAt(null);
 		value.setCreatedBy(null);
 		try {
 			Product updatedValue = (new Product()).merge(getById(value.getId()), value);
