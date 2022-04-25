@@ -40,7 +40,7 @@ public class AuthController {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
             if (!passwordEncoder.matches(authRequest.getPassword(), resolvedUser.getPassword())) {
-                return null;
+                throw new IllegalArgumentException("Wrong password.");
             }
 
             request.setAttribute(User.class.getName(), resolvedUser.getUsername());
@@ -49,7 +49,7 @@ public class AuthController {
 
             return gson.toJson(resolvedUser);
         } else {
-            return null;
+            throw new IllegalArgumentException("Wrong username.");
         }
     }
 
@@ -73,7 +73,7 @@ public class AuthController {
             }
         }
 
-        return null;
+        throw new IllegalArgumentException("Username is already used.");
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET, produces = "application/json")

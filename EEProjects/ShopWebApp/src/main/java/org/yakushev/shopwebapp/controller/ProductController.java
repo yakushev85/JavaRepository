@@ -36,7 +36,6 @@ public class ProductController {
     @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
     @Transactional
     public String add(@RequestBody Product product, HttpServletRequest request) {
-        product.setCreatedAt(new Date());
         product.setCreatedBy(userService.getUserFromRequest(request).getUsername());
         return gson.toJson(productService.add(product));
     }

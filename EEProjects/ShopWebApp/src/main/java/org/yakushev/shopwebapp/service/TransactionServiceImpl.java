@@ -9,6 +9,7 @@ import org.yakushev.shopwebapp.repository.TransactionRepository;
 import org.yakushev.shopwebapp.security.JwtTokenRepository;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,6 +35,7 @@ public class TransactionServiceImpl implements TransactionService {
 	@Transactional
 	public Transaction add(Transaction value) {
 		value.setId(null);
+		value.setCreatedAt(new Date());
 		return transactionRepository.save(value);
 	}
 

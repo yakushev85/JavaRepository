@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     .subscribe(
       data => {
         this.isSubmitting = false;
-        this.router.navigateByUrl('/product');
+        this.router.navigateByUrl('/products');
       },
       err => {
         this.error = err;

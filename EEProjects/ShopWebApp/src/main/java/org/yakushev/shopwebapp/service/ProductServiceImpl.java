@@ -35,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	public Product add(Product value) {
 		value.setId(null);
+		value.setCreatedAt(new Date());
 		return productRepository.save(value);
 	}
 

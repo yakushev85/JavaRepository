@@ -1,1 +1,42 @@
-<p>signup works!</p>
+<div class="auth-page">
+  <div class="container page">
+    <div class="row">
+
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <h1 class="text-xs-center">Sign Up</h1>
+        <p>{{ error }}</p>
+        <form [formGroup]="signupForm" (ngSubmit)="submitForm()">
+          <fieldset [disabled]="isSubmitting">
+            <fieldset class="form-group">
+              <input
+                formControlName="username"
+                placeholder="Username"
+                class="form-control form-control-lg"
+                type="text"/>
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                formControlName="password"
+                placeholder="Password"
+                class="form-control form-control-lg"
+                type="password" />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                formControlName="repassword"
+                placeholder="Repeat password"
+                class="form-control form-control-lg"
+                type="password" />
+            </fieldset>
+            <button class="btn btn-lg btn-primary pull-xs-right"
+            [disabled]="!(signupForm.valid && signupForm.value.password == signupForm.value.repassword)"
+            type="submit">
+              Sign Up
+            </button>
+          </fieldset>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

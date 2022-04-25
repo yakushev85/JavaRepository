@@ -31,7 +31,6 @@ public class TransactionController {
     @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
     @Transactional
     public String add(@RequestBody Transaction transaction) {
-        transaction.setCreatedAt(new Date());
         return gson.toJson(transactionService.add(transaction));
     }
 

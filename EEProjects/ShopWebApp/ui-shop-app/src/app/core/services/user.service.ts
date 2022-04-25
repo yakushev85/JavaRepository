@@ -30,6 +30,25 @@ export class UserService {
     ));
   }
 
+  signup(credentials: any): Observable<User> {
+    return this.apiService.post('/signup', credentials)
+      .pipe(map(
+      data => {
+        console.log(data);
+        this.setAuth(data.user);
+        return data;
+      }
+    ));
+  }
+
+  logout() {
+    this.apiService.get('/logout').subscribe(
+      () => {
+        this.purgeAuth();
+      }
+    );
+  }
+
   populate() {
     this.purgeAuth();
   }

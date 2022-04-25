@@ -22,7 +22,7 @@ import static org.springframework.http.HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS
 @Repository
 public class JwtTokenRepository implements CsrfTokenRepository {
 
-    private String secret;
+    private final String secret;
 
     public JwtTokenRepository() {
         this.secret = "rmG-nAbtNNof_ALwo2HH";
