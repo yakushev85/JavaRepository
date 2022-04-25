@@ -7,6 +7,8 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ApiService {
+  headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
+
   constructor(
     private http: HttpClient,
   ) {}
@@ -16,21 +18,23 @@ export class ApiService {
   }
 
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    return this.http.get(`${environment.apiUrl}${path}`, { params })
+    return this.http.get(`${environment.apiUrl}${path}`, { params, headers: this.headers })
       .pipe(catchError(this.formatErrors));
   }
 
   put(path: string, body: Object = {}): Observable<any> {
     return this.http.put(
       `${environment.apiUrl}${path}`,
-      JSON.stringify(body)
+      JSON.stringify(body),
+      { headers: this.headers }
     ).pipe(catchError(this.formatErrors));
   }
 
   post(path: string, body: Object = {}): Observable<any> {
     return this.http.post(
       `${environment.apiUrl}${path}`,
-      JSON.stringify(body)
+      JSON.stringify(body),
+      { headers: this.headers }
     ).pipe(catchError(this.formatErrors));
   }
 

@@ -23,8 +23,8 @@ export class UserService {
     return this.apiService.post('/login', credentials)
       .pipe(map(
       data => {
-        this.setAuth(data.user);
         console.log(data);
+        this.setAuth(data.user);
         return data;
       }
     ));
