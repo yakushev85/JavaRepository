@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { ApiService } from './api.service';
 import { User } from '../models';
+import { TokenService } from './token.service';
 
 @Injectable()
 export class UserService {
@@ -15,6 +16,7 @@ export class UserService {
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
   constructor (
+    private tokenService: TokenService,
     private apiService: ApiService,
     private http: HttpClient,
   ) {}
@@ -54,11 +56,13 @@ export class UserService {
   }
 
   setAuth(user: User) {
+    this.tokenService.saveToken(user.token)
     this.currentUserSubject.next(user);
     this.isAuthenticatedSubject.next(true);
   }
 
   purgeAuth() {
+    this.tokenService.destroyToken();
     this.currentUserSubject.next({} as User);
     this.isAuthenticatedSubject.next(false);
   }

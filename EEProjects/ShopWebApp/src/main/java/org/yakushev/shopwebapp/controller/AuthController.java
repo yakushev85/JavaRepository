@@ -88,11 +88,13 @@ public class AuthController {
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET, produces = "application/json")
-    public void logout(HttpServletRequest request, HttpServletResponse response) {
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
         String actualToken = request.getHeader("x-csrf-token");
 
         if (actualToken != null && !actualToken.isEmpty()) {
             jwtTokenRepository.clearToken(response);
         }
+
+        return "{}";
     }
 }
