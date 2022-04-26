@@ -7,11 +7,11 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
-    path: 'product',
+    path: 'products',
     loadChildren: () => import('./product/product.module').then(m => m.ProductModule)
   },
   {
-    path: 'transaction',
+    path: 'transactions',
     loadChildren: () => import('./transaction/transaction.module').then(m => m.TransactionModule)
   },
 ];

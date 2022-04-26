@@ -24,7 +24,7 @@ export class UserService {
       .pipe(map(
       data => {
         console.log(data);
-        this.setAuth(data.user);
+        this.setAuth(data);
         return data;
       }
     ));
@@ -35,7 +35,7 @@ export class UserService {
       .pipe(map(
       data => {
         console.log(data);
-        this.setAuth(data.user);
+        this.setAuth(data);
         return data;
       }
     ));

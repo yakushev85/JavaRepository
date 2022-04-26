@@ -5,11 +5,11 @@ import { TransactionListComponent } from './transaction-list/transaction-list.co
 
 const routes: Routes = [
   {
-    path: 'transactions',
+    path: 'all',
     component: TransactionListComponent
   },
   {
-    path: 'transaction/:itemid',
+    path: ':itemid',
     component: TransactionItemComponent
   }
 ];

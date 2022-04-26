@@ -37,11 +37,11 @@ export class SignupComponent implements OnInit {
     this.isSubmitting = true;
     this.error = "";
 
-    this.userService.login(this.signupForm.value)
+    this.userService.signup(this.signupForm.value)
     .subscribe(
       data => {
         this.isSubmitting = false;
-        this.router.navigateByUrl('/products');
+        this.router.navigateByUrl('/products/all');
       },
       err => {
         this.error = err;

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.yakushev.shopwebapp.bean.AuthRequest;
+import org.yakushev.shopwebapp.bean.AuthResponse;
 import org.yakushev.shopwebapp.model.User;
 import org.yakushev.shopwebapp.security.JwtTokenRepository;
 import org.yakushev.shopwebapp.service.UserService;
@@ -47,7 +48,12 @@ public class AuthController {
             CsrfToken csrfToken = jwtTokenRepository.generateToken(request);
             jwtTokenRepository.saveToken(csrfToken, request, response);
 
-            return gson.toJson(resolvedUser);
+            AuthResponse authResponse = new AuthResponse();
+            authResponse.setId(resolvedUser.getId());
+            authResponse.setUsername(resolvedUser.getUsername());
+            authResponse.setToken(csrfToken.getToken());
+
+            return gson.toJson(authResponse);
         } else {
             throw new IllegalArgumentException("Wrong username.");
         }
@@ -69,7 +75,12 @@ public class AuthController {
                 CsrfToken csrfToken = jwtTokenRepository.generateToken(request);
                 jwtTokenRepository.saveToken(csrfToken, request, response);
 
-                return gson.toJson(storedUser);
+                AuthResponse authResponse = new AuthResponse();
+                authResponse.setId(storedUser.getId());
+                authResponse.setUsername(storedUser.getUsername());
+                authResponse.setToken(csrfToken.getToken());
+
+                return gson.toJson(authResponse);
             }
         }
 
