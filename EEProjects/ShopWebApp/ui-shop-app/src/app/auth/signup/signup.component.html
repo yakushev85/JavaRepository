@@ -3,36 +3,37 @@
     <div class="row">
 
       <div class="col-md-6 offset-md-3 col-xs-12">
-        <h1 class="text-xs-center">Sign Up</h1>
         <p>{{ error }}</p>
         <form [formGroup]="signupForm" (ngSubmit)="submitForm()">
           <fieldset [disabled]="isSubmitting">
-            <fieldset class="form-group">
+            <fieldset class="form-group p-2">
               <input
                 formControlName="username"
                 placeholder="Username"
-                class="form-control form-control-lg"
+                class="form-control form-control-md"
                 type="text"/>
             </fieldset>
-            <fieldset class="form-group">
+            <fieldset class="form-group p-2">
               <input
                 formControlName="password"
                 placeholder="Password"
-                class="form-control form-control-lg"
+                class="form-control form-control-md"
                 type="password" />
             </fieldset>
-            <fieldset class="form-group">
+            <fieldset class="form-group p-2">
               <input
                 formControlName="repassword"
                 placeholder="Repeat password"
-                class="form-control form-control-lg"
+                class="form-control form-control-md"
                 type="password" />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right"
+            <div class="p-2">
+              <button class="btn btn-md btn-primary"
             [disabled]="!(signupForm.valid && signupForm.value.password == signupForm.value.repassword)"
             type="submit">
               Sign Up
             </button>
+            </div>
           </fieldset>
         </form>
       </div>
