@@ -8,23 +8,11 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <th scope="row">1</th>
-    <td><a routerLink="/products/1">Standard</a></td>
-    <td>100.00</td>
-    <td>01-01-2021 12:00</td>
-  </tr>
-  <tr>
-    <th scope="row">2</th>
-    <td><a routerLink="/products/2">Premium</a></td>
-    <td>250.00</td>
-    <td>01-01-2021 12:00</td>
-  </tr>
-  <tr>
-    <th scope="row">3</th>
-    <td><a routerLink="/products/3">Ultra</a></td>
-    <td>400.00</td>
-    <td>01-01-2021 12:00</td>
+  <tr *ngFor="let product of products">
+    <th scope="row">{{ product.id }}</th>
+    <td><a routerLink="/products/{{ product.id }}">{{ product.name }}</a></td>
+    <td>{{ product.price }}</td>
+    <td>{{ product.createdAt }}</td>
   </tr>
   </tbody>
 </table>

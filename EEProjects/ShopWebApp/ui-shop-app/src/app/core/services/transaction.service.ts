@@ -31,4 +31,8 @@ export class TransactionService {
       }
     ));
   }
+
+  createItem(data: Transaction): Observable<Transaction> {
+    return this.apiService.post('/transactions/', data);
+  }
 }

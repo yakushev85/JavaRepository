@@ -2,19 +2,19 @@
   <tbody>
   <tr>
     <th scope="row">Description</th>
-    <td>Package for an usual purpose.</td>
+    <td>{{ transaction?.description }}</td>
   </tr>
   <tr>
     <th scope="row">Product Name</th>
-    <td><a routerLink="/products/1">Standard</a></td>
+    <td><a routerLink="/products/{{ product?.id }}">{{ product?.name }}</a></td>
+  </tr>
+  <tr>
+    <th scope="row">Product Price</th>
+    <td>{{ product?.price }}</td>
   </tr>
   <tr>
     <th scope="row">Created At</th>
-    <td>01-01-2021 12:00</td>
-  </tr>
-  <tr>
-    <th scope="row">Created By</th>
-    <td>Oleks</td>
+    <td>{{ transaction?.createdAt }}</td>
   </tr>
   </tbody>
 </table>

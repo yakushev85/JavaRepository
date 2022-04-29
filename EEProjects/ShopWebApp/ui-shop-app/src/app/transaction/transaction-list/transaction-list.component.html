@@ -8,11 +8,11 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <th scope="row"><a routerLink="/transactions/1">1</a></th>
-    <td>Package for an usual purpose.</td>
-    <td><a routerLink="/products/1">Standard</a></td>
-    <td>06-06-2021 12:00</td>
+  <tr *ngFor="let transaction of transactions">
+    <th scope="row"><a routerLink="/transactions/{{ transaction.id }}">{{ transaction.id }}</a></th>
+    <td>{{ transaction.description }}</td>
+    <td><a routerLink="/products/{{ transaction.productId }}">{{ getProductNameById(transaction.productId) }}</a></td>
+    <td>{{ transaction.createdAt }}</td>
   </tr>
   </tbody>
 </table>

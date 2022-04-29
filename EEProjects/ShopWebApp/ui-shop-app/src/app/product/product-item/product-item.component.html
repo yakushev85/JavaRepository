@@ -2,20 +2,28 @@
   <tbody>
   <tr>
     <th scope="row">Name</th>
-    <td>Standard</td>
+    <td>{{ product?.name }}</td>
   </tr>
   <tr>
     <th scope="row">Price</th>
-    <td>100.00</td>
+    <td>{{ product?.price }}</td>
   </tr>
   <tr>
     <th scope="row">Created At</th>
-    <td>01-01-2021 12:00</td>
+    <td>{{ product?.createdAt }}</td>
   </tr>
   </tbody>
 </table>
-<form>
-  <input type="hidden" name="productId" value="1">
-  <p class="mb-3"><textarea type="text" name="description" placeholder="Description"></textarea></p>
-  <p class="mb-3"><button type="button" class="btn-dark">Buy Product</button></p>
+<form [formGroup]="productForm">
+
+  <fieldset [disabled]="isSubmitting">
+    <fieldset class="form-group">
+      <textarea class="form-control form-control-md"
+        formControlName="description"
+        type="text"
+        placeholder="Description"></textarea>
+    </fieldset>
+  </fieldset>
+
+  <p class="mb-3"><button type="button" class="btn-dark" (click)="submitForm()">Buy Product</button></p>
 </form>
