@@ -32,6 +32,11 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override
+	public List<Transaction> getByUserId(Long userId) {
+		return transactionRepository.findByUserIdOrderByIdDesc(userId);
+	}
+
+	@Override
 	@Transactional
 	public Transaction add(Transaction value) {
 		value.setId(null);

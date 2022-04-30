@@ -11,6 +11,7 @@ import org.yakushev.shopwebapp.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -32,19 +33,5 @@ public class ProductController {
     public String getItemById(@PathVariable Long id) {
         return gson.toJson(productService.getById(id));
     }
-
-    @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
-    @Transactional
-    public String add(@RequestBody Product product, HttpServletRequest request) {
-        product.setCreatedBy(userService.getUserFromRequest(request).getUsername());
-        return gson.toJson(productService.add(product));
-    }
-
-    @RequestMapping(value = "/", method = RequestMethod.PUT, produces = "application/json")
-    @Transactional
-    public String update(@RequestBody Product product) {
-        return gson.toJson(productService.update(product));
-    }
-
 
 }

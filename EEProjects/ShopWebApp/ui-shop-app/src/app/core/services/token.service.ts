@@ -5,15 +5,15 @@ import { Injectable } from '@angular/core';
 export class TokenService {
 
   getToken(): string {
-    return window.localStorage['_csrf'];
+    return sessionStorage['_csrf'];
   }
 
   saveToken(token: string) {
-    window.localStorage['_csrf'] = token;
+    sessionStorage['_csrf'] = token;
   }
 
   destroyToken() {
-    window.localStorage.removeItem('_csrf');
+    sessionStorage.removeItem('_csrf');
   }
 
 }

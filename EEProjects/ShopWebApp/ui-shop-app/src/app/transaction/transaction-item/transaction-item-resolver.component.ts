@@ -8,7 +8,7 @@ import { Transaction, TransactionService } from 'src/app/core';
 export class TransactionItemResolver implements Resolve<Transaction> {
   constructor(
     private transactionService: TransactionService,
-    private router: Router,
+    private router: Router
   ) {}
 
   resolve(

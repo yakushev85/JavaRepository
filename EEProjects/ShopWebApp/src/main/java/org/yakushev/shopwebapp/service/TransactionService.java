@@ -10,6 +10,8 @@ public interface TransactionService {
 
 	Transaction getById(Long id);
 
+	List<Transaction> getByUserId(Long userId);
+
 	Transaction add(Transaction value);
 
 	Transaction update(Transaction value);

@@ -23,6 +23,7 @@ export class TransactionItemComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe(
       (data) => {
+        console.log('TransactionItemComponent:', data);
         this.transaction = (data as { transaction: Transaction }).transaction;
 
         this.productService.getItem(this.transaction.productId).subscribe(

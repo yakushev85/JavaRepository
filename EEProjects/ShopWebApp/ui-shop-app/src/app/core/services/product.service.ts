@@ -15,20 +15,10 @@ export class ProductService {
   ) {}
 
   getAll(): Observable<Product[]> {
-    return this.apiService.get('/products/all')
-    .pipe(map(
-      data => {
-        return data;
-      }
-    ));
+    return this.apiService.get('/products/all');
   }
 
   getItem(itemId: number): Observable<Product> {
-    return this.apiService.get(`/products/${itemId}`)
-    .pipe(map(
-      data => {
-        return data;
-      }
-    ));
+    return this.apiService.get(`/products/${itemId}`);
   }
 }

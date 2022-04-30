@@ -9,6 +9,7 @@ import org.yakushev.shopwebapp.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -53,7 +54,7 @@ public class UserController {
 	private void checkAdminRole(HttpServletRequest request) {
         User user = userService.getUserFromRequest(request);
 
-        if (user == null || !user.getRole().equalsIgnoreCase("admin")) {
+        if (user == null || user.getRole() == null || !user.getRole().equalsIgnoreCase("admin")) {
             throw new IllegalArgumentException("User doesn't have access to the operation.");
         }
     }

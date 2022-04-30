@@ -17,15 +17,13 @@ export class UserService {
 
   constructor (
     private tokenService: TokenService,
-    private apiService: ApiService,
-    private http: HttpClient,
+    private apiService: ApiService
   ) {}
 
   login(credentials: any): Observable<User> {
     return this.apiService.post('/login', credentials)
       .pipe(map(
       data => {
-        console.log(data);
         this.setAuth(data);
         return data;
       }
@@ -36,7 +34,6 @@ export class UserService {
     return this.apiService.post('/signup', credentials)
       .pipe(map(
       data => {
-        console.log(data);
         this.setAuth(data);
         return data;
       }
@@ -47,7 +44,7 @@ export class UserService {
     this.purgeAuth();
     this.apiService.get('/logout').subscribe(
       data => {
-        console.log(`logout: ${data}`);
+        console.log(`logout:`, data);
       }
     );
   }

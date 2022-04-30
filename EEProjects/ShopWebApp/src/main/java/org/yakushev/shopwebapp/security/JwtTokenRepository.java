@@ -71,9 +71,13 @@ public class JwtTokenRepository implements CsrfTokenRepository {
 
     @Override
     public CsrfToken loadToken(HttpServletRequest request) {
-        Object token = request.getSession().getAttribute(CsrfToken.class.getName());
-        if (token != null) {
-            return new DefaultCsrfToken("x-csrf-token", "_csrf",(String) token);
+        Object tokenFromSession = request.getSession().getAttribute(CsrfToken.class.getName());
+        String tokenFromHeader = request.getHeader("x-csrf-token");
+
+        if (tokenFromSession != null) {
+            return new DefaultCsrfToken("x-csrf-token", "_csrf", (String) tokenFromSession);
+        } else if (tokenFromHeader != null) {
+            return new DefaultCsrfToken("x-csrf-token", "_csrf", tokenFromHeader);
         } else {
             return null;
         }

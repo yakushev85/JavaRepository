@@ -12,7 +12,9 @@ const routes: Routes = [
   {
     path: ':itemid',
     component: TransactionItemComponent,
-    resolve: [TransactionItemResolver]
+    resolve: {
+      transaction: TransactionItemResolver
+    }
   }
 ];
 

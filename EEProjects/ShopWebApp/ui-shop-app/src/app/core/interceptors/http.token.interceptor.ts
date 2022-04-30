@@ -29,8 +29,6 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
     const request = req.clone({ setHeaders: headersConfig });
 
-    console.log(request);
-
     return next.handle(request);
   }
 }

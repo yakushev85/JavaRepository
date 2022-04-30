@@ -60,6 +60,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUserFromRequest(HttpServletRequest request) {
 		CsrfToken csrfToken = jwtTokenRepository.loadToken(request);
+
+		if (csrfToken == null) {
+			return null;
+		}
+
 		String username = jwtTokenRepository.getUsernameFromToken(csrfToken.getToken());
 		List<User> userList = userRepository.findByUsernameOrderByIdDesc(username);
 
