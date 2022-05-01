@@ -40,6 +40,10 @@ export class UserService {
     ));
   }
 
+  resetPassword(payload: any): Observable<User> {
+    return this.apiService.post('/users/password', payload);
+  }
+
   logout() {
     this.purgeAuth();
     this.apiService.get('/logout').subscribe(

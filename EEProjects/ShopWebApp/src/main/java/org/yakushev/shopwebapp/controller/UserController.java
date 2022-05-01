@@ -2,8 +2,10 @@ package org.yakushev.shopwebapp.controller;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.yakushev.shopwebapp.bean.PasswordRequest;
 import org.yakushev.shopwebapp.model.User;
 import org.yakushev.shopwebapp.service.UserService;
 
@@ -50,6 +52,22 @@ public class UserController {
         checkAdminRole(request);
 		return gson.toJson(userService.findByUsernameOrderByIdDesc(username));
 	}
+
+    @RequestMapping(value = "/password", method = RequestMethod.POST, produces = "application/json")
+    @Transactional
+    public String setPassword(@RequestBody PasswordRequest passwordRequest, HttpServletRequest request) {
+        User user = userService.getUserFromRequest(request);
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        if (user == null || !passwordEncoder.matches(passwordRequest.getCurrentPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("Wrong password.");
+        }
+
+        user.setPassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
+
+        return gson.toJson(userService.update(user));
+    }
 
 	private void checkAdminRole(HttpServletRequest request) {
         User user = userService.getUserFromRequest(request);

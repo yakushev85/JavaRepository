@@ -4,34 +4,36 @@
 
       <div class="col-md-6 offset-md-3 col-xs-12">
         <p class="p-2 error-text">{{ error }}</p>
-        <form [formGroup]="signupForm" (ngSubmit)="submitForm()">
+        <p class="p-2">Username: {{ currentUser?.username }}</p>
+
+        <form [formGroup]="resetPasswordForm" (ngSubmit)="submitForm()">
           <fieldset [disabled]="isSubmitting">
             <fieldset class="form-group p-2">
               <input
-                formControlName="username"
-                placeholder="Username"
+                formControlName="currentPassword"
+                placeholder="Current password"
                 class="form-control form-control-md"
-                type="text"/>
+                type="password"/>
             </fieldset>
             <fieldset class="form-group p-2">
               <input
-                formControlName="password"
-                placeholder="Password"
+                formControlName="newPassword"
+                placeholder="New password"
                 class="form-control form-control-md"
                 type="password" />
             </fieldset>
             <fieldset class="form-group p-2">
               <input
-                formControlName="repassword"
-                placeholder="Repeat password"
+                formControlName="reNewPassword"
+                placeholder="Repeat new password"
                 class="form-control form-control-md"
                 type="password" />
             </fieldset>
             <div class="p-2">
               <button class="btn btn-md btn-primary"
-            [disabled]="!(signupForm.valid && signupForm.value.password == signupForm.value.repassword)"
+            [disabled]="!(resetPasswordForm.valid && resetPasswordForm.value.newPassword == resetPasswordForm.value.reNewPassword)"
             type="submit">
-              Sign Up
+              Apply New Password
             </button>
             </div>
           </fieldset>
