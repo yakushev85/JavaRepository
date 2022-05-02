@@ -11,7 +11,7 @@ import org.yakushev.shopwebapp.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = {"http://swa_frontend:4200", "http://localhost:4200", "http://0.0.0.0:4200"})
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -24,6 +24,7 @@ public class ProductController {
     @Autowired
     private UserService userService;
 
+    @Transactional
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
     public String getAll() {
         return gson.toJson(productService.getAll());

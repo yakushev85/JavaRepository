@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.yakushev.shopwebapp.model.Product;
 import org.yakushev.shopwebapp.repository.ProductRepository;
 import org.yakushev.shopwebapp.security.JwtTokenRepository;
+import org.yakushev.shopwebapp.util.DefaultValues;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
@@ -23,7 +24,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getAll() {
-		return Lists.newArrayList(productRepository.findAll());
+		List<Product> resultList = Lists.newArrayList(productRepository.findAll());
+		return checkProductsForEmpty(resultList);
 	}
 
 	@Override
@@ -50,6 +52,19 @@ public class ProductServiceImpl implements ProductService {
 			return productRepository.save(updatedValue);
 		} catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
 			return oldValue;
+		}
+	}
+
+	@Transactional
+	private List<Product> checkProductsForEmpty(List<Product> products) {
+		if (products.isEmpty()) {
+			for (Product defaultProduct : DefaultValues.getDefaultProducts()) {
+				productRepository.save(defaultProduct);
+			}
+
+			return Lists.newArrayList(productRepository.findAll());
+		} else {
+			return products;
 		}
 	}
 

@@ -11,7 +11,7 @@
 	<groupId>org.yakushev</groupId>
 	<artifactId>ShopWebApp</artifactId>
 	<version>1.0</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>ShopWebApp</name>
 	<description>REST-API application.</description>
 	<properties>

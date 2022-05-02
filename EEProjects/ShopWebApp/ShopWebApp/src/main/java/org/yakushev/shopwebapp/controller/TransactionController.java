@@ -12,7 +12,7 @@ import org.yakushev.shopwebapp.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = {"http://swa_frontend:4200", "http://localhost:4200", "http://0.0.0.0:4200"})
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {

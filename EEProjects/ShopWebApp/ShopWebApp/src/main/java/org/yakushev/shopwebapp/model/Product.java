@@ -17,6 +17,16 @@ public class Product extends MergeableBean implements Serializable {
 	private Date createdAt;
 	private String createdBy;
 
+	public Product() {
+	}
+
+	public Product(String name, Float price, Date createdAt, String createdBy) {
+		this.name = name;
+		this.price = price;
+		this.createdAt = createdAt;
+		this.createdBy = createdBy;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}

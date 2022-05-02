@@ -11,7 +11,7 @@ import org.yakushev.shopwebapp.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = {"http://swa_frontend:4200", "http://localhost:4200", "http://0.0.0.0:4200"})
 @RestController
 @RequestMapping("/users")
 public class UserController {

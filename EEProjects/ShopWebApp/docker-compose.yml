@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  swa_database:
+    image: mysql
+    container_name: swa_database
+    environment:
+      MYSQL_ROOT_PASSWORD: ydG8x0hXClMVn63TGoLD
+      MYSQL_DATABASE: ShopWebApp   
+      MYSQL_USER: ShopWebApp
+      MYSQL_PASSWORD: ydG8x0hXClMVn63TGoLD
+      MYSQL_TCP_PORT: 3309
+    ports:
+      - 3309:3309
+    volumes:
+     - SwaDatabaseData:/var/lib/mysql
+    networks:
+     - backendNetwork
+     
+  swa_backend:
+    image: openjdk:8
+    container_name: swa_backend
+    ports:
+      - 8080:8080
+    depends_on:
+      - swa_database
+    volumes:
+      - ./ShopWebApp/target/ShopWebApp-1.0.jar:/application.jar
+    command: ["java", "-jar", "application.jar"]
+    networks:
+      - backendNetwork
+      - frontendNetwork
+      
+  swa_frontend:
+    image: nginx:alpine
+    container_name: swa_frontend
+    ports: 
+      - 4200:80
+    depends_on:
+      - sswa_backend
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ui-shop-app/dist/ui-shop-app/:/usr/share/nginx/html
+    networks:
+      - frontendNetwork
+
+
+volumes:
+  SwaDatabaseData:
+  
+networks:
+  backendNetwork:
+  frontendNetwork:
