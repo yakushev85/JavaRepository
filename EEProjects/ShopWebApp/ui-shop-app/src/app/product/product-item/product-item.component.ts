@@ -59,11 +59,14 @@ export class ProductItemComponent implements OnInit {
     };
 
     // post the changes
-    this.transactionService.createItem(transactionItem).subscribe(
-      data => this.router.navigateByUrl('/transactions/all'),
-      error => {
+    this.transactionService.createItem(transactionItem)
+    .subscribe({
+      next: (data) => {
+        this.router.navigateByUrl('/transactions/all');
+      },
+      complete: () => {
         this.isSubmitting = false;
       }
-    );
+    });
   }
 }

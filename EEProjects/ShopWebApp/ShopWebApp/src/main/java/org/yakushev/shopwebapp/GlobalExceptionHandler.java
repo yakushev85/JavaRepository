@@ -25,20 +25,20 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({AuthenticationException.class, SessionAuthenticationException.class})
     public ErrorInfo handleAuthenticationException(RuntimeException ex, HttpServletRequest request, HttpServletResponse response){
         this.tokenRepository.clearToken(response);
-        return new ErrorInfo(UrlUtils.buildFullRequestUrl(request), ErrorInfoStatus.AUTHENTICATION_ERROR, 500, "authorization error");
+        return new ErrorInfo(UrlUtils.buildFullRequestUrl(request), ErrorInfoStatus.AUTHENTICATION_ERROR, 400, "authorization error");
     }
 
     @ExceptionHandler({MissingCsrfTokenException.class, InvalidCsrfTokenException.class})
     public ErrorInfo handleCsrfException(RuntimeException ex, HttpServletRequest request, HttpServletResponse response){
         this.tokenRepository.clearToken(response);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        return new ErrorInfo(UrlUtils.buildFullRequestUrl(request), ErrorInfoStatus.AUTHENTICATION_ERROR, 500, "incorrect or missing csrf token");
+        return new ErrorInfo(UrlUtils.buildFullRequestUrl(request), ErrorInfoStatus.AUTHENTICATION_ERROR, 400, "incorrect or missing csrf token");
     }
 
     @ExceptionHandler({IllegalArgumentException.class})
     public ErrorInfo handleValidationException(RuntimeException ex, HttpServletRequest request, HttpServletResponse response){
         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        return new ErrorInfo(UrlUtils.buildFullRequestUrl(request), ErrorInfoStatus.VALIDATION_ERROR, 500, ex.getMessage());
+        return new ErrorInfo(UrlUtils.buildFullRequestUrl(request), ErrorInfoStatus.VALIDATION_ERROR, 400, ex.getMessage());
     }
 
     public enum ErrorInfoStatus {

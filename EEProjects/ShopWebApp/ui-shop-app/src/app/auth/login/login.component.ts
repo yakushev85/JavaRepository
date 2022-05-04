@@ -37,16 +37,17 @@ export class LoginComponent implements OnInit {
     this.error = "";
 
     this.userService.login(this.loginForm.value)
-    .subscribe(
-      data => {
-        this.isSubmitting = false;
+    .subscribe({
+      next: (data) => {
         this.router.navigateByUrl('/products/all');
       },
-      err => {
+      error: (err) => {
         this.error = "Incorrect username or password.";
+      },
+      complete: () => {
         this.isSubmitting = false;
       }
-    );
+    });
   }
 
 }

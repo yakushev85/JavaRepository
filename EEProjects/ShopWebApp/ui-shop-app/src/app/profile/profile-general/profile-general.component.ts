@@ -41,17 +41,18 @@ export class ProfileGeneralComponent implements OnInit {
     this.isSubmitting = true;
 
     this.userService.resetPassword(this.resetPasswordForm.value)
-    .subscribe(
-      data => {
+    .subscribe({
+      next: (data) => {
         this.router.navigateByUrl('/');
-        this.isSubmitting = false;
       },
-      err => {
+      error: (err) => {
         this.error = "Wrong current password.";
         console.log(err);
+      },
+      complete: () => {
         this.isSubmitting = false;
       }
-    );
+    });
   }
 
 }

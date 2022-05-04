@@ -18,7 +18,7 @@ services:
      - backendNetwork
      
   swa_backend:
-    image: openjdk:8
+    image: openjdk:17
     container_name: swa_backend
     ports:
       - 8080:8080
