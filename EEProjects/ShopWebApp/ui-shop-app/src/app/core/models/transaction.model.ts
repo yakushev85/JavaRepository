@@ -1,7 +1,10 @@
+import { Product } from "./product.model";
+import { User } from "./user.model";
+
 export interface Transaction {
   id: number;
 	description: string;
-	productId: number;
-	userId: number;
+	product: Product;
+	user: User | undefined;
 	createdAt: string;
 }

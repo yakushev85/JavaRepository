@@ -1,4 +1,4 @@
-package org.yakushev.shopwebapp.bean;
+package org.yakushev.shopwebapp.dto;
 
 import lombok.Data;
 

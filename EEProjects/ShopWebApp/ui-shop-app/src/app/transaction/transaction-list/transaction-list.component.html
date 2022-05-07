@@ -11,7 +11,7 @@
   <tr *ngFor="let transaction of transactions">
     <th scope="row"><a routerLink="/transactions/{{ transaction.id }}">{{ transaction.id }}</a></th>
     <td>{{ transaction.description }}</td>
-    <td><a routerLink="/products/{{ transaction.productId }}">{{ getProductNameById(transaction.productId) }}</a></td>
+    <td><a routerLink="/products/{{ transaction.product.id }}">{{ getProductNameById(transaction.product.id) }}</a></td>
     <td>{{ transaction.createdAt }}</td>
   </tr>
   </tbody>

@@ -1,6 +1,9 @@
 package org.yakushev.shopwebapp.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.yakushev.shopwebapp.util.MergeableBean;
 
 import javax.persistence.*;
@@ -9,7 +12,8 @@ import java.util.Date;
 
 @Entity
 @Table(name = "swa_user")
-@Data
+@Getter
+@Setter
 public class User extends MergeableBean implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,5 +21,7 @@ public class User extends MergeableBean implements Serializable {
 	private String username;
 	private String password;
 	private String role;
+
+	@CreationTimestamp
 	private Date createdAt;
 }

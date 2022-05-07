@@ -50,12 +50,9 @@ export class ProductItemComponent implements OnInit {
 
     this.isSubmitting = true;
 
-    let transactionItem: Transaction = {
-      id: 0,
+    let transactionItem = {
       description: (this.productForm.value as { description: string}).description,
-      productId: this.product?.id || 0,
-      userId: this.currentUser?.id || 0,
-      createdAt: ''
+      productId: this.product?.id
     };
 
     // post the changes

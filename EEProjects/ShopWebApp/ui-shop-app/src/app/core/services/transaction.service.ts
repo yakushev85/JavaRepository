@@ -19,7 +19,7 @@ export class TransactionService {
     return this.apiService.get(`/transactions/${itemId}`);
   }
 
-  createItem(data: Transaction): Observable<Transaction> {
+  createItem(data: any): Observable<Transaction> {
     return this.apiService.post('/transactions/', data);
   }
 }

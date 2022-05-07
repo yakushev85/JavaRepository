@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.yakushev.shopwebapp.dto.TransactionRequest;
 import org.yakushev.shopwebapp.model.Transaction;
 import org.yakushev.shopwebapp.repository.TransactionRepository;
 import org.yakushev.shopwebapp.security.JwtTokenRepository;
@@ -17,6 +18,12 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
 	private TransactionRepository transactionRepository;
+
+	@Autowired
+	private ProductService productService;
+
+	@Autowired
+	private UserService userService;
 
 	@Autowired
 	private JwtTokenRepository jwtTokenRepository;
@@ -38,10 +45,12 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	@Transactional
-	public Transaction add(Transaction value) {
-		value.setId(null);
-		value.setCreatedAt(new Date());
-		return transactionRepository.save(value);
+	public Transaction add(TransactionRequest value) {
+		Transaction transaction = new Transaction();
+		transaction.setDescription(value.getDescription());
+		transaction.setUser(userService.getById(value.getUserId()));
+		transaction.setProduct(productService.getById(value.getProductId()));
+		return transactionRepository.save(transaction);
 	}
 
 	@Override

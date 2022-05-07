@@ -6,8 +6,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.yakushev.shopwebapp.bean.AuthRequest;
-import org.yakushev.shopwebapp.bean.AuthResponse;
+import org.yakushev.shopwebapp.dto.AuthRequest;
+import org.yakushev.shopwebapp.dto.AuthResponse;
 import org.yakushev.shopwebapp.model.User;
 import org.yakushev.shopwebapp.security.JwtTokenRepository;
 import org.yakushev.shopwebapp.service.UserService;
@@ -86,13 +86,11 @@ public class AuthController {
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET, produces = "application/json")
-    public String logout(HttpServletRequest request, HttpServletResponse response) {
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
         String actualToken = request.getHeader("x-csrf-token");
 
         if (actualToken != null && !actualToken.isEmpty()) {
             jwtTokenRepository.clearToken(response);
         }
-
-        return "{}";
     }
 }

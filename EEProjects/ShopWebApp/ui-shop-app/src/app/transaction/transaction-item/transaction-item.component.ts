@@ -26,7 +26,7 @@ export class TransactionItemComponent implements OnInit {
         console.log('TransactionItemComponent:', data);
         this.transaction = (data as { transaction: Transaction }).transaction;
 
-        this.productService.getItem(this.transaction.productId).subscribe(
+        this.productService.getItem(this.transaction.product.id).subscribe(
           (value) => {
             this.product = value;
           }

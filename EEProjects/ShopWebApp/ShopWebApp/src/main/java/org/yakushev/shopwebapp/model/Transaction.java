@@ -1,6 +1,9 @@
 package org.yakushev.shopwebapp.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.yakushev.shopwebapp.util.MergeableBean;
 
 import javax.persistence.*;
@@ -9,13 +12,22 @@ import java.util.Date;
 
 @Entity
 @Table(name = "swa_transaction")
-@Data
+@Getter
+@Setter
 public class Transaction extends MergeableBean implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String description;
-	private Long productId;
-	private Long userId;
+
+	@ManyToOne
+	@JoinColumn(name = "product_id", nullable = false)
+	private Product product;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
+
+	@CreationTimestamp
 	private Date createdAt;
 }

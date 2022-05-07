@@ -2,8 +2,11 @@ package org.yakushev.shopwebapp.controller;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.InvalidCsrfTokenException;
+import org.springframework.security.web.csrf.MissingCsrfTokenException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.yakushev.shopwebapp.dto.TransactionRequest;
 import org.yakushev.shopwebapp.model.Transaction;
 import org.yakushev.shopwebapp.model.User;
 import org.yakushev.shopwebapp.service.TransactionService;
@@ -33,7 +36,7 @@ public class TransactionController {
             User user = userService.getUserFromRequest(request);
 
             if (user == null) {
-                return "{}";
+                throw new MissingCsrfTokenException("");
             }
 
             return gson.toJson(transactionService.getByUserId(user.getId()));
@@ -45,34 +48,34 @@ public class TransactionController {
         User user = userService.getUserFromRequest(request);
 
         if (user == null) {
-            return "{}";
+            throw new MissingCsrfTokenException("");
         }
 
         Transaction transaction = transactionService.getById(id);
-        if ((!isAdminRole(request) && user.getId() != null && transaction.getUserId().equals(user.getId())) ||
+        if ((!isAdminRole(request) && user.getId() != null && transaction.getUser().getId().equals(user.getId())) ||
                         isAdminRole(request)) {
 
             return gson.toJson(transaction);
         } else {
-            return "{}";
+            throw new MissingCsrfTokenException("");
         }
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
     @Transactional
-    public String add(@RequestBody Transaction transaction, HttpServletRequest request) {
+    public String add(@RequestBody TransactionRequest transactionDto, HttpServletRequest request) {
         if (isAdminRole(request)) {
-            return gson.toJson(transactionService.add(transaction));
+            return gson.toJson(transactionService.add(transactionDto));
         } else {
             User user = userService.getUserFromRequest(request);
 
             if (user == null) {
-                return "{}";
+                throw new MissingCsrfTokenException("");
             }
 
-            transaction.setUserId(user.getId());
+            transactionDto.setUserId(user.getId());
 
-            return gson.toJson(transactionService.add(transaction));
+            return gson.toJson(transactionService.add(transactionDto));
         }
     }
 
