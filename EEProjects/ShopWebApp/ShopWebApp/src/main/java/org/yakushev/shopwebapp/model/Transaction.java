@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "Transaction")
+@Table(name = "swa_transaction")
 @Data
 public class Transaction extends MergeableBean implements Serializable {
 	@Id
