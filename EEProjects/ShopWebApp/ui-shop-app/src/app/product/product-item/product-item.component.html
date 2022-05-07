@@ -25,5 +25,5 @@
     </fieldset>
   </fieldset>
 
-  <p class="mb-3 p-2"><button type="button" class="btn-dark" (click)="submitForm()">Buy Product</button></p>
+  <p class="mb-3 p-2"><button type="button" class="btn-dark" [disabled]="!productForm.valid"  (click)="submitForm()">Buy Product</button></p>
 </form>

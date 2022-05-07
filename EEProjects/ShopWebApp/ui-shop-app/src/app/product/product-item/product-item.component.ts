@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product, Transaction, TransactionService, User, UserService } from 'src/app/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-item',
@@ -39,7 +39,7 @@ export class ProductItemComponent implements OnInit {
     );
 
     this.productForm = this.fb.group({
-      description: ''
+      description: ['', Validators.required]
     });
   }
 
