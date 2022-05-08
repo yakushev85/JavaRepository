@@ -58,11 +58,7 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	private List<Product> checkProductsForEmpty(List<Product> products) {
 		if (products.isEmpty()) {
-			for (Product defaultProduct : DefaultValues.getDefaultProducts()) {
-				productRepository.save(defaultProduct);
-			}
-
-			return Lists.newArrayList(productRepository.findAll());
+			return Lists.newArrayList(productRepository.saveAll(DefaultValues.getDefaultProducts()));
 		} else {
 			return products;
 		}
