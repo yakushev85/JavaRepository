@@ -40,12 +40,11 @@ export class SignupComponent implements OnInit {
     this.userService.signup(this.signupForm.value)
     .subscribe({
       next: (data) => {
+        this.isSubmitting = false;
         this.router.navigateByUrl('/products/all');
       },
       error: (err) => {
         this.error = "Incorrect username or password.";
-      },
-      complete: () => {
         this.isSubmitting = false;
       }
     });

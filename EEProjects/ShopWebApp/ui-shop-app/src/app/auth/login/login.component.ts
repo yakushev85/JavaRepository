@@ -39,12 +39,11 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.loginForm.value)
     .subscribe({
       next: (data) => {
+        this.isSubmitting = false;
         this.router.navigateByUrl('/products/all');
       },
       error: (err) => {
         this.error = "Incorrect username or password.";
-      },
-      complete: () => {
         this.isSubmitting = false;
       }
     });
