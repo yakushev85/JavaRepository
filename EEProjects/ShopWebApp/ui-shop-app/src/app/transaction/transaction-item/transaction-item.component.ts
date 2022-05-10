@@ -10,7 +10,7 @@ import { Product, ProductService, Transaction, TransactionService, User, UserSer
 export class TransactionItemComponent implements OnInit {
   transaction: Transaction | undefined;
   product: Product | undefined;
-  linkedUser: User | undefined;
+  currentUser: User | undefined;
   isSubmitting = false;
 
   constructor(
@@ -23,7 +23,6 @@ export class TransactionItemComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe(
       (data) => {
-        console.log('TransactionItemComponent:', data);
         this.transaction = (data as { transaction: Transaction }).transaction;
 
         this.productService.getItem(this.transaction.product.id).subscribe(
@@ -31,6 +30,12 @@ export class TransactionItemComponent implements OnInit {
             this.product = value;
           }
         );
+      }
+    );
+
+    this.userService.currentUser.subscribe(
+      (userData) => {
+        this.currentUser = userData;
       }
     );
   }

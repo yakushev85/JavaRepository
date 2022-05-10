@@ -42,6 +42,10 @@ public class AuthController {
                 throw new IllegalArgumentException("Wrong password.");
             }
 
+            if (resolvedUser.getRole().equalsIgnoreCase("locked")) {
+                throw new IllegalArgumentException("User is locked.");
+            }
+
             request.setAttribute(User.class.getName(), resolvedUser.getUsername());
             CsrfToken csrfToken = jwtTokenRepository.generateToken(request);
             jwtTokenRepository.saveToken(csrfToken, request, response);
@@ -50,6 +54,7 @@ public class AuthController {
             authResponse.setId(resolvedUser.getId());
             authResponse.setUsername(resolvedUser.getUsername());
             authResponse.setToken(csrfToken.getToken());
+            authResponse.setRole(resolvedUser.getRole());
 
             return gson.toJson(authResponse);
         } else {
@@ -63,9 +68,6 @@ public class AuthController {
         List<User> resolvedUserList = userService.findByUsernameOrderByIdDesc(user.getUsername());
 
         if (resolvedUserList == null || resolvedUserList.isEmpty()) {
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
             User storedUser = userService.add(user);
 
             if (storedUser != null) {
@@ -77,6 +79,7 @@ public class AuthController {
                 authResponse.setId(storedUser.getId());
                 authResponse.setUsername(storedUser.getUsername());
                 authResponse.setToken(csrfToken.getToken());
+                authResponse.setRole(storedUser.getRole());
 
                 return gson.toJson(authResponse);
             }
@@ -86,11 +89,16 @@ public class AuthController {
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET, produces = "application/json")
-    public void logout(HttpServletRequest request, HttpServletResponse response) {
-        String actualToken = request.getHeader("x-csrf-token");
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        String actualToken = jwtTokenRepository.loadToken(request).getToken();
 
         if (actualToken != null && !actualToken.isEmpty()) {
             jwtTokenRepository.clearToken(response);
         }
+
+        AuthResponse authResponse = new AuthResponse();
+        authResponse.setToken(actualToken);
+
+        return gson.toJson(authResponse);
     }
 }

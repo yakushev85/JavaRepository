@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product, ProductService } from 'src/app/core';
+import { Product, ProductService, User, UserService } from 'src/app/core';
 
 @Component({
   selector: 'app-product-list',
@@ -8,8 +8,11 @@ import { Product, ProductService } from 'src/app/core';
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
+  currentUser: User | undefined;
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private userService: UserService) { }
 
   ngOnInit(): void {
     this.productService.getAll().subscribe(
@@ -17,6 +20,12 @@ export class ProductListComponent implements OnInit {
         if (value) {
           this.products = value;
         }
+      }
+    );
+
+    this.userService.currentUser.subscribe(
+      (userData) => {
+        this.currentUser = userData;
       }
     );
   }

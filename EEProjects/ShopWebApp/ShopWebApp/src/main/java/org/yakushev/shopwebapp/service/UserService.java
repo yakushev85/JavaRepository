@@ -19,4 +19,5 @@ public interface UserService {
 
 	User getUserFromRequest(HttpServletRequest request);
 
+	void checkAdminRole(HttpServletRequest request);
 }

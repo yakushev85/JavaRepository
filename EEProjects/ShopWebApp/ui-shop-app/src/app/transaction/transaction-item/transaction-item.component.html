@@ -16,5 +16,9 @@
     <th scope="row">Created At</th>
     <td>{{ transaction?.createdAt }}</td>
   </tr>
+  <tr *ngIf="currentUser?.role?.toLowerCase() == 'admin'">
+    <th scope="row">User</th>
+    <td><a routerLink="/users/{{ transaction?.user?.id }}">{{ transaction?.user?.username }}</a></td>
+  </tr>
   </tbody>
 </table>

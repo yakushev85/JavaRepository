@@ -5,7 +5,7 @@ import java.util.List;
 
 public class SecurityHelper {
     private static final List<String> PUBLIC_URL_LIST =
-            Arrays.asList("/login", "/signup", "/api/login", "/api/signup");
+            Arrays.asList("/login", "/signup");
 
     public static boolean isPublicUrl(String servletPath) {
         for (String publicUrl : PUBLIC_URL_LIST) {

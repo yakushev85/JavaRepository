@@ -2,6 +2,7 @@ package org.yakushev.shopwebapp.service;
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +37,14 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User add(User value) {
 		value.setId(null);
+
+		String rawPassword = value.getPassword();
+		if (rawPassword != null) {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+			value.setPassword(passwordEncoder.encode(rawPassword));
+		}
+
 		return userRepository.save(value);
 	}
 
@@ -43,13 +52,19 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User update(User value) {
 		User oldValue = getById(value.getId());
-		value.setCreatedAt(null);
-		try {
-			User updatedValue = (new User()).merge(getById(value.getId()), value);
-			return userRepository.save(updatedValue);
-		} catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
-			return oldValue;
+
+		String rawPassword = value.getPassword();
+		if (rawPassword != null) {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+			oldValue.setPassword(passwordEncoder.encode(rawPassword));
 		}
+
+		if (value.getRole() != null) {
+			oldValue.setRole(value.getRole());
+		}
+
+		return userRepository.save(oldValue);
 	}
 
 	@Override
@@ -75,4 +90,12 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public void checkAdminRole(HttpServletRequest request) {
+		User user = getUserFromRequest(request);
+
+		if (user == null || user.getRole() == null || !user.getRole().equalsIgnoreCase("admin")) {
+			throw new IllegalArgumentException("User doesn't have access to the operation.");
+		}
+	}
 }

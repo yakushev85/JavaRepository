@@ -1,0 +1,22 @@
+<div *ngIf="this.currentUser?.role?.toLowerCase() == 'admin'">
+  <div>
+    <a class="btn btn-primary" routerLink="/users/new">Add</a>
+  </div>
+
+  <table class="table table-light">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Username</th>
+      <th scope="col">Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <th scope="row">{{ user.id }}</th>
+      <td><a routerLink="/users/{{ user.id }}">{{ user.username }}</a></td>
+      <td>{{ user.role }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

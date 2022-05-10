@@ -44,6 +44,22 @@ export class UserService {
     return this.apiService.post('/users/password', payload);
   }
 
+  getAll(): Observable<User[]> {
+    return this.apiService.get('/users/all');
+  }
+
+  getItem(itemid: number): Observable<User> {
+    return this.apiService.get(`/users/${itemid}`);
+  }
+
+  add(payload: any): Observable<User> {
+    return this.apiService.post(`/users/`, payload);
+  }
+
+  update(payload: any): Observable<User> {
+    return this.apiService.put(`/users/`, payload);
+  }
+
   logout() {
     this.purgeAuth();
     this.apiService.get('/logout').subscribe(
@@ -52,6 +68,7 @@ export class UserService {
       }
     );
   }
+
 
   populate() {
     this.purgeAuth();

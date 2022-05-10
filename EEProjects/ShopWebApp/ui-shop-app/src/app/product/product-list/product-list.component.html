@@ -1,3 +1,6 @@
+<div *ngIf="this.currentUser?.role?.toLowerCase() == 'admin'">
+  <a class="btn btn-primary" routerLink="/products/new">Add</a>
+</div>
 <table class="table table-light">
   <thead>
   <tr>
