@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product, ProductService, Transaction, TransactionService, User, UserService } from 'src/app/core';
+import { Product, ProductService, Transaction, TransactionService, UserService } from 'src/app/core';
 
 @Component({
   selector: 'app-transaction-list',
@@ -9,7 +9,7 @@ import { Product, ProductService, Transaction, TransactionService, User, UserSer
 export class TransactionListComponent implements OnInit {
   transactions: Transaction[] = [];
   products: Product[] = [];
-  currentUser: User | undefined;
+  isAdmin = false;
 
   constructor(
     private transactionService: TransactionService,
@@ -34,21 +34,11 @@ export class TransactionListComponent implements OnInit {
       }
     );
 
-    this.userService.currentUser.subscribe(
-      (userData) => {
-        this.currentUser = userData;
+    this.userService.isAdmin.subscribe(
+      (value) => {
+        this.isAdmin = value;
       }
     );
-  }
-
-  getProductNameById(productId: number): string {
-    for (let product of this.products) {
-      if (product.id == productId) {
-        return product.name;
-      }
-    }
-
-    return "";
   }
 
 }

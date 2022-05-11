@@ -15,6 +15,9 @@ export class UserService {
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
+  private isAdminSubject = new ReplaySubject<boolean>(1);
+  public isAdmin = this.isAdminSubject.asObservable();
+
   constructor (
     private tokenService: TokenService,
     private apiService: ApiService
@@ -78,11 +81,13 @@ export class UserService {
     this.tokenService.saveToken(user.token)
     this.currentUserSubject.next(user);
     this.isAuthenticatedSubject.next(true);
+    this.isAdminSubject.next(user.role?.toLowerCase() == 'admin');
   }
 
   purgeAuth() {
     this.tokenService.destroyToken();
     this.currentUserSubject.next({} as User);
     this.isAuthenticatedSubject.next(false);
+    this.isAdminSubject.next(false);
   }
 }

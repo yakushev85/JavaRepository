@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product, ProductService, Transaction, TransactionService, User, UserService } from 'src/app/core';
+import { Product, ProductService, Transaction, UserService } from 'src/app/core';
 
 @Component({
   selector: 'app-transaction-item',
@@ -10,7 +10,7 @@ import { Product, ProductService, Transaction, TransactionService, User, UserSer
 export class TransactionItemComponent implements OnInit {
   transaction: Transaction | undefined;
   product: Product | undefined;
-  currentUser: User | undefined;
+  isAdmin = false;
   isSubmitting = false;
 
   constructor(
@@ -33,9 +33,9 @@ export class TransactionItemComponent implements OnInit {
       }
     );
 
-    this.userService.currentUser.subscribe(
-      (userData) => {
-        this.currentUser = userData;
+    this.userService.isAdmin.subscribe(
+      (value) => {
+        this.isAdmin = value;
       }
     );
   }

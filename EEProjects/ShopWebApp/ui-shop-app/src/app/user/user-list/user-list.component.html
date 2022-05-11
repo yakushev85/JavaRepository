@@ -1,4 +1,4 @@
-<div *ngIf="this.currentUser?.role?.toLowerCase() == 'admin'">
+<div *ngIf="isAdmin">
   <div>
     <a class="btn btn-primary" routerLink="/users/new">Add</a>
   </div>

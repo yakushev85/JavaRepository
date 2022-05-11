@@ -10,13 +10,13 @@ import { User, UserService } from 'src/app/core';
 })
 export class UserItemComponent implements OnInit {
   user: User | undefined;
-  currentUser: User | undefined;
   userForm : FormGroup  = this.fb.group({
     password: '',
     repassword: '',
     role: ''
   });
   isSubmitting = false;
+  isAdmin = false;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -31,15 +31,15 @@ export class UserItemComponent implements OnInit {
       }
     );
 
-    this.userService.currentUser.subscribe(
-      (userData) => {
-        this.currentUser = userData;
+    this.userService.isAdmin.subscribe(
+      (value) => {
+        this.isAdmin = value;
       }
     );
   }
 
   submitForm() {
-    if (!this.user && this.currentUser?.id) {
+    if (!this.user) {
       return;
     }
 

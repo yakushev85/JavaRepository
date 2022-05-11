@@ -21,7 +21,7 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/transactions/all" routerLinkActive="active">Transactions</a>
         </li>
-        <li class="nav-item" *ngIf="currentUser?.role?.toLowerCase() == 'admin'">
+        <li class="nav-item" *ngIf="isAdmin">
           <a class="nav-link" routerLink="/users/all" routerLinkActive="active">Users</a>
         </li>
         <li class="nav-item">

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User, UserService } from 'src/app/core';
+import { UserService } from 'src/app/core';
 
 @Component({
   selector: 'app-header',
@@ -7,14 +7,14 @@ import { User, UserService } from 'src/app/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  currentUser: User | undefined;
+  isAdmin = false;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userService.currentUser.subscribe(
-      (userData) => {
-        this.currentUser = userData;
+    this.userService.isAdmin.subscribe(
+      (value) => {
+        this.isAdmin = value;
       }
     );
   }

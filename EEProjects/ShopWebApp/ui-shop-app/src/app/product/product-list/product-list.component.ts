@@ -8,7 +8,7 @@ import { Product, ProductService, User, UserService } from 'src/app/core';
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
-  currentUser: User | undefined;
+  isAdmin = false;
 
   constructor(
     private productService: ProductService,
@@ -23,9 +23,9 @@ export class ProductListComponent implements OnInit {
       }
     );
 
-    this.userService.currentUser.subscribe(
-      (userData) => {
-        this.currentUser = userData;
+    this.userService.isAdmin.subscribe(
+      (value) => {
+        this.isAdmin = value;
       }
     );
   }

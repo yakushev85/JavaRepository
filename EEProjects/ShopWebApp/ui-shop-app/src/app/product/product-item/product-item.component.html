@@ -1,4 +1,4 @@
-<div *ngIf="currentUser?.role?.toLowerCase() == 'admin'">
+<div *ngIf="isAdmin">
   <form [formGroup]="productAdminForm">
     <fieldset [disabled]="isSubmitting">
       <fieldset class="form-group">
@@ -30,7 +30,7 @@
   </form>
 </div>
 
-<div *ngIf="!(currentUser?.role?.toLowerCase() == 'admin')">
+<div *ngIf="!isAdmin">
   <table class="table table-light">
     <tbody>
     <tr>

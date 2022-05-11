@@ -8,7 +8,7 @@ import { User, UserService } from 'src/app/core';
 })
 export class UserListComponent implements OnInit {
   users: User[] = [];
-  currentUser: User | undefined;
+  isAdmin = false;
 
   constructor(private userService: UserService) { }
 
@@ -21,9 +21,9 @@ export class UserListComponent implements OnInit {
       }
     );
 
-    this.userService.currentUser.subscribe(
-      (userData) => {
-        this.currentUser = userData;
+    this.userService.isAdmin.subscribe(
+      (value) => {
+        this.isAdmin = value;
       }
     );
   }

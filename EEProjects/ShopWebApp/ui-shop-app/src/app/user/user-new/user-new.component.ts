@@ -9,7 +9,6 @@ import { UserService, User } from 'src/app/core';
   styleUrls: ['./user-new.component.css']
 })
 export class UserNewComponent implements OnInit {
-  currentUser: User | undefined;
   userForm : FormGroup = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required],
@@ -17,24 +16,21 @@ export class UserNewComponent implements OnInit {
     role: ''
   });
   isSubmitting = false;
+  isAdmin = false;
 
   constructor(private router: Router,
     private userService: UserService,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.userService.currentUser.subscribe(
-      (userData) => {
-        this.currentUser = userData;
+    this.userService.isAdmin.subscribe(
+      (value) => {
+        this.isAdmin = value;
       }
     );
   }
 
   submitForm() {
-    if (!this.currentUser?.id) {
-      return;
-    }
-
     this.isSubmitting = true;
 
     let newUser = (this.userForm.value as { username: string, password: string, role: string });

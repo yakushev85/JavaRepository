@@ -9,12 +9,12 @@ import { User, UserService, ProductService } from 'src/app/core';
   styleUrls: ['./product-new.component.css']
 })
 export class ProductNewComponent implements OnInit {
-  currentUser: User | undefined;
   productAdminForm: FormGroup  = this.fb.group({
     name: ['', Validators.required],
     price: ['', Validators.required]
   });
   isSubmitting = false;
+  isAdmin = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,18 +25,14 @@ export class ProductNewComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.userService.currentUser.subscribe(
-      (userData) => {
-        this.currentUser = userData;
+    this.userService.isAdmin.subscribe(
+      (value) => {
+        this.isAdmin = value;
       }
     );
   }
 
   submitAdminForm() {
-    if (!this.currentUser?.id) {
-      return;
-    }
-
     this.isSubmitting = true;
 
     let newProductItem = (this.productAdminForm.value as { name: string, price: string });

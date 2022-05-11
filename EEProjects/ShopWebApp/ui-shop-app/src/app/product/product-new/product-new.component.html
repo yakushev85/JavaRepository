@@ -1,4 +1,4 @@
-<div *ngIf="currentUser?.role?.toLowerCase() == 'admin'">
+<div *ngIf="isAdmin">
   <form [formGroup]="productAdminForm">
     <fieldset [disabled]="isSubmitting">
       <fieldset class="form-group">

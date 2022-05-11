@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product, ProductService, Transaction, TransactionService, User, UserService } from 'src/app/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Product, ProductService, TransactionService, UserService } from 'src/app/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-item',
@@ -10,7 +10,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 })
 export class ProductItemComponent implements OnInit {
   product: Product | undefined;
-  currentUser: User | undefined;
   productForm : FormGroup = this.fb.group({
     description: ['', Validators.required]
   });;
@@ -20,6 +19,7 @@ export class ProductItemComponent implements OnInit {
     price: ['', Validators.required],
   });;
   isSubmitting = false;
+  isAdmin = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,15 +38,15 @@ export class ProductItemComponent implements OnInit {
       }
     );
 
-    this.userService.currentUser.subscribe(
-      (userData) => {
-        this.currentUser = userData;
+    this.userService.isAdmin.subscribe(
+      (value) => {
+        this.isAdmin = value;
       }
     );
   }
 
   submitForm() {
-    if (!this.product && this.currentUser?.id) {
+    if (!this.product) {
       return;
     }
 
@@ -71,7 +71,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   submitAdminForm() {
-    if (!this.product && this.currentUser?.id) {
+    if (!this.product) {
       return;
     }
 
