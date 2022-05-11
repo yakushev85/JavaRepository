@@ -92,10 +92,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void checkAdminRole(HttpServletRequest request) {
-		User user = getUserFromRequest(request);
-
-		if (user == null || user.getRole() == null || !user.getRole().equalsIgnoreCase("admin")) {
+		if (!isAdminRole(request)) {
 			throw new IllegalArgumentException("User doesn't have access to the operation.");
 		}
+	}
+
+	@Override
+	public boolean isAdminRole(HttpServletRequest request) {
+		User user = getUserFromRequest(request);
+
+		return user != null && user.getRole() != null && user.getRole().equalsIgnoreCase("admin");
 	}
 }

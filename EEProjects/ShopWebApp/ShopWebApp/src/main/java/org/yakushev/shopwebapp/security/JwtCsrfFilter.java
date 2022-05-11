@@ -3,10 +3,8 @@ package org.yakushev.shopwebapp.security;
 import io.jsonwebtoken.JwtException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.security.web.csrf.DefaultCsrfToken;
 import org.springframework.security.web.csrf.InvalidCsrfTokenException;
 import org.springframework.security.web.csrf.MissingCsrfTokenException;
-import org.springframework.security.web.util.UrlUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
@@ -34,9 +32,7 @@ public class JwtCsrfFilter extends OncePerRequestFilter {
 
         this.logger.info(request.getMethod() + " " + request.getRequestURL());
 
-        String servletPath = request.getServletPath();
-
-        if (SecurityHelper.isPublicUrl(servletPath)) {
+        if (SecurityHelper.isPublicUrl(request.getServletPath())) {
 
             try {
                 filterChain.doFilter(request, response);
@@ -44,40 +40,41 @@ public class JwtCsrfFilter extends OncePerRequestFilter {
                 resolver.resolveException(request, response, null, new MissingCsrfTokenException(""));
             }
         } else {
-            CsrfToken attributeToken = jwtTokenRepository.loadToken(request);
-            String actualToken = (attributeToken == null)? request.getHeader("x-csrf-token") : attributeToken.getToken();
+            CsrfToken token = jwtTokenRepository.loadToken(request);
+
+            if (token == null) {
+                resolver.resolveException(request, response, null, new MissingCsrfTokenException(""));
+                return;
+            }
+
+            String rawToken = token.getToken();
 
             try {
-                if (StringUtils.isNotEmpty(actualToken)) {
-                    CsrfToken csrfToken = new DefaultCsrfToken("x-csrf-token", "_csrf", actualToken);
-                    String username = jwtTokenRepository.getUsernameFromToken(actualToken);
+                if (StringUtils.isNotEmpty(rawToken)) {
+                    String username = jwtTokenRepository.getUsernameFromToken(rawToken);
 
                     if (StringUtils.isEmpty(username)) {
-                        resolver.resolveException(request, response, null, new InvalidCsrfTokenException(csrfToken, actualToken));
+                        resolver.resolveException(request, response, null, new InvalidCsrfTokenException(token, rawToken));
                         return;
                     }
 
-                    Date expirationDate = jwtTokenRepository.getExpirationDateFromToken(actualToken);
+                    Date expirationDate = jwtTokenRepository.getExpirationDateFromToken(rawToken);
 
                     long diff = expirationDate.getTime() - (new Date()).getTime();
 
                     if (diff > 0) {
-                        request.setAttribute(CsrfToken.class.getName(), csrfToken);
-                        request.setAttribute(csrfToken.getParameterName(), csrfToken);
+                        request.setAttribute(CsrfToken.class.getName(), token);
+                        request.setAttribute(token.getParameterName(), token);
 
                         filterChain.doFilter(request, response);
                     } else {
-                        resolver.resolveException(request, response, null, new InvalidCsrfTokenException(csrfToken, actualToken));
+                        resolver.resolveException(request, response, null, new InvalidCsrfTokenException(token, rawToken));
                     }
                 } else {
                     resolver.resolveException(request, response, null, new MissingCsrfTokenException(""));
                 }
             } catch (JwtException e) {
-                if (this.logger.isDebugEnabled()) {
-                    this.logger.debug("Invalid CSRF token found for " + UrlUtils.buildFullRequestUrl(request));
-                }
-
-                resolver.resolveException(request, response, null, new MissingCsrfTokenException(actualToken));
+                resolver.resolveException(request, response, null, new MissingCsrfTokenException(rawToken));
             }
         }
     }

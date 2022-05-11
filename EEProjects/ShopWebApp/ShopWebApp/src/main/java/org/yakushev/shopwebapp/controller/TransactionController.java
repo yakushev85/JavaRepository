@@ -2,7 +2,6 @@ package org.yakushev.shopwebapp.controller;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.csrf.InvalidCsrfTokenException;
 import org.springframework.security.web.csrf.MissingCsrfTokenException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,6 @@ import org.yakushev.shopwebapp.service.TransactionService;
 import org.yakushev.shopwebapp.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 @CrossOrigin(origins = {"http://swa_frontend:4200", "http://localhost:4200", "http://0.0.0.0:4200"})
 @RestController
@@ -30,7 +28,7 @@ public class TransactionController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
     public String getAll(HttpServletRequest request) {
-        if (isAdminRole(request)) {
+        if (userService.isAdminRole(request)) {
             return gson.toJson(transactionService.getAll());
         } else {
             User user = userService.getUserFromRequest(request);
@@ -52,8 +50,8 @@ public class TransactionController {
         }
 
         Transaction transaction = transactionService.getById(id);
-        if ((!isAdminRole(request) && user.getId() != null && transaction.getUser().getId().equals(user.getId())) ||
-                        isAdminRole(request)) {
+        if ((!userService.isAdminRole(request) && user.getId() != null && transaction.getUser().getId().equals(user.getId())) ||
+                userService.isAdminRole(request)) {
 
             return gson.toJson(transaction);
         } else {
@@ -64,7 +62,7 @@ public class TransactionController {
     @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
     @Transactional
     public String add(@RequestBody TransactionRequest transactionDto, HttpServletRequest request) {
-        if (isAdminRole(request)) {
+        if (userService.isAdminRole(request)) {
             return gson.toJson(transactionService.add(transactionDto));
         } else {
             User user = userService.getUserFromRequest(request);
@@ -77,11 +75,5 @@ public class TransactionController {
 
             return gson.toJson(transactionService.add(transactionDto));
         }
-    }
-
-    private boolean isAdminRole(HttpServletRequest request) {
-        User user = userService.getUserFromRequest(request);
-
-        return user != null && user.getRole() != null && user.getRole().equalsIgnoreCase("admin");
     }
 }
