@@ -37,7 +37,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({IllegalArgumentException.class})
     public ErrorInfo handleValidationException(RuntimeException ex, HttpServletRequest request, HttpServletResponse response){
-        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return new ErrorInfo(UrlUtils.buildFullRequestUrl(request), ErrorInfoStatus.VALIDATION_ERROR, 400, ex.getMessage());
     }
 

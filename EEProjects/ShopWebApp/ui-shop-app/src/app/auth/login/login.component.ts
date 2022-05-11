@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/products/all');
       },
       error: (err) => {
-        this.error = "Incorrect username or password.";
+        this.error = err.error.errorMessage;
         this.isSubmitting = false;
       }
     });
