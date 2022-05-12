@@ -14,7 +14,7 @@
   <tr *ngFor="let product of products">
     <th scope="row">{{ product.id }}</th>
     <td><a routerLink="/products/{{ product.id }}">{{ product.name }}</a></td>
-    <td>{{ product.price }}</td>
+    <td>{{ product.price | currency:'USD' }}</td>
     <td>{{ product.createdAt }}</td>
   </tr>
   </tbody>
