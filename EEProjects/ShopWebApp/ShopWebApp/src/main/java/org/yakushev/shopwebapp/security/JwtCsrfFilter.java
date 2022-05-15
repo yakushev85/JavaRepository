@@ -1,6 +1,5 @@
 package org.yakushev.shopwebapp.security;
 
-import io.jsonwebtoken.JwtException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.InvalidCsrfTokenException;
@@ -33,49 +32,36 @@ public class JwtCsrfFilter extends OncePerRequestFilter {
         this.logger.info(request.getMethod() + " " + request.getRequestURL());
 
         if (SecurityHelper.isPublicUrl(request.getServletPath())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-            try {
-                filterChain.doFilter(request, response);
-            } catch (Exception e) {
-                resolver.resolveException(request, response, null, new MissingCsrfTokenException(""));
-            }
+        CsrfToken token = jwtTokenRepository.loadToken(request);
+
+        if (token == null || StringUtils.isEmpty(token.getToken())) {
+            resolver.resolveException(request, response, null, new MissingCsrfTokenException(""));
+            return;
+        }
+
+        String rawToken = token.getToken();
+        String username = jwtTokenRepository.getUsernameFromToken(rawToken);
+
+        if (StringUtils.isEmpty(username)) {
+            resolver.resolveException(request, response, null, new InvalidCsrfTokenException(token, rawToken));
+            return;
+        }
+
+        Date expirationDate = jwtTokenRepository.getExpirationDateFromToken(rawToken);
+
+        long diff = expirationDate.getTime() - (new Date()).getTime();
+
+        if (diff > 0) {
+            request.setAttribute(CsrfToken.class.getName(), token);
+            request.setAttribute(token.getParameterName(), token);
+
+            filterChain.doFilter(request, response);
         } else {
-            CsrfToken token = jwtTokenRepository.loadToken(request);
-
-            if (token == null) {
-                resolver.resolveException(request, response, null, new MissingCsrfTokenException(""));
-                return;
-            }
-
-            String rawToken = token.getToken();
-
-            try {
-                if (StringUtils.isNotEmpty(rawToken)) {
-                    String username = jwtTokenRepository.getUsernameFromToken(rawToken);
-
-                    if (StringUtils.isEmpty(username)) {
-                        resolver.resolveException(request, response, null, new InvalidCsrfTokenException(token, rawToken));
-                        return;
-                    }
-
-                    Date expirationDate = jwtTokenRepository.getExpirationDateFromToken(rawToken);
-
-                    long diff = expirationDate.getTime() - (new Date()).getTime();
-
-                    if (diff > 0) {
-                        request.setAttribute(CsrfToken.class.getName(), token);
-                        request.setAttribute(token.getParameterName(), token);
-
-                        filterChain.doFilter(request, response);
-                    } else {
-                        resolver.resolveException(request, response, null, new InvalidCsrfTokenException(token, rawToken));
-                    }
-                } else {
-                    resolver.resolveException(request, response, null, new MissingCsrfTokenException(""));
-                }
-            } catch (JwtException e) {
-                resolver.resolveException(request, response, null, new MissingCsrfTokenException(rawToken));
-            }
+            resolver.resolveException(request, response, null, new InvalidCsrfTokenException(token, rawToken));
         }
     }
 }
