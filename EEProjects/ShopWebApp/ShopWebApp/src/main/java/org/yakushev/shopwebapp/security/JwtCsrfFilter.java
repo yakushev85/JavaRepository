@@ -52,11 +52,9 @@ public class JwtCsrfFilter extends OncePerRequestFilter {
         }
 
         Date expirationDate = jwtTokenRepository.getExpirationDateFromToken(rawToken);
-
         long diff = expirationDate.getTime() - (new Date()).getTime();
 
         if (diff > 0) {
-            request.setAttribute(CsrfToken.class.getName(), token);
             request.setAttribute(token.getParameterName(), token);
 
             filterChain.doFilter(request, response);
