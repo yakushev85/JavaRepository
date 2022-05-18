@@ -4,7 +4,7 @@ import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { ApiService } from './api.service';
-import { User } from '../models';
+import { PageData, User } from '../models';
 import { TokenService } from './token.service';
 
 @Injectable()
@@ -47,7 +47,7 @@ export class UserService {
     return this.apiService.post('/users/password', payload);
   }
 
-  getAll(): Observable<User[]> {
+  getAll(): Observable<PageData> {
     return this.apiService.get('/users/all');
   }
 

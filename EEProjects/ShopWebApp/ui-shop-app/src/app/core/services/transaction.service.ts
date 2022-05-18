@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { ApiService } from './api.service';
 import { Transaction } from '../models/transaction.model';
+import { PageData } from '../models';
 
 
 @Injectable()
@@ -11,7 +12,7 @@ export class TransactionService {
     private apiService: ApiService
   ) {}
 
-  getAll(): Observable<Transaction[]> {
+  getAll(): Observable<PageData> {
     return this.apiService.get('/transactions/all');
   }
 

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { ApiService } from './api.service';
 import { Product } from '../models/product.model';
+import { PageData } from '../models';
 
 
 @Injectable()
@@ -14,8 +15,8 @@ export class ProductService {
     private http: HttpClient,
   ) {}
 
-  getAll(): Observable<Product[]> {
-    return this.apiService.get('/products/all');
+  getAll(page = 0, size = 10): Observable<PageData> {
+    return this.apiService.get(`/products/all?page=${page}&size=${size}`);
   }
 
   getItem(itemId: number): Observable<Product> {
