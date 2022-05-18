@@ -1,17 +1,16 @@
 package org.yakushev.shopwebapp.service;
 
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yakushev.shopwebapp.model.Product;
 import org.yakushev.shopwebapp.repository.ProductRepository;
 import org.yakushev.shopwebapp.security.JwtTokenRepository;
-import org.yakushev.shopwebapp.util.DefaultValues;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -23,9 +22,8 @@ public class ProductServiceImpl implements ProductService {
 	private JwtTokenRepository jwtTokenRepository;
 
 	@Override
-	public List<Product> getAll() {
-		List<Product> resultList = Lists.newArrayList(productRepository.findAll());
-		return checkProductsForEmpty(resultList);
+	public Page<Product> getAll(Pageable pageable) {
+		return productRepository.findAll(pageable);
 	}
 
 	@Override
@@ -54,14 +52,4 @@ public class ProductServiceImpl implements ProductService {
 			return oldValue;
 		}
 	}
-
-	@Transactional
-	private List<Product> checkProductsForEmpty(List<Product> products) {
-		if (products.isEmpty()) {
-			return Lists.newArrayList(productRepository.saveAll(DefaultValues.getDefaultProducts()));
-		} else {
-			return products;
-		}
-	}
-
 }

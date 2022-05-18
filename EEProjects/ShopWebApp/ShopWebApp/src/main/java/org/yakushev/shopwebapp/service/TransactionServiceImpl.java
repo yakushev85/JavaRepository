@@ -2,6 +2,8 @@ package org.yakushev.shopwebapp.service;
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yakushev.shopwebapp.dto.TransactionRequest;
@@ -29,8 +31,8 @@ public class TransactionServiceImpl implements TransactionService {
 	private JwtTokenRepository jwtTokenRepository;
 
 	@Override
-	public List<Transaction> getAll() {
-		return Lists.newArrayList(transactionRepository.findAll());
+	public Page<Transaction> getAll(Pageable pageable) {
+		return transactionRepository.findAll(pageable);
 	}
 
 	@Override
@@ -39,8 +41,8 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override
-	public List<Transaction> getByUserId(Long userId) {
-		return transactionRepository.findByUserIdOrderByIdDesc(userId);
+	public Page<Transaction> getByUserId(Long userId, Pageable pageable) {
+		return transactionRepository.findByUserIdOrderByIdDesc(userId, pageable);
 	}
 
 	@Override

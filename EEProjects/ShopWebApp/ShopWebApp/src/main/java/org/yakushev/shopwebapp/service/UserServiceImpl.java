@@ -2,6 +2,8 @@ package org.yakushev.shopwebapp.service;
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Service;
@@ -24,8 +26,8 @@ public class UserServiceImpl implements UserService {
 	private JwtTokenRepository jwtTokenRepository;
 
 	@Override
-	public List<User> getAll() {
-		return Lists.newArrayList(userRepository.findAll());
+	public Page<User> getAll(Pageable pageable) {
+		return userRepository.findAll(pageable);
 	}
 
 	@Override

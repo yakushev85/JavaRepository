@@ -2,6 +2,7 @@ package org.yakushev.shopwebapp.controller;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.web.csrf.MissingCsrfTokenException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +28,11 @@ public class TransactionController {
     private UserService userService;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
-    public String getAll(HttpServletRequest request) {
+    public String getAll(@RequestParam(name="page", defaultValue = "0") Integer page,
+                         @RequestParam(name="size", defaultValue = "10") Integer size,
+                         HttpServletRequest request) {
         if (userService.isAdminRole(request)) {
-            return gson.toJson(transactionService.getAll());
+            return gson.toJson(transactionService.getAll(PageRequest.of(page, size)));
         } else {
             User user = userService.getUserFromRequest(request);
 
@@ -37,7 +40,7 @@ public class TransactionController {
                 throw new MissingCsrfTokenException("");
             }
 
-            return gson.toJson(transactionService.getByUserId(user.getId()));
+            return gson.toJson(transactionService.getByUserId(user.getId(), PageRequest.of(page, size)));
         }
     }
 

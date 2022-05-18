@@ -2,6 +2,7 @@ package org.yakushev.shopwebapp.controller;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.yakushev.shopwebapp.model.Product;
@@ -23,10 +24,10 @@ public class ProductController {
     @Autowired
     private UserService userService;
 
-    @Transactional
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
-    public String getAll() {
-        return gson.toJson(productService.getAll());
+    public String getAll(@RequestParam(name="page", defaultValue = "0") Integer page,
+                         @RequestParam(name="size", defaultValue = "10") Integer size) {
+        return gson.toJson(productService.getAll(PageRequest.of(page, size)));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")

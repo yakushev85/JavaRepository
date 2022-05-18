@@ -2,6 +2,7 @@ package org.yakushev.shopwebapp.controller;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +24,11 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
-    public String getAll(HttpServletRequest request) {
+    public String getAll(@RequestParam(name="page", defaultValue = "0") Integer page,
+                         @RequestParam(name="size", defaultValue = "10") Integer size,
+                         HttpServletRequest request) {
         userService.checkAdminRole(request);
-        return gson.toJson(UserResponse.fromUsers(userService.getAll()));
+        return gson.toJson(userService.getAll(PageRequest.of(page, size)));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")

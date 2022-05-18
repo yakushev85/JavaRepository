@@ -1,5 +1,7 @@
 package org.yakushev.shopwebapp.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.yakushev.shopwebapp.model.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,7 +9,7 @@ import java.util.List;
 
 public interface UserService {
 
-	List<User> getAll();
+	Page<User> getAll(Pageable pageable);
 
 	User getById(Long id);
 
