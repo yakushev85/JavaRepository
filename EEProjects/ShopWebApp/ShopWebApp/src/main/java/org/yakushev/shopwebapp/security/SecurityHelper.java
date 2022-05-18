@@ -8,12 +8,6 @@ public class SecurityHelper {
             Arrays.asList("/login", "/signup");
 
     public static boolean isPublicUrl(String servletPath) {
-        for (String publicUrl : PUBLIC_URL_LIST) {
-            if (servletPath.equals(publicUrl)) {
-                return true;
-            }
-        }
-
-        return false;
+        return PUBLIC_URL_LIST.contains(servletPath);
     }
 }

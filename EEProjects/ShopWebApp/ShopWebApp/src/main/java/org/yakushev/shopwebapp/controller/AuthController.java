@@ -34,7 +34,7 @@ public class AuthController {
     public String loginUser(@RequestBody AuthRequest authRequest, HttpServletRequest request, HttpServletResponse response) {
         List<User> resolvedUserList = userService.findByUsernameOrderByIdDesc(authRequest.getUsername());
 
-        if (resolvedUserList != null && !resolvedUserList.isEmpty()) {
+        if (!resolvedUserList.isEmpty()) {
             User resolvedUser = resolvedUserList.get(0);
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -67,7 +67,7 @@ public class AuthController {
     public String signupUser(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
         List<User> resolvedUserList = userService.findByUsernameOrderByIdDesc(user.getUsername());
 
-        if (resolvedUserList == null || resolvedUserList.isEmpty()) {
+        if (resolvedUserList.isEmpty()) {
             User storedUser = userService.add(user);
 
             if (storedUser != null) {

@@ -11,7 +11,7 @@ import org.yakushev.shopwebapp.repository.UserRepository;
 import org.yakushev.shopwebapp.security.JwtTokenRepository;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -69,7 +69,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> findByUsernameOrderByIdDesc(String username) {
-		return userRepository.findByUsernameOrderByIdDesc(username);
+		List<User> resultList = userRepository.findByUsernameOrderByIdDesc(username);
+		return (resultList == null)? new ArrayList<>() : resultList;
 	}
 
 	@Override
