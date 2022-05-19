@@ -23,7 +23,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public String getAll(@RequestParam(name="page", defaultValue = "0") Integer page,
                          @RequestParam(name="size", defaultValue = "10") Integer size,
                          HttpServletRequest request) {
@@ -37,14 +37,14 @@ public class UserController {
         return gson.toJson(UserResponse.fromUser(userService.getById(id)));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
     @Transactional
     public String add(@RequestBody User user, HttpServletRequest request) {
         userService.checkAdminRole(request);
         return gson.toJson(UserResponse.fromUser(userService.add(user)));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT, produces = "application/json")
+    @RequestMapping(value = "", method = RequestMethod.PUT, produces = "application/json")
     @Transactional
     public String update(@RequestBody User user, HttpServletRequest request) {
         userService.checkAdminRole(request);

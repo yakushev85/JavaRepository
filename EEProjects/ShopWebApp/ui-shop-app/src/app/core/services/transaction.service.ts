@@ -13,7 +13,7 @@ export class TransactionService {
   ) {}
 
   getAll(page = 0, size = 10): Observable<PageData> {
-    return this.apiService.get(`/transactions/all?page=${page}&size=${size}`);
+    return this.apiService.get(`/transactions?page=${page}&size=${size}`);
   }
 
   getItem(itemId: number): Observable<Transaction> {
@@ -21,6 +21,6 @@ export class TransactionService {
   }
 
   createItem(data: any): Observable<Transaction> {
-    return this.apiService.post('/transactions/', data);
+    return this.apiService.post('/transactions', data);
   }
 }

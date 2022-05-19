@@ -24,7 +24,7 @@ public class ProductController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public String getAll(@RequestParam(name="page", defaultValue = "0") Integer page,
                          @RequestParam(name="size", defaultValue = "10") Integer size) {
         return gson.toJson(productService.getAll(PageRequest.of(page, size)));
@@ -35,13 +35,13 @@ public class ProductController {
         return gson.toJson(productService.getById(id));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
     public String add(@RequestBody Product product, HttpServletRequest request) {
         userService.checkAdminRole(request);
         return gson.toJson(productService.add(product));
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT, produces = "application/json")
+    @RequestMapping(value = "", method = RequestMethod.PUT, produces = "application/json")
     public String update(@RequestBody Product product, HttpServletRequest request) {
         userService.checkAdminRole(request);
         return gson.toJson(productService.update(product));

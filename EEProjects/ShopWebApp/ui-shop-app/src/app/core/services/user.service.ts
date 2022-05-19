@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, distinctUntilChanged } from 'rxjs/operators';
 import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 
 import { ApiService } from './api.service';
 import { PageData, User } from '../models';
@@ -48,7 +47,7 @@ export class UserService {
   }
 
   getAll(page = 0, size = 10): Observable<PageData> {
-    return this.apiService.get(`/users/all?page=${page}&size=${size}`);
+    return this.apiService.get(`/users?page=${page}&size=${size}`);
   }
 
   getItem(itemid: number): Observable<User> {
@@ -56,11 +55,11 @@ export class UserService {
   }
 
   add(payload: any): Observable<User> {
-    return this.apiService.post(`/users/`, payload);
+    return this.apiService.post(`/users`, payload);
   }
 
   update(payload: any): Observable<User> {
-    return this.apiService.put(`/users/`, payload);
+    return this.apiService.put(`/users`, payload);
   }
 
   logout() {

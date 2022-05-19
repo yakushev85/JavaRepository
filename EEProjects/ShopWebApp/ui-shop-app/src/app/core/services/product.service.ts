@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, distinctUntilChanged } from 'rxjs/operators';
-import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { ApiService } from './api.service';
@@ -16,7 +15,7 @@ export class ProductService {
   ) {}
 
   getAll(page = 0, size = 10): Observable<PageData> {
-    return this.apiService.get(`/products/all?page=${page}&size=${size}`);
+    return this.apiService.get(`/products?page=${page}&size=${size}`);
   }
 
   getItem(itemId: number): Observable<Product> {
@@ -24,10 +23,10 @@ export class ProductService {
   }
 
   update(product: any): Observable<Product> {
-    return this.apiService.put(`/products/`, product);
+    return this.apiService.put(`/products`, product);
   }
 
   add(product: any): Observable<Product> {
-    return this.apiService.post(`/products/`, product);
+    return this.apiService.post(`/products`, product);
   }
 }

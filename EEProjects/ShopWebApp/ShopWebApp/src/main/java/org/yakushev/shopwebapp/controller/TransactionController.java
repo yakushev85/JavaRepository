@@ -27,7 +27,7 @@ public class TransactionController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public String getAll(@RequestParam(name="page", defaultValue = "0") Integer page,
                          @RequestParam(name="size", defaultValue = "10") Integer size,
                          HttpServletRequest request) {
@@ -62,7 +62,7 @@ public class TransactionController {
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
     @Transactional
     public String add(@RequestBody TransactionRequest transactionDto, HttpServletRequest request) {
         if (userService.isAdminRole(request)) {
