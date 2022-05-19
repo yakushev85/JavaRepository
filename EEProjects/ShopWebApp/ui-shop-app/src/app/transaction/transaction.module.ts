@@ -4,6 +4,7 @@ import { TransactionListComponent } from './transaction-list/transaction-list.co
 import { TransactionItemComponent } from './transaction-item/transaction-item.component';
 import { TransactionRoutingModule } from './transaction-routing.module';
 import { TransactionItemResolver } from './transaction-item/transaction-item-resolver.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { TransactionItemResolver } from './transaction-item/transaction-item-res
   ],
   imports: [
     CommonModule,
-    TransactionRoutingModule
+    TransactionRoutingModule,
+    NgbModule
   ],
   providers: [
     TransactionItemResolver

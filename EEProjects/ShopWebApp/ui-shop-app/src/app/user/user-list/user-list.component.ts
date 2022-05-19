@@ -9,17 +9,14 @@ import { User, UserService } from 'src/app/core';
 export class UserListComponent implements OnInit {
   users: User[] = [];
   isAdmin = false;
+  pageNumber = 1;
+  pageSize = 10;
+  totalElements = 0;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userService.getAll().subscribe(
-      (value) => {
-        if (value) {
-          this.users = (value.content as User[]);
-        }
-      }
-    );
+    this.listValues();
 
     this.userService.isAdmin.subscribe(
       (value) => {
@@ -28,4 +25,22 @@ export class UserListComponent implements OnInit {
     );
   }
 
+  listValues() {
+    this.userService.getAll(this.pageNumber - 1, this.pageSize).subscribe(
+      (value) => {
+        if (value) {
+          this.users = (value.content as User[]);
+
+          this.pageNumber = value.pageable.page + 1;
+          this.pageSize = value.pageable.size;
+          this.totalElements = value.total;
+        }
+      }
+    );
+  }
+
+  updatePageSize(value: string) {
+    this.pageSize = +value;
+    this.listValues();
+  }
 }

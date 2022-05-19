@@ -47,8 +47,8 @@ export class UserService {
     return this.apiService.post('/users/password', payload);
   }
 
-  getAll(): Observable<PageData> {
-    return this.apiService.get('/users/all');
+  getAll(page = 0, size = 10): Observable<PageData> {
+    return this.apiService.get(`/users/all?page=${page}&size=${size}`);
   }
 
   getItem(itemid: number): Observable<User> {

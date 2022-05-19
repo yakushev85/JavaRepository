@@ -9,19 +9,17 @@ import { Product, ProductService, User, UserService } from 'src/app/core';
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
   isAdmin = false;
+  pageNumber = 1;
+  pageSize = 10;
+  totalElements = 0;
+
 
   constructor(
     private productService: ProductService,
     private userService: UserService) { }
 
   ngOnInit(): void {
-    this.productService.getAll().subscribe(
-      (value) => {
-        if (value) {
-          this.products = (value.content as Product[]);
-        }
-      }
-    );
+    this.listValues();
 
     this.userService.isAdmin.subscribe(
       (value) => {
@@ -30,4 +28,22 @@ export class ProductListComponent implements OnInit {
     );
   }
 
+  listValues() {
+    this.productService.getAll(this.pageNumber - 1, this.pageSize).subscribe(
+      (value) => {
+        if (value) {
+          this.products = (value.content as Product[]);
+
+          this.pageNumber = value.pageable.page + 1;
+          this.pageSize = value.pageable.size;
+          this.totalElements = value.total;
+        }
+      }
+    );
+  }
+
+  updatePageSize(value: string) {
+    this.pageSize = +value;
+    this.listValues();
+  }
 }

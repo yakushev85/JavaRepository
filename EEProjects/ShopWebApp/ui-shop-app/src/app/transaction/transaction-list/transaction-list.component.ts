@@ -9,6 +9,9 @@ import { Transaction, TransactionService, UserService } from 'src/app/core';
 export class TransactionListComponent implements OnInit {
   transactions: Transaction[] = [];
   isAdmin = false;
+  pageNumber = 1;
+  pageSize = 10;
+  totalElements = 0;
 
   constructor(
     private transactionService: TransactionService,
@@ -16,13 +19,7 @@ export class TransactionListComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.transactionService.getAll().subscribe(
-      (value) => {
-        if (value) {
-          this.transactions = (value.content as Transaction[]);
-        }
-      }
-    );
+    this.listValues();
 
     this.userService.isAdmin.subscribe(
       (value) => {
@@ -31,4 +28,22 @@ export class TransactionListComponent implements OnInit {
     );
   }
 
+  listValues() {
+    this.transactionService.getAll(this.pageNumber - 1, this.pageSize).subscribe(
+      (value) => {
+        if (value) {
+          this.transactions = (value.content as Transaction[]);
+
+          this.pageNumber = value.pageable.page + 1;
+          this.pageSize = value.pageable.size;
+          this.totalElements = value.total;
+        }
+      }
+    );
+  }
+
+  updatePageSize(value: string) {
+    this.pageSize = +value;
+    this.listValues();
+  }
 }

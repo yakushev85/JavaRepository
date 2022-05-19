@@ -12,8 +12,8 @@ export class TransactionService {
     private apiService: ApiService
   ) {}
 
-  getAll(): Observable<PageData> {
-    return this.apiService.get('/transactions/all');
+  getAll(page = 0, size = 10): Observable<PageData> {
+    return this.apiService.get(`/transactions/all?page=${page}&size=${size}`);
   }
 
   getItem(itemId: number): Observable<Transaction> {
