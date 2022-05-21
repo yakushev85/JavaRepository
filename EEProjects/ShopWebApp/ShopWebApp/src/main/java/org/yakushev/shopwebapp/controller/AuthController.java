@@ -42,7 +42,7 @@ public class AuthController {
                 throw new IllegalArgumentException("Wrong password.");
             }
 
-            if (resolvedUser.getRole().equalsIgnoreCase("locked")) {
+            if (resolvedUser.getRole() != null && resolvedUser.getRole().equalsIgnoreCase("locked")) {
                 throw new IllegalArgumentException("User is locked.");
             }
 
