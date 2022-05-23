@@ -10,9 +10,9 @@ import { UserService, User } from 'src/app/core';
 })
 export class UserNewComponent implements OnInit {
   userForm : FormGroup = this.fb.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required],
-    repassword: '',
+    username: ['', [Validators.required, Validators.minLength(2)]],
+    password: ['', [Validators.required, Validators.minLength(3)]],
+    repassword: ['', [Validators.required, Validators.minLength(3)]],
     role: ''
   });
   isSubmitting = false;

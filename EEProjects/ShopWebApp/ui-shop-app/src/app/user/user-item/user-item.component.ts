@@ -11,8 +11,8 @@ import { User, UserService } from 'src/app/core';
 export class UserItemComponent implements OnInit {
   user: User | undefined;
   userForm : FormGroup  = this.fb.group({
-    password: '',
-    repassword: '',
+    password: ['', [Validators.required, Validators.minLength(3)]],
+    repassword: ['', [Validators.required, Validators.minLength(3)]],
     role: ''
   });
   isSubmitting = false;

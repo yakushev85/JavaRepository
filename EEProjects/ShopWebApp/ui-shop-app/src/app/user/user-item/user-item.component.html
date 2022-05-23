@@ -26,6 +26,6 @@
       </fieldset>
     </fieldset>
 
-    <p class="mb-3 p-2"><button type="button" class="btn btn-success" [disabled]="!(userForm.value.password == userForm.value.repassword)"  (click)="submitForm()">Update User</button></p>
+    <p class="mb-3 p-2"><button type="button" class="btn btn-success" [disabled]="!(userForm.value.password == userForm.value.repassword && userForm.valid)"  (click)="submitForm()">Update User</button></p>
   </form>
 </div>
