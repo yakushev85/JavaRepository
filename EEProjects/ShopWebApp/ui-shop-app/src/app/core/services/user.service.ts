@@ -9,12 +9,12 @@ import { TokenService } from './token.service';
 @Injectable()
 export class UserService {
   private currentUserSubject = new BehaviorSubject<User>({} as User);
-  public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
+  public currentUser = this.currentUserSubject.asObservable();
 
-  private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
-  private isAdminSubject = new ReplaySubject<boolean>(1);
+  private isAdminSubject = new BehaviorSubject<boolean>(false);
   public isAdmin = this.isAdminSubject.asObservable();
 
   constructor (

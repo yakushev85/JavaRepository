@@ -31,9 +31,9 @@ export class UserListComponent implements OnInit {
         if (value) {
           this.users = (value.content as User[]);
 
-          this.pageNumber = value.pageable.page + 1;
-          this.pageSize = value.pageable.size;
-          this.totalElements = value.total;
+          this.pageNumber = value.pageable.pageNumber + 1;
+          this.pageSize = value.pageable.pageSize;
+          this.totalElements = value.totalElements;
         }
       }
     );

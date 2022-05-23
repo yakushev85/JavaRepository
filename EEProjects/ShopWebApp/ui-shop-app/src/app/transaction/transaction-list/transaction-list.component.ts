@@ -34,9 +34,9 @@ export class TransactionListComponent implements OnInit {
         if (value) {
           this.transactions = (value.content as Transaction[]);
 
-          this.pageNumber = value.pageable.page + 1;
-          this.pageSize = value.pageable.size;
-          this.totalElements = value.total;
+          this.pageNumber = value.pageable.pageNumber + 1;
+          this.pageSize = value.pageable.pageSize;
+          this.totalElements = value.totalElements;
         }
       }
     );

@@ -1,8 +1,8 @@
 export interface PageData {
-  total: number,
+  totalElements: number,
   content: any,
   pageable: {
-    page: number,
-    size: number
+    pageNumber: number,
+    pageSize: number
   }
 }
