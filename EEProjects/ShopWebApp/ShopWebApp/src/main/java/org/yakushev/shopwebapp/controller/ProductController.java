@@ -1,9 +1,8 @@
 package org.yakushev.shopwebapp.controller;
 
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.yakushev.shopwebapp.model.Product;
 import org.yakushev.shopwebapp.service.ProductService;
@@ -16,34 +15,31 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/products")
 public class ProductController {
     @Autowired
-    private Gson gson;
-
-    @Autowired
     private ProductService productService;
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-    public String getAll(@RequestParam(name="page", defaultValue = "0") Integer page,
-                         @RequestParam(name="size", defaultValue = "10") Integer size) {
-        return gson.toJson(productService.getAll(PageRequest.of(page, size)));
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public Page<Product> getAll(@RequestParam(name="page", defaultValue = "0") Integer page,
+                                @RequestParam(name="size", defaultValue = "10") Integer size) {
+        return productService.getAll(PageRequest.of(page, size));
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    public String getItemById(@PathVariable Long id) {
-        return gson.toJson(productService.getById(id));
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Product getItemById(@PathVariable Long id) {
+        return productService.getById(id);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
-    public String add(@RequestBody Product product, HttpServletRequest request) {
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public Product add(@RequestBody Product product, HttpServletRequest request) {
         userService.checkAdminRole(request);
-        return gson.toJson(productService.add(product));
+        return productService.add(product);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT, produces = "application/json")
-    public String update(@RequestBody Product product, HttpServletRequest request) {
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public Product update(@RequestBody Product product, HttpServletRequest request) {
         userService.checkAdminRole(request);
-        return gson.toJson(productService.update(product));
+        return productService.update(product);
     }
 }

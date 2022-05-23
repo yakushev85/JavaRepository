@@ -1,6 +1,5 @@
 package org.yakushev.shopwebapp.controller;
 
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
@@ -21,17 +20,15 @@ import java.util.List;
 @RequestMapping("/")
 public class AuthController {
     @Autowired
-    private Gson gson;
-
-    @Autowired
     private UserService userService;
 
     @Autowired
     private JwtTokenRepository jwtTokenRepository;
 
     @Transactional
-    @RequestMapping(path = "/login", method = RequestMethod.POST, produces = "application/json")
-    public String loginUser(@RequestBody AuthRequest authRequest, HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    public AuthResponse loginUser(@RequestBody AuthRequest authRequest,
+                                  HttpServletRequest request, HttpServletResponse response) {
         List<User> resolvedUserList = userService.findByUsernameOrderByIdDesc(authRequest.getUsername());
 
         if (!resolvedUserList.isEmpty()) {
@@ -56,15 +53,15 @@ public class AuthController {
             authResponse.setToken(csrfToken.getToken());
             authResponse.setRole(resolvedUser.getRole());
 
-            return gson.toJson(authResponse);
+            return authResponse;
         } else {
             throw new IllegalArgumentException("Wrong username.");
         }
     }
 
     @Transactional
-    @RequestMapping(path = "/signup", method = RequestMethod.POST, produces = "application/json")
-    public String signupUser(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(path = "/signup", method = RequestMethod.POST)
+    public AuthResponse signupUser(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
         List<User> resolvedUserList = userService.findByUsernameOrderByIdDesc(user.getUsername());
 
         if (resolvedUserList.isEmpty()) {
@@ -81,15 +78,15 @@ public class AuthController {
                 authResponse.setToken(csrfToken.getToken());
                 authResponse.setRole(storedUser.getRole());
 
-                return gson.toJson(authResponse);
+                return authResponse;
             }
         }
 
         throw new IllegalArgumentException("Username is already used.");
     }
 
-    @RequestMapping(path = "/logout", method = RequestMethod.GET, produces = "application/json")
-    public String logout(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(path = "/logout", method = RequestMethod.GET)
+    public AuthResponse logout(HttpServletRequest request, HttpServletResponse response) {
         String actualToken = jwtTokenRepository.loadToken(request).getToken();
 
         if (actualToken != null && !actualToken.isEmpty()) {
@@ -99,6 +96,6 @@ public class AuthController {
         AuthResponse authResponse = new AuthResponse();
         authResponse.setToken(actualToken);
 
-        return gson.toJson(authResponse);
+        return authResponse;
     }
 }

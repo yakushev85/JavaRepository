@@ -1,7 +1,7 @@
 package org.yakushev.shopwebapp.controller;
 
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.web.csrf.MissingCsrfTokenException;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,20 +19,17 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/transactions")
 public class TransactionController {
     @Autowired
-    private Gson gson;
-
-    @Autowired
     private TransactionService transactionService;
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-    public String getAll(@RequestParam(name="page", defaultValue = "0") Integer page,
-                         @RequestParam(name="size", defaultValue = "10") Integer size,
-                         HttpServletRequest request) {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public Page<Transaction> getAll(@RequestParam(name="page", defaultValue = "0") Integer page,
+                                    @RequestParam(name="size", defaultValue = "10") Integer size,
+                                    HttpServletRequest request) {
         if (userService.isAdminRole(request)) {
-            return gson.toJson(transactionService.getAll(PageRequest.of(page, size)));
+            return transactionService.getAll(PageRequest.of(page, size));
         } else {
             User user = userService.getUserFromRequest(request);
 
@@ -40,12 +37,12 @@ public class TransactionController {
                 throw new MissingCsrfTokenException("");
             }
 
-            return gson.toJson(transactionService.getByUserId(user.getId(), PageRequest.of(page, size)));
+            return transactionService.getByUserId(user.getId(), PageRequest.of(page, size));
         }
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    public String getItemById(@PathVariable Long id, HttpServletRequest request) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Transaction getItemById(@PathVariable Long id, HttpServletRequest request) {
         User user = userService.getUserFromRequest(request);
 
         if (user == null) {
@@ -56,17 +53,17 @@ public class TransactionController {
         if ((!userService.isAdminRole(request) && user.getId() != null && transaction.getUser().getId().equals(user.getId())) ||
                 userService.isAdminRole(request)) {
 
-            return gson.toJson(transaction);
+            return transaction;
         } else {
             throw new MissingCsrfTokenException("");
         }
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @Transactional
-    public String add(@RequestBody TransactionRequest transactionDto, HttpServletRequest request) {
+    public Transaction add(@RequestBody TransactionRequest transactionDto, HttpServletRequest request) {
         if (userService.isAdminRole(request)) {
-            return gson.toJson(transactionService.add(transactionDto));
+            return transactionService.add(transactionDto);
         } else {
             User user = userService.getUserFromRequest(request);
 
@@ -76,7 +73,7 @@ public class TransactionController {
 
             transactionDto.setUserId(user.getId());
 
-            return gson.toJson(transactionService.add(transactionDto));
+            return transactionService.add(transactionDto);
         }
     }
 }

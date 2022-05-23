@@ -1,7 +1,7 @@
 package org.yakushev.shopwebapp.controller;
 
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,43 +17,41 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    @Autowired
-    private Gson gson;
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
-    public String getAll(@RequestParam(name="page", defaultValue = "0") Integer page,
-                         @RequestParam(name="size", defaultValue = "10") Integer size,
-                         HttpServletRequest request) {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public Page<User> getAll(@RequestParam(name="page", defaultValue = "0") Integer page,
+                             @RequestParam(name="size", defaultValue = "10") Integer size,
+                             HttpServletRequest request) {
         userService.checkAdminRole(request);
-        return gson.toJson(userService.getAll(PageRequest.of(page, size)));
+        return userService.getAll(PageRequest.of(page, size));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    public String getItemById(@PathVariable Long id, HttpServletRequest request) {
+    public UserResponse getItemById(@PathVariable Long id, HttpServletRequest request) {
         userService.checkAdminRole(request);
-        return gson.toJson(UserResponse.fromUser(userService.getById(id)));
+        return UserResponse.fromUser(userService.getById(id));
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @Transactional
-    public String add(@RequestBody User user, HttpServletRequest request) {
+    public UserResponse add(@RequestBody User user, HttpServletRequest request) {
         userService.checkAdminRole(request);
-        return gson.toJson(UserResponse.fromUser(userService.add(user)));
+        return UserResponse.fromUser(userService.add(user));
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT, produces = "application/json")
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     @Transactional
-    public String update(@RequestBody User user, HttpServletRequest request) {
+    public UserResponse update(@RequestBody User user, HttpServletRequest request) {
         userService.checkAdminRole(request);
-        return gson.toJson(UserResponse.fromUser(userService.update(user)));
+        return UserResponse.fromUser(userService.update(user));
     }
 
-    @RequestMapping(value = "/password", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/password", method = RequestMethod.POST)
     @Transactional
-    public String setPassword(@RequestBody PasswordRequest passwordRequest, HttpServletRequest request) {
+    public UserResponse setPassword(@RequestBody PasswordRequest passwordRequest, HttpServletRequest request) {
         User user = userService.getUserFromRequest(request);
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -62,6 +60,6 @@ public class UserController {
             throw new IllegalArgumentException("Wrong password.");
         }
 
-        return gson.toJson(UserResponse.fromUser(userService.update(user)));
+        return UserResponse.fromUser(userService.update(user));
     }
 }
