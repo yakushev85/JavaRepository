@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { TokenService } from '../services';
+import { UserService } from '../services';
 
 @Injectable()
 export class HttpTokenInterceptor implements HttpInterceptor {
-  constructor(private tokenService: TokenService) {}
+  constructor(private userService: UserService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let headersConfig;
 
-    const token = this.tokenService.getToken();
+    const token = this.userService.loadFromStorage()?.token;
 
     if (token) {
       headersConfig = {

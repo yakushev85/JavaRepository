@@ -4,7 +4,6 @@ import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 
 import { ApiService } from './api.service';
 import { PageData, User } from '../models';
-import { TokenService } from './token.service';
 
 @Injectable()
 export class UserService {
@@ -18,7 +17,6 @@ export class UserService {
   public isAdmin = this.isAdminSubject.asObservable();
 
   constructor (
-    private tokenService: TokenService,
     private apiService: ApiService
   ) {}
 
@@ -73,20 +71,36 @@ export class UserService {
 
 
   populate() {
-    this.purgeAuth();
+    let storedUser = this.loadFromStorage();
+
+    if (storedUser) {
+      this.setAuth(storedUser);
+    } else {
+      this.purgeAuth();
+    }
   }
 
   setAuth(user: User) {
-    this.tokenService.saveToken(user.token)
+    sessionStorage.setItem("user_data", JSON.stringify(user));
     this.currentUserSubject.next(user);
     this.isAuthenticatedSubject.next(true);
     this.isAdminSubject.next(user.role?.toLowerCase() == 'admin');
   }
 
   purgeAuth() {
-    this.tokenService.destroyToken();
+    sessionStorage.removeItem("user_data");
     this.currentUserSubject.next({} as User);
     this.isAuthenticatedSubject.next(false);
     this.isAdminSubject.next(false);
+  }
+
+  loadFromStorage(): User | null {
+    let storedRawData = sessionStorage.getItem("user_data");
+
+    if (storedRawData) {
+      return JSON.parse(storedRawData);
+    } else {
+      return null;
+    }
   }
 }
