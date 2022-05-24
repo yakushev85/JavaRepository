@@ -62,7 +62,7 @@ export class ProductItemComponent implements OnInit {
     .subscribe({
       next: () => {
         this.isSubmitting = false;
-        this.router.navigateByUrl('/transactions/all');
+        this.router.navigateByUrl('/transactions');
       },
       error: () => {
         this.isSubmitting = false;
@@ -83,7 +83,7 @@ export class ProductItemComponent implements OnInit {
     .subscribe({
       next: () => {
         this.isSubmitting = false;
-        this.router.navigateByUrl('/products/all');
+        this.router.navigateByUrl('/products');
       },
       error: () => {
         this.isSubmitting = false;

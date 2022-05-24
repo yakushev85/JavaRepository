@@ -41,7 +41,7 @@ export class SignupComponent implements OnInit {
     .subscribe({
       next: (data) => {
         this.isSubmitting = false;
-        this.router.navigateByUrl('/products/all');
+        this.router.navigateByUrl('/products');
       },
       error: (err) => {
         this.error = err.error.errorMessage;

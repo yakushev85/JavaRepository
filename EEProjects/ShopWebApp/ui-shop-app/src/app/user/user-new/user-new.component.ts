@@ -39,7 +39,7 @@ export class UserNewComponent implements OnInit {
     .subscribe({
       next: () => {
         this.isSubmitting = false;
-        this.router.navigateByUrl('/users/all');
+        this.router.navigateByUrl('/users');
       },
       error: () => {
         this.isSubmitting = false;

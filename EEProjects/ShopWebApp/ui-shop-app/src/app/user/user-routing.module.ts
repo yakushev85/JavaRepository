@@ -7,7 +7,7 @@ import { UserNewComponent } from './user-new/user-new.component';
 
 const routes: Routes = [
   {
-    path: 'all',
+    path: '',
     component: UserListComponent
   },
   {

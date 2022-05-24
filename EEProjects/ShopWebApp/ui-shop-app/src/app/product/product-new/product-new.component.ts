@@ -41,7 +41,7 @@ export class ProductNewComponent implements OnInit {
     .subscribe({
       next: () => {
         this.isSubmitting = false;
-        this.router.navigateByUrl('/products/all');
+        this.router.navigateByUrl('/products');
       },
       error: () => {
         this.isSubmitting = false;
