@@ -5,7 +5,6 @@ import org.springframework.data.domain.Pageable;
 import org.yakushev.shopwebapp.model.User;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 public interface UserService {
 
@@ -17,7 +16,7 @@ public interface UserService {
 
 	User update(User value);
 
-	List<User> findByUsernameOrderByIdDesc(String username);
+	User findByUsernameOrderByIdDesc(String username);
 
 	User getUserFromRequest(HttpServletRequest request);
 

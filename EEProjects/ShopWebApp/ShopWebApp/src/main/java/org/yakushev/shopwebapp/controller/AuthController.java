@@ -13,7 +13,6 @@ import org.yakushev.shopwebapp.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @CrossOrigin(origins = {"http://swa_frontend:4200", "http://localhost:4200", "http://0.0.0.0:4200"})
 @RestController
@@ -29,10 +28,9 @@ public class AuthController {
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public AuthResponse loginUser(@RequestBody AuthRequest authRequest,
                                   HttpServletRequest request, HttpServletResponse response) {
-        List<User> resolvedUserList = userService.findByUsernameOrderByIdDesc(authRequest.getUsername());
+        User resolvedUser = userService.findByUsernameOrderByIdDesc(authRequest.getUsername());
 
-        if (!resolvedUserList.isEmpty()) {
-            User resolvedUser = resolvedUserList.get(0);
+        if (resolvedUser != null) {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
             if (!passwordEncoder.matches(authRequest.getPassword(), resolvedUser.getPassword())) {
@@ -62,9 +60,9 @@ public class AuthController {
     @Transactional
     @RequestMapping(path = "/signup", method = RequestMethod.POST)
     public AuthResponse signupUser(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
-        List<User> resolvedUserList = userService.findByUsernameOrderByIdDesc(user.getUsername());
+        User resolvedUser = userService.findByUsernameOrderByIdDesc(user.getUsername());
 
-        if (resolvedUserList.isEmpty()) {
+        if (resolvedUser == null) {
             User storedUser = userService.add(user);
 
             if (storedUser != null) {

@@ -1,6 +1,5 @@
 package org.yakushev.shopwebapp.service;
 
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,8 +12,6 @@ import org.yakushev.shopwebapp.repository.UserRepository;
 import org.yakushev.shopwebapp.security.JwtTokenRepository;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -70,9 +67,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> findByUsernameOrderByIdDesc(String username) {
-		List<User> resultList = userRepository.findByUsernameOrderByIdDesc(username);
-		return (resultList == null)? new ArrayList<>() : resultList;
+	public User findByUsernameOrderByIdDesc(String username) {
+		return userRepository.findByUsernameOrderByIdDesc(username);
 	}
 
 	@Override
@@ -84,13 +80,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		String username = jwtTokenRepository.getUsernameFromToken(csrfToken.getToken());
-		List<User> userList = userRepository.findByUsernameOrderByIdDesc(username);
-
-		if (userList.isEmpty()) {
-			return null;
-		} else {
-			return userList.get(0);
-		}
+		return userRepository.findByUsernameOrderByIdDesc(username);
 	}
 
 	@Override
