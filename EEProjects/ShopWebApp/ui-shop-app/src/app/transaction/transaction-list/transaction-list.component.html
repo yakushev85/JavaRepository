@@ -13,7 +13,7 @@
     <th scope="row"><a routerLink="/transactions/{{ transaction.id }}">{{ transaction.id }}</a></th>
     <td>{{ transaction.description }}</td>
     <td><a routerLink="/products/{{ transaction.product.id }}">{{ transaction.product.name }}</a></td>
-    <td>{{ transaction.createdAt }}</td>
+    <td>{{ transaction.createdAt | date:'medium' }}</td>
     <td *ngIf="isAdmin"><a routerLink="/users/{{ transaction.user?.id }}">{{ transaction.user?.username }}</a></td>
   </tr>
   </tbody>
