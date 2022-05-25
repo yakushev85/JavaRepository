@@ -9,6 +9,7 @@ import {
 } from './services';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpTokenInterceptor } from './interceptors';
+import { AuthActivator }  from './activators';
 
 @NgModule({
   declarations: [],
@@ -20,7 +21,8 @@ import { HttpTokenInterceptor } from './interceptors';
     ApiService,
     UserService,
     ProductService,
-    TransactionService
+    TransactionService,
+    AuthActivator
   ]
 })
 export class CoreModule { }
