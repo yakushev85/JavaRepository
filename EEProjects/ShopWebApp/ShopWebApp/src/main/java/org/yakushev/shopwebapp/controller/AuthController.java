@@ -2,7 +2,6 @@ package org.yakushev.shopwebapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.yakushev.shopwebapp.dto.AuthRequest;
@@ -42,13 +41,13 @@ public class AuthController {
             }
 
             request.setAttribute(User.class.getName(), resolvedUser.getUsername());
-            CsrfToken csrfToken = jwtTokenRepository.generateToken(request);
-            jwtTokenRepository.saveToken(csrfToken, request, response);
+            String token = jwtTokenRepository.generateToken(request);
+            jwtTokenRepository.saveToken(token, request, response);
 
             AuthResponse authResponse = new AuthResponse();
             authResponse.setId(resolvedUser.getId());
             authResponse.setUsername(resolvedUser.getUsername());
-            authResponse.setToken(csrfToken.getToken());
+            authResponse.setToken(token);
             authResponse.setRole(resolvedUser.getRole());
 
             return authResponse;
@@ -67,13 +66,13 @@ public class AuthController {
 
             if (storedUser != null) {
                 request.setAttribute(User.class.getName(), storedUser.getUsername());
-                CsrfToken csrfToken = jwtTokenRepository.generateToken(request);
-                jwtTokenRepository.saveToken(csrfToken, request, response);
+                String token = jwtTokenRepository.generateToken(request);
+                jwtTokenRepository.saveToken(token, request, response);
 
                 AuthResponse authResponse = new AuthResponse();
                 authResponse.setId(storedUser.getId());
                 authResponse.setUsername(storedUser.getUsername());
-                authResponse.setToken(csrfToken.getToken());
+                authResponse.setToken(token);
                 authResponse.setRole(storedUser.getRole());
 
                 return authResponse;
@@ -85,7 +84,7 @@ public class AuthController {
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
     public AuthResponse logout(HttpServletRequest request, HttpServletResponse response) {
-        String actualToken = jwtTokenRepository.loadToken(request).getToken();
+        String actualToken = jwtTokenRepository.loadToken(request);
 
         if (actualToken != null && !actualToken.isEmpty()) {
             jwtTokenRepository.clearToken(response);

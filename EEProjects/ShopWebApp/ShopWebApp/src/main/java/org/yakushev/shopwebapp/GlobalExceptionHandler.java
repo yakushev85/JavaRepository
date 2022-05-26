@@ -2,14 +2,13 @@ package org.yakushev.shopwebapp;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.session.SessionAuthenticationException;
-import org.springframework.security.web.csrf.InvalidCsrfTokenException;
-import org.springframework.security.web.csrf.MissingCsrfTokenException;
 import org.springframework.security.web.util.UrlUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.yakushev.shopwebapp.security.JwtTokenRepository;
 
+import javax.security.auth.message.AuthException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,17 +21,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         this.tokenRepository = tokenRepository;
     }
 
-    @ExceptionHandler({AuthenticationException.class, SessionAuthenticationException.class})
+    @ExceptionHandler({AuthenticationException.class, SessionAuthenticationException.class, AuthException.class})
     public ErrorInfo handleAuthenticationException(RuntimeException ex, HttpServletRequest request, HttpServletResponse response){
         this.tokenRepository.clearToken(response);
-        return new ErrorInfo(UrlUtils.buildFullRequestUrl(request), ErrorInfoStatus.AUTHENTICATION_ERROR, 400, "authorization error");
-    }
-
-    @ExceptionHandler({MissingCsrfTokenException.class, InvalidCsrfTokenException.class})
-    public ErrorInfo handleCsrfException(RuntimeException ex, HttpServletRequest request, HttpServletResponse response){
-        this.tokenRepository.clearToken(response);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        return new ErrorInfo(UrlUtils.buildFullRequestUrl(request), ErrorInfoStatus.AUTHENTICATION_ERROR, 400, "incorrect or missing csrf token");
+        return new ErrorInfo(UrlUtils.buildFullRequestUrl(request), ErrorInfoStatus.AUTHENTICATION_ERROR, 400, "authorization error");
     }
 
     @ExceptionHandler({IllegalArgumentException.class})

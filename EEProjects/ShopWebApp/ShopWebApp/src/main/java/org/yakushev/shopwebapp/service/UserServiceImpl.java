@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yakushev.shopwebapp.model.User;
@@ -73,13 +72,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getUserFromRequest(HttpServletRequest request) {
-		CsrfToken csrfToken = jwtTokenRepository.loadToken(request);
+		String token = jwtTokenRepository.loadToken(request);
 
-		if (csrfToken == null) {
+		if (token == null) {
 			return null;
 		}
 
-		String username = jwtTokenRepository.getUsernameFromToken(csrfToken.getToken());
+		String username = jwtTokenRepository.getUsernameFromToken(token);
 		return userRepository.findByUsernameOrderByIdDesc(username);
 	}
 
