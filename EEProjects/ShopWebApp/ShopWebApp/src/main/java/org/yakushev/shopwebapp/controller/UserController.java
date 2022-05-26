@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.yakushev.shopwebapp.dto.PasswordRequest;
+import org.yakushev.shopwebapp.dto.UserRequest;
 import org.yakushev.shopwebapp.dto.UserResponse;
 import org.yakushev.shopwebapp.model.User;
 import org.yakushev.shopwebapp.service.UserService;
@@ -37,16 +38,16 @@ public class UserController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @Transactional
-    public UserResponse add(@RequestBody User user, HttpServletRequest request) {
+    public UserResponse add(@RequestBody UserRequest userRequest, HttpServletRequest request) {
         userService.checkAdminRole(request);
-        return UserResponse.fromUser(userService.add(user));
+        return UserResponse.fromUser(userService.add(userRequest.toUser()));
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
     @Transactional
-    public UserResponse update(@RequestBody User user, HttpServletRequest request) {
+    public UserResponse update(@RequestBody UserRequest userRequest, HttpServletRequest request) {
         userService.checkAdminRole(request);
-        return UserResponse.fromUser(userService.update(user));
+        return UserResponse.fromUser(userService.update(userRequest.toUser()));
     }
 
     @RequestMapping(value = "/password", method = RequestMethod.POST)
