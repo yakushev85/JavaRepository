@@ -36,7 +36,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String token = jwtTokenRepository.loadToken(request);
 
-        if (token == null || StringUtils.isEmpty(token)) {
+        if (StringUtils.isEmpty(token)) {
             resolver.resolveException(request, response, null, new AuthException("JWT token is required."));
             return;
         }

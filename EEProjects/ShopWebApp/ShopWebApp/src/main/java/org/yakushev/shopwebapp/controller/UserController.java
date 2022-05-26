@@ -57,7 +57,7 @@ public class UserController {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        if (user == null || !passwordEncoder.matches(passwordRequest.getCurrentPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(passwordRequest.getCurrentPassword(), user.getPassword())) {
             throw new IllegalArgumentException("Wrong password.");
         }
 

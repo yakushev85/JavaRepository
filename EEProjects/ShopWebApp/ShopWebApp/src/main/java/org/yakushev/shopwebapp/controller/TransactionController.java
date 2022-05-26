@@ -3,7 +3,6 @@ package org.yakushev.shopwebapp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.web.csrf.MissingCsrfTokenException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.yakushev.shopwebapp.dto.TransactionRequest;
@@ -33,10 +32,6 @@ public class TransactionController {
         } else {
             User user = userService.getUserFromRequest(request);
 
-            if (user == null) {
-                throw new MissingCsrfTokenException("");
-            }
-
             return transactionService.getByUserId(user.getId(), PageRequest.of(page, size));
         }
     }
@@ -45,17 +40,13 @@ public class TransactionController {
     public Transaction getItemById(@PathVariable Long id, HttpServletRequest request) {
         User user = userService.getUserFromRequest(request);
 
-        if (user == null) {
-            throw new MissingCsrfTokenException("");
-        }
-
         Transaction transaction = transactionService.getById(id);
         if ((!userService.isAdminRole(request) && user.getId() != null && transaction.getUser().getId().equals(user.getId())) ||
                 userService.isAdminRole(request)) {
 
             return transaction;
         } else {
-            throw new MissingCsrfTokenException("");
+            throw new IllegalArgumentException("Wrong access.");
         }
     }
 
@@ -66,10 +57,6 @@ public class TransactionController {
             return transactionService.add(transactionDto);
         } else {
             User user = userService.getUserFromRequest(request);
-
-            if (user == null) {
-                throw new MissingCsrfTokenException("");
-            }
 
             transactionDto.setUserId(user.getId());
 

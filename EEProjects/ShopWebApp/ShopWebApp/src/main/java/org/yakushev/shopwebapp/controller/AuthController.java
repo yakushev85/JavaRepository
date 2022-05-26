@@ -1,5 +1,6 @@
 package org.yakushev.shopwebapp.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,7 +87,7 @@ public class AuthController {
     public AuthResponse logout(HttpServletRequest request, HttpServletResponse response) {
         String actualToken = jwtTokenRepository.loadToken(request);
 
-        if (actualToken != null && !actualToken.isEmpty()) {
+        if (StringUtils.isNotEmpty(actualToken)) {
             jwtTokenRepository.clearToken(response);
         }
 
