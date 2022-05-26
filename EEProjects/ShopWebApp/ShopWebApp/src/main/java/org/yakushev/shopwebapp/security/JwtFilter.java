@@ -4,7 +4,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
-import javax.security.auth.message.AuthException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,14 +36,14 @@ public class JwtFilter extends OncePerRequestFilter {
         String token = jwtTokenRepository.loadToken(request);
 
         if (StringUtils.isEmpty(token)) {
-            resolver.resolveException(request, response, null, new AuthException("JWT token is required."));
+            resolver.resolveException(request, response, null, new JwtAuthException("JWT token is required."));
             return;
         }
 
         String username = jwtTokenRepository.getUsernameFromToken(token);
 
         if (StringUtils.isEmpty(username)) {
-            resolver.resolveException(request, response, null, new AuthException("Invalid JWT token."));
+            resolver.resolveException(request, response, null, new JwtAuthException("Invalid JWT token."));
             return;
         }
 
@@ -54,7 +53,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if (diff > 0) {
             filterChain.doFilter(request, response);
         } else {
-            resolver.resolveException(request, response, null, new AuthException("JWT token is expired."));
+            resolver.resolveException(request, response, null, new JwtAuthException("JWT token is expired."));
         }
     }
 }

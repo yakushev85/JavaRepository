@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.yakushev.shopwebapp.security.JwtTokenRepository;
 
-import javax.security.auth.message.AuthException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,11 +20,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         this.tokenRepository = tokenRepository;
     }
 
-    @ExceptionHandler({AuthenticationException.class, SessionAuthenticationException.class, AuthException.class})
+    @ExceptionHandler({AuthenticationException.class, SessionAuthenticationException.class})
     public ErrorInfo handleAuthenticationException(RuntimeException ex, HttpServletRequest request, HttpServletResponse response){
         this.tokenRepository.clearToken(response);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        return new ErrorInfo(UrlUtils.buildFullRequestUrl(request), ErrorInfoStatus.AUTHENTICATION_ERROR, 400, "authorization error");
+        return new ErrorInfo(UrlUtils.buildFullRequestUrl(request), ErrorInfoStatus.AUTHENTICATION_ERROR, 400, ex.getMessage());
     }
 
     @ExceptionHandler({IllegalArgumentException.class})
