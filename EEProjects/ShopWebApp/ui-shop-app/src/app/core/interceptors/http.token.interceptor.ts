@@ -8,27 +8,26 @@ import { UserService } from '../services';
 export class HttpTokenInterceptor implements HttpInterceptor {
   constructor(private userService: UserService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let headersConfig;
-
     const token = this.userService.loadFromStorage()?.token;
 
     if (token) {
       headersConfig = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Access-Control-Expose-Headers': 'x-csrf-token',
-        'x-csrf-token': token
+        'Authorization': `Bearer ${token}`
       };
     } else {
       headersConfig = {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
-      }
+        } 
     }
+    
 
-    const request = req.clone({ setHeaders: headersConfig });
+    const requestChanged = request.clone({ setHeaders: headersConfig });
 
-    return next.handle(request);
+    return next.handle(requestChanged);
   }
 }
