@@ -16,4 +16,4 @@ Run docker using `docker compose up` in root folder.
 
 ## Test
 
-Open in browser http://0.0.0.0:4200/ .
+Open in browser http://0.0.0.0:4200/ or http://localhost:4200/.
