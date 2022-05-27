@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.yakushev.shopwebapp.dto.AuthRequest;
 import org.yakushev.shopwebapp.dto.AuthResponse;
+import org.yakushev.shopwebapp.dto.UserRequest;
 import org.yakushev.shopwebapp.model.User;
 import org.yakushev.shopwebapp.security.JwtTokenRepository;
 import org.yakushev.shopwebapp.service.UserService;
@@ -59,11 +60,11 @@ public class AuthController {
 
     @Transactional
     @RequestMapping(path = "/signup", method = RequestMethod.POST)
-    public AuthResponse signupUser(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
-        User resolvedUser = userService.findByUsernameOrderByIdDesc(user.getUsername());
+    public AuthResponse signupUser(@RequestBody UserRequest userRequest, HttpServletRequest request, HttpServletResponse response) {
+        User resolvedUser = userService.findByUsernameOrderByIdDesc(userRequest.getUsername());
 
         if (resolvedUser == null) {
-            User storedUser = userService.add(user);
+            User storedUser = userService.add(userRequest.toUser());
 
             if (storedUser != null) {
                 request.setAttribute(User.class.getName(), storedUser.getUsername());
