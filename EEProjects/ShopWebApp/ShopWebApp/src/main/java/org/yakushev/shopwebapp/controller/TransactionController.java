@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping("/api/transactions")
 public class TransactionController {
     @Autowired
     private TransactionService transactionService;

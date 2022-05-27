@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
 public class ProductController {
     @Autowired
     private ProductService productService;
