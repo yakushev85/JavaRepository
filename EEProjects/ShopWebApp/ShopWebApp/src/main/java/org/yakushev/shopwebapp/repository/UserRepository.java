@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
-	User findByUsernameOrderByIdDesc(String username);
+	User findByUsername(String username);
 }

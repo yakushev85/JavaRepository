@@ -66,8 +66,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findByUsernameOrderByIdDesc(String username) {
-		return userRepository.findByUsernameOrderByIdDesc(username);
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		String username = jwtTokenRepository.getUsernameFromToken(token);
-		return userRepository.findByUsernameOrderByIdDesc(username);
+		return userRepository.findByUsername(username);
 	}
 
 	@Override

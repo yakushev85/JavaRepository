@@ -16,7 +16,7 @@ public interface UserService {
 
 	User update(User value);
 
-	User findByUsernameOrderByIdDesc(String username);
+	User findByUsername(String username);
 
 	User getUserFromRequest(HttpServletRequest request);
 

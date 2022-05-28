@@ -29,7 +29,7 @@ public class AuthController {
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public AuthResponse loginUser(@RequestBody AuthRequest authRequest,
                                   HttpServletRequest request, HttpServletResponse response) {
-        User resolvedUser = userService.findByUsernameOrderByIdDesc(authRequest.getUsername());
+        User resolvedUser = userService.findByUsername(authRequest.getUsername());
 
         if (resolvedUser != null) {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -61,7 +61,7 @@ public class AuthController {
     @Transactional
     @RequestMapping(path = "/signup", method = RequestMethod.POST)
     public AuthResponse signupUser(@RequestBody UserRequest userRequest, HttpServletRequest request, HttpServletResponse response) {
-        User resolvedUser = userService.findByUsernameOrderByIdDesc(userRequest.getUsername());
+        User resolvedUser = userService.findByUsername(userRequest.getUsername());
 
         if (resolvedUser == null) {
             User storedUser = userService.add(userRequest.toUser());
