@@ -30,10 +30,7 @@ public class JwtTokenRepository {
 
         String username = (String) httpServletRequest.getAttribute(User.class.getName());
 
-        String token = "";
-
-        try {
-            token = Jwts.builder()
+        return Jwts.builder()
                     .setId(id)
                     .setSubject(username)
                     .setIssuedAt(now)
@@ -41,11 +38,6 @@ public class JwtTokenRepository {
                     .setExpiration(exp)
                     .signWith(SignatureAlgorithm.HS256, secret)
                     .compact();
-        } catch (JwtException e) {
-            e.printStackTrace();
-        }
-
-        return token;
     }
 
     public void saveToken(String token, HttpServletRequest request, HttpServletResponse response) {
