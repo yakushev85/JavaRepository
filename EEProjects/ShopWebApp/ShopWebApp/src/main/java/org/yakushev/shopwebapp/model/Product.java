@@ -17,7 +17,9 @@ public class Product extends MergeableBean implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private String name;
+
 	private Float price;
 
 	@CreationTimestamp

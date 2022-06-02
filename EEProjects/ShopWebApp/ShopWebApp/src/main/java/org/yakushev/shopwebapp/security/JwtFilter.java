@@ -26,8 +26,6 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        this.logger.info(request.getMethod() + " " + request.getRequestURL());
-
         if (SecurityHelper.isPublicUrl(request.getServletPath())) {
             filterChain.doFilter(request, response);
             return;

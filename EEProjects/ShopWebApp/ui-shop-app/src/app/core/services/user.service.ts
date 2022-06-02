@@ -62,11 +62,6 @@ export class UserService {
 
   logout() {
     this.purgeAuth();
-    this.apiService.get('/logout').subscribe(
-      data => {
-        console.log(`logout:`, data);
-      }
-    );
   }
 
 

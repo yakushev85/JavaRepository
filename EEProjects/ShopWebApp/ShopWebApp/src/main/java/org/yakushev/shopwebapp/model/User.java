@@ -18,9 +18,12 @@ public class User extends MergeableBean implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private String username;
+
 	@JsonIgnore
 	private String password;
+
 	private String role;
 
 	@CreationTimestamp

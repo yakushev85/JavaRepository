@@ -17,6 +17,7 @@ public class Transaction extends MergeableBean implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private String description;
 
 	@ManyToOne

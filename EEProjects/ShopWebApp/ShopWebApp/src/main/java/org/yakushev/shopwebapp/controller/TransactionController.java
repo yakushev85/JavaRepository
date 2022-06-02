@@ -53,14 +53,12 @@ public class TransactionController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     @Transactional
     public Transaction add(@RequestBody TransactionRequest transactionDto, HttpServletRequest request) {
-        if (userService.isAdminRole(request)) {
-            return transactionService.add(transactionDto);
-        } else {
+        if (!userService.isAdminRole(request)) {
             User user = userService.getUserFromRequest(request);
 
             transactionDto.setUserId(user.getId());
 
-            return transactionService.add(transactionDto);
         }
+        return transactionService.add(transactionDto);
     }
 }

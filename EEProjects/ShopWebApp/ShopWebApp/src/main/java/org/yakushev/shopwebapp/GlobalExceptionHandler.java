@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private JwtTokenRepository tokenRepository;
+    private final JwtTokenRepository tokenRepository;
 
     public GlobalExceptionHandler(JwtTokenRepository tokenRepository) {
         this.tokenRepository = tokenRepository;
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         VALIDATION_ERROR
     }
 
-    public class ErrorInfo {
+    public static class ErrorInfo {
         private final String url;
         private final ErrorInfoStatus status;
         private final Integer statusCode;

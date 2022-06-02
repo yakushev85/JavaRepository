@@ -83,18 +83,4 @@ public class AuthController {
 
         throw new IllegalArgumentException("Username is already used.");
     }
-
-    @RequestMapping(path = "/logout", method = RequestMethod.GET)
-    public AuthResponse logout(HttpServletRequest request, HttpServletResponse response) {
-        String actualToken = jwtTokenRepository.loadToken(request);
-
-        if (StringUtils.isNotEmpty(actualToken)) {
-            jwtTokenRepository.clearToken(response);
-        }
-
-        AuthResponse authResponse = new AuthResponse();
-        authResponse.setToken(actualToken);
-
-        return authResponse;
-    }
 }
