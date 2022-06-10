@@ -22,7 +22,10 @@ export class UserService {
     // TODO
     return this.profileService.getByEmail("test@test.com")
     .pipe(map( (value) => {
-        return { username: "test" };
+        let resolvedUser = { email: "test@test.com", name: "test" };
+        this.setAuth(resolvedUser);
+
+        return resolvedUser;
     }));
   }
 
@@ -32,7 +35,10 @@ export class UserService {
         email: "test@test.com",
         name: "test"
     }).pipe(map( (value) => {
-        return { username: "test" };
+      let resolvedUser = { email: "test@test.com", name: "test" };
+      this.setAuth(resolvedUser);
+
+      return resolvedUser;
     }));
   }
 
