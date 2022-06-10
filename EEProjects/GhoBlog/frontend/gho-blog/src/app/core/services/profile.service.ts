@@ -9,7 +9,7 @@ export class ProfileService {
       ) {}
 
     getByEmail(email: string): Observable<Comment> {
-        return this.apiService.get(`/profiles/search/findByEmail?email=${email}`);
+        return this.apiService.get(`/profiles/email/${email}`);
     }
 
     add(item: any): Observable<Comment> {

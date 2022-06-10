@@ -14,7 +14,7 @@ export class CommentService {
     }
 
     getAllbyArticleId(page = 0, size = 10, articleId: number): Observable<PageData> {
-        return this.apiService.get(`/comments/search/findByArticleIdOrderByIdDesc?articleId=${articleId}&page=${page}&size=${size}`);
+        return this.apiService.get(`/comments?articleId=${articleId}&page=${page}&size=${size}`);
     }
 
     getItem(itemId: number): Observable<Comment> {
