@@ -2,7 +2,7 @@
     <!-- Article -->
     <div>
         <h3>{{ article?.title }}</h3>
-        <p>{{ article?.content}}</p>
+        <pre>{{ article?.content}}</pre>
     </div>
 
     <!-- New Comment -->
@@ -13,7 +13,7 @@
                 <textarea class="form-control form-control-md"
                     formControlName="content"
                     type="text"
-                    placeholder="Comment"></textarea>
+                    placeholder="New Comment"></textarea>
                 </fieldset>
           </fieldset>
       
@@ -23,7 +23,6 @@
 
     <!-- Comments -->
     <div *ngIf="comments.length > 0">
-        <h4>Comments</h4>
         <table class="table table-light">
             <thead>
             <tr>
