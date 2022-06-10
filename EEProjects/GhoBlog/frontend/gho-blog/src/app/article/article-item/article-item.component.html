@@ -28,12 +28,14 @@
             <tr>
               <th scope="col">Comment</th>
               <th scope="col">Created At</th>
+              <th scope="col">Author</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let comment of comments">
               <td>{{ comment.content }}</td>
               <td>{{ comment.createdAt | date:'medium' }}</td>
+              <td>{{ comment.author.name }}</td>
             </tr>
             </tbody>
           </table>
