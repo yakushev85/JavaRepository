@@ -1,11 +1,10 @@
 package org.oiakushev.ghoblog.dao;
 
 import org.oiakushev.ghoblog.model.Profile;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
-@RepositoryRestResource
-public interface ProfileRepository extends JpaRepository<Profile, Long> {
-    Profile findByEmail(@Param("email") String email);
+@Repository
+public interface ProfileRepository extends PagingAndSortingRepository<Profile, Long> {
+    Profile findByEmail(String email);
 }

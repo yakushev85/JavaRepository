@@ -1,9 +1,9 @@
 package org.oiakushev.ghoblog.dao;
 
 import org.oiakushev.ghoblog.model.Article;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
-@RepositoryRestResource
-public interface ArticleRepository extends JpaRepository<Article, Long> {
+@Repository
+public interface ArticleRepository extends PagingAndSortingRepository<Article, Long> {
 }
