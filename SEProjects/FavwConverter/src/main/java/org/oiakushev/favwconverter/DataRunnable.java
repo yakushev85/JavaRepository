@@ -30,7 +30,10 @@ public class DataRunnable implements Runnable {
                 fileToConvert.setStatus(ConvertStatus.CONVERTING);
                 mainController.updateData();
 
-                String genCmd = convertingType.generateCmd(fileToConvert.getFile().toString(), pathTo);
+                String genCmd = convertingType.generateCmd(
+                        fileToConvert.getFile().toString(),
+                        fileToConvert.getFile().getName(),
+                        pathTo);
                 System.out.println(genCmd);
 
                 try {

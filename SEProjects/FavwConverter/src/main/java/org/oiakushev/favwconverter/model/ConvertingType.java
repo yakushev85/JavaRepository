@@ -1,13 +1,15 @@
 package org.oiakushev.favwconverter.model;
 
-public enum ConvertingType {
-    MKV(0, "ffmpeg -i \"%s\" \"%s\"", "mkv"),
-    AVI(1, "ffmpeg -i \"%s\" \"%s\"", "avi"),
-    MP4(2, "ffmpeg -i \"%s\" \"%s\"", "mp4"),
+import java.io.File;
 
-    MP3(3, "ffmpeg -i \"%s\" -acodec libmp3lame -vn \"%s\"", "mp3"),
-    OGG(4, "ffmpeg -i \"%s\" -acodec libvorbis -vn \"%s\"", "ogg"),
-    AAC(5, "ffmpeg -i \"%s\" -acodec libfaac -vn \"%s\"", "aac");
+public enum ConvertingType {
+    MKV(0, "ffmpeg -nostats -loglevel 0 -i \"%s\" \"%s\"", "mkv"),
+    AVI(1, "ffmpeg -nostats -loglevel 0 -i \"%s\" \"%s\"", "avi"),
+    MP4(2, "ffmpeg -nostats -loglevel 0 -i \"%s\" \"%s\"", "mp4"),
+
+    MP3(3, "ffmpeg -nostats -loglevel 0 -i \"%s\" -acodec libmp3lame -vn \"%s\"", "mp3"),
+    OGG(4, "ffmpeg -nostats -loglevel 0 -i \"%s\" -acodec libvorbis -vn \"%s\"", "ogg"),
+    AAC(5, "ffmpeg -nostats -loglevel 0 -i \"%s\" -acodec libfaac -vn \"%s\"", "aac");
 
     private final int index;
     private final String cmd;
@@ -31,10 +33,19 @@ public enum ConvertingType {
         return ext;
     }
 
-    public String generateCmd(String filename, String pathTo) {
-        int indexExt = filename.lastIndexOf(".");
-        String filenameWithoutExt = (indexExt < 0)?filename:filename.substring(0, indexExt);
+    public String generateCmd(String inFullFilename, String inFilename, String pathTo) {
+        int indexExt = inFilename.lastIndexOf(".");
+        String filenameWithoutExt = (indexExt < 0) ? inFilename : inFilename.substring(0, indexExt);
+        String separatorValue = (pathTo.endsWith(File.separator)) ? "" : File.separator;
+        String outputFileName = pathTo + separatorValue + filenameWithoutExt + "." + ext;
 
-        return String.format(cmd, filename, pathTo + filenameWithoutExt + "." + ext);
+        File outputFile = new File(outputFileName);
+        if (outputFile.exists()) {
+            if (!outputFile.delete()) {
+                throw new IllegalArgumentException("Can't delete following file: " + outputFileName);
+            }
+        }
+
+        return String.format(cmd, inFullFilename, outputFileName);
     }
 }
