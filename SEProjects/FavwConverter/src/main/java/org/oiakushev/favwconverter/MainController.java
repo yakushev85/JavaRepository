@@ -131,6 +131,18 @@ public class MainController extends Application {
 
         pathToText.setOnMouseClicked((value) -> {
             DirectoryChooser buildPathChooser = new DirectoryChooser();
+
+            if (!pathToText.getText().isEmpty()) {
+                buildPathChooser.setInitialDirectory(new File(pathToText.getText()));
+            } else if (!filesToConvert.isEmpty()) {
+                File lastPathConvertingFile =
+                        new File(filesToConvert.get(filesToConvert.size()-1).getFile().getParent());
+
+                if (lastPathConvertingFile.isDirectory()) {
+                    buildPathChooser.setInitialDirectory(lastPathConvertingFile);
+                }
+            }
+
             buildPathChooser.setTitle("Select path to save");
             File pathToBuildFile = buildPathChooser.showDialog(mainStage);
             if (pathToBuildFile != null && pathToBuildFile.exists() && pathToBuildFile.canWrite()) {
