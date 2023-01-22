@@ -139,7 +139,7 @@ public class TetrisWin extends JFrame implements ActionListener {
 		final int MAX_TIME_PAUSE = 500;
 		final int DT_TIME_PAUSE = 20;
 		final int DIV_WIDTH = 27;
-		final int LINES_PER_LEVEL = 20;
+		final int SCORE_PER_LEVEL = 20;
 		
 		private int maxWidth,maxHeight,sizeCub;
 		private Thread t;
@@ -190,18 +190,18 @@ public class TetrisWin extends JFrame implements ActionListener {
 		
 		public void run() {
 			while (!gameSpace.isEnd()) {
-				if (!isPause) {
-					try	{
-						int timePause = MAX_TIME_PAUSE - (gameSpace.getLinesScore()/LINES_PER_LEVEL)
-								*DT_TIME_PAUSE;
-						
-						if (timePause>0) Thread.sleep(timePause);
-						gameSpace.moveFigure(GameSpace.MOVE_FIGURE_DOWN);						
-						
+				try	{
+					int timePause = MAX_TIME_PAUSE - (gameSpace.getLinesScore()/ SCORE_PER_LEVEL)
+							*DT_TIME_PAUSE;
+
+					if (timePause>0) Thread.sleep(timePause);
+
+					if (!isPause) {
+						gameSpace.moveFigure(GameSpace.MOVE_FIGURE_DOWN);
 						repaint();
-					} catch (InterruptedException e) {
-						System.out.println(e);
 					}
+				} catch (InterruptedException e) {
+					System.out.println(e);
 				}
 			}
 			
@@ -393,7 +393,7 @@ public class TetrisWin extends JFrame implements ActionListener {
 		}
 		
 		if (ae.getSource() == btnPause)	{
-			if (btnPause.getText() == TEXT_PAUSEOFF) {
+			if (btnPause.getText().equals(TEXT_PAUSEOFF)) {
 				gameCanvas.setPauseGame(true);
 				btnPause.setText(TEXT_PAUSEON);
 			} else {

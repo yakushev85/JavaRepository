@@ -70,6 +70,7 @@ public class GameSpace {
 	private void checkLines() {
 		boolean priz = true;
 		int nRow;
+		int currentLines = 0;
 		
 		while (priz) {
 			nRow = -1;
@@ -82,12 +83,20 @@ public class GameSpace {
 			}
 			
 			if (nRow >= 0) {
-				linesScore++;
+				currentLines++;
 				for (int iy=nRow-1;iy>=0;iy--)
 					for (int ix=0;ix<SPACE_NX;ix++)
 						spaceCub[ix][iy+1] = spaceCub[ix][iy];
 				priz = true;
 			}
+		}
+
+		linesScore += 15 * (currentLines / 4);
+
+		switch (currentLines % 4) {
+			case 1: linesScore++;break;
+			case 2: linesScore += 3;break;
+			case 3: linesScore += 7;break;
 		}
 	}
 	
