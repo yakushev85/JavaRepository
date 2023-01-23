@@ -9,13 +9,10 @@ public class GameSpace {
 	static public final int MOVE_FIGURE_TOPDOWN = 3;
 	static public final int MOVE_FIGURE_ROTATE = 4;
 	
-	final int RANDOM_CONSTA = 45;
-	final int RANDOM_CONSTB = 48;
-	
 	final int FIGURE_X0START = 5;
 	final int FIGURE_Y0START = 0;
 	
-	final int SPACE_NX = 13;
+	final int SPACE_NX = 12; // Classic value = 10
 	final int SPACE_NY = 20;
 	
 	private int spaceCub[][];
@@ -31,13 +28,11 @@ public class GameSpace {
 		clearSpace();
 		
 		curFig = new GameFigure();
-		int[] colorsFig = {MRandom(GameFigure.FIGURES_MAXCOLORS),MRandom(GameFigure.FIGURES_MAXCOLORS),
-				MRandom(GameFigure.FIGURES_MAXCOLORS),MRandom(GameFigure.FIGURES_MAXCOLORS)};
+		int colorsFig = MRandom(GameFigure.FIGURES_MAXCOLORS);
 		curFig.generateFigure(MRandom(GameFigure.FIGURES_N), colorsFig);
 		
 		nextFig = new GameFigure();
-		int[] colorsFigN = {MRandom(GameFigure.FIGURES_MAXCOLORS),MRandom(GameFigure.FIGURES_MAXCOLORS),
-				MRandom(GameFigure.FIGURES_MAXCOLORS),MRandom(GameFigure.FIGURES_MAXCOLORS)};
+		int colorsFigN = MRandom(GameFigure.FIGURES_MAXCOLORS);
 		nextFig.generateFigure(MRandom(GameFigure.FIGURES_N), colorsFigN);
 		
 		linesScore = 0;
@@ -52,8 +47,7 @@ public class GameSpace {
 		curFigY0 = FIGURE_Y0START;
 		curFig = nextFig.copyTo();
 		
-		int[] colorsFig = {MRandom(GameFigure.FIGURES_MAXCOLORS),MRandom(GameFigure.FIGURES_MAXCOLORS),
-				MRandom(GameFigure.FIGURES_MAXCOLORS),MRandom(GameFigure.FIGURES_MAXCOLORS)}; 
+		int colorsFig = MRandom(GameFigure.FIGURES_MAXCOLORS);
 		
 		nextFig.generateFigure(MRandom(GameFigure.FIGURES_N),colorsFig);
 	}
@@ -102,7 +96,7 @@ public class GameSpace {
 	
 	private void pasteFigure() {
 		for (int i=0;i<4;i++)
-			spaceCub[curFigX0+curFig.getXAt(i)][curFigY0+curFig.getYAt(i)] = curFig.getCAt(i);
+			spaceCub[curFigX0+curFig.getXAt(i)][curFigY0+curFig.getYAt(i)] = curFig.getColor();
 				
 		checkLines();
 		genFigure();

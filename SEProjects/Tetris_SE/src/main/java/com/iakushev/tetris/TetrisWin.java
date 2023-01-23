@@ -3,26 +3,28 @@ package com.iakushev.tetris;
 import java.awt.event.*;
 import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Formatter;
 import java.util.Scanner;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 
 public class TetrisWin extends JFrame implements ActionListener {
-	private final static long serialVersionUID = 0001;
-	private final int MAX_SCOREUSERS = 20;
-	private final String TEXT_TITLE = "TETRIS";
-	private final String TEXT_STARTBTN = "Start game";
-	private final String TEXT_PAUSEOFF = "Pause game";
-	private final String TEXT_PAUSEON = "Resume game";
-	private final String TEXT_EXITBTN = "Exit&Save";
-	private final String TEXT_BACKBTN = "Restart";
-	private final String FILE_WITH_SCORES = "scores.dat";
-	private final String TEXT_SCORE = "Score: ";
-	private final String[] TEXT_COLS = {"Name","Score"};
-	private final String DEFAULT_NAME = "NONAME";
-	private final String TEXT_DLGNAME = "Enter name:";
-	private final String TEXT_TABLESCORE = "Table of scores!";
+	private final static long serialVersionUID = 1L;
+	private final static int MAX_SCOREUSERS = 20;
+	private final static String TEXT_TITLE = "TETRIS";
+	private final static String TEXT_STARTBTN = "Start game";
+	private final static String TEXT_PAUSEOFF = "Pause game";
+	private final static String TEXT_PAUSEON = "Resume game";
+	private final static String TEXT_EXITBTN = "Exit&Save";
+	private final static String TEXT_BACKBTN = "Restart";
+	private final static String FILE_WITH_SCORES = "scores.dat";
+	private final static String TEXT_SCORE = "Score: ";
+	private final static String[] TEXT_COLS = {"Name","Score"};
+	private final static String DEFAULT_NAME = "NONAME";
+	private final static String TEXT_DLGNAME = "Enter name:";
+	private final static String TEXT_TABLESCORE = "Table of scores!";
 	
 	private JPanel pnlIntro, pnlGame, pnlScore;
 	private GameCanvas gameCanvas;
@@ -30,7 +32,8 @@ public class TetrisWin extends JFrame implements ActionListener {
 	private JButton btnStart, btnPause, btnExit, btnBack;
 	private JPanel pnlMain;
 	private CardLayout crdMain;
-	private DataUserScore[] userScore;
+	private JTable tblScore;
+	private ArrayList<DataUserScore> userScore;
 	
 	class DataUserScore {
 		private String playerName;
@@ -42,7 +45,7 @@ public class TetrisWin extends JFrame implements ActionListener {
 		}
 		
 		public void setDataUser(String name,int scr) {
-			if (name != null) playerName = ((name.trim() !=  ""))?name:DEFAULT_NAME;
+			if (name != null) playerName = ((!name.trim().isEmpty()))?name:DEFAULT_NAME;
 			playerScore = scr;
 		}
 		
@@ -60,86 +63,65 @@ public class TetrisWin extends JFrame implements ActionListener {
 		}
 	}
 	
-	private DataUserScore[] sortedScores(DataUserScore[] uScore) {
-		DataUserScore[] res = uScore;
-		for (int i=0;i<MAX_SCOREUSERS-1;i++) {
-			for (int j=i+1;j<MAX_SCOREUSERS;j++)
-				if (res[i].getPlayerScore()<res[j].getPlayerScore()) {
-					DataUserScore tmp = res[i];
-					res[i] = uScore[j];
-					res[j] = tmp;
-				}
-		}
-		return res;
+	private void sortScores() {
+		userScore.sort((o1, o2) -> o2.getPlayerScore() - o1.getPlayerScore());
 	}
 	
-	private DataUserScore[] loadScoresFromFile(String filename) {
-		DataUserScore[] res = new DataUserScore[MAX_SCOREUSERS];
+	private ArrayList<DataUserScore> loadScoresFromFile() {
+		ArrayList<DataUserScore> res = new ArrayList<>();
 		
 		try	{
-			Scanner scn = new Scanner(new File(filename));
-			int index = 0;
+			Scanner scn = new Scanner(new File(FILE_WITH_SCORES));
 			
 			while (scn.hasNext()) {
 				String pName = scn.next();
 				int pScore = scn.nextInt();
-				
-				if (index<MAX_SCOREUSERS) {
-					res[index] = new DataUserScore();
-					res[index].setDataUser(pName, pScore);
-					index++;
-				}
-			}
-			
-			while (index<MAX_SCOREUSERS) {
-				res[index] = new DataUserScore();
-				index++;
+
+				DataUserScore item = new DataUserScore();
+				item.setDataUser(pName, pScore);
+
+				res.add(item);
 			}
 			
 			scn.close();
 		} catch (Exception e) {
-			for (int i=0;i<MAX_SCOREUSERS;i++) res[i] = new DataUserScore();
+			System.out.println(e);
 		}
 		
 		return res;
 	}
 	
-	private void saveScoresToFile(DataUserScore[] uScores,String filename) throws Exception {
-		Formatter fmt = new Formatter(new File(filename));
-		
-		for (int i=0;i<MAX_SCOREUSERS;i++) {
-			fmt.format("%S%n%d%n", uScores[i].getPlayerName(), uScores[i].getPlayerScore());
+	private void saveScoresToFile() throws Exception {
+		Formatter fmt = new Formatter(FILE_WITH_SCORES);
+
+		for (int i=0;i<Math.min(userScore.size(), MAX_SCOREUSERS);i++) {
+			fmt.format("%S%n%d%n", userScore.get(i).getPlayerName(), userScore.get(i).getPlayerScore());
 		}
 		
 		fmt.close();
 	}
 
 	private void showScoreDialog() {
-		int minIndex = 0;
-		
-		for (int i=0;i<MAX_SCOREUSERS;i++)
-			if (userScore[i].getPlayerScore() < userScore[minIndex].getPlayerScore())
-				minIndex = i;
-
 		String nameCurPlayer = JOptionPane.showInputDialog(this, TEXT_DLGNAME);
-		
-		if (userScore[minIndex].getPlayerScore() < gameLogSpace.getLinesScore()) {
-			userScore[minIndex].setDataUser(nameCurPlayer, gameLogSpace.getLinesScore());
-			userScore = sortedScores(userScore);
-			try {
-				saveScoresToFile(userScore,FILE_WITH_SCORES);
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, "IOException in file "+FILE_WITH_SCORES+"!");
-			}
+		DataUserScore newUserScore = new DataUserScore();
+		newUserScore.setDataUser(nameCurPlayer, gameLogSpace.getLinesScore());
+		userScore.add(newUserScore);
+		sortScores();
+		try {
+			saveScoresToFile();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "IOException in file "+FILE_WITH_SCORES+"!");
 		}
+
+		tblScore.setModel(generateScoreTableModel());
 	}
 	
 	class GameCanvas extends JPanel implements Runnable {
-		private final static long serialVersionUID = 0001;
-		final int MAX_TIME_PAUSE = 500;
-		final int DT_TIME_PAUSE = 20;
-		final int DIV_WIDTH = 27;
-		final int SCORE_PER_LEVEL = 20;
+		private final static long serialVersionUID = 1L;
+		private final static int MAX_TIME_PAUSE = 500;
+		private final static int DT_TIME_PAUSE = 40;
+		private final static int DIV_WIDTH = 24;
+		private final static int SCORE_PER_LEVEL = 20;
 		
 		private int maxWidth,maxHeight,sizeCub;
 		private Thread t;
@@ -157,7 +139,7 @@ public class TetrisWin extends JFrame implements ActionListener {
 		}
 		
 		class GameAbstractAction extends AbstractAction {
-			private final static long serialVersionUID = 0001;
+			private final static long serialVersionUID = 1L;
 			private int gEvent;
 			
 			GameAbstractAction(int ge) {
@@ -229,12 +211,16 @@ public class TetrisWin extends JFrame implements ActionListener {
 			sizeCub = maxWidth / DIV_WIDTH;
 			
 			g.clearRect(0, 0, maxWidth, maxHeight);
+			g.setColor(decodeColor(-1));
+			g.fillRect(sizeCub-1, 2*sizeCub-1,
+					gameSpace.SPACE_NX*sizeCub - 2, gameSpace.SPACE_NY*sizeCub - 2);
 			
 			//draw Game space
 			for (int ix=0;ix<gameSpace.SPACE_NX;ix++)
 				for (int iy=0;iy<gameSpace.SPACE_NY;iy++) {
 					g.setColor(decodeColor(gameSpace.getColorXY(ix, iy)));
-					g.fillRect(sizeCub+ix*sizeCub-1, 2*sizeCub+iy*sizeCub-1, sizeCub-2, sizeCub-2);
+					g.fillRect(sizeCub+ix*sizeCub-1,
+							2*sizeCub+iy*sizeCub-1, sizeCub-2, sizeCub-2);
 				}
 					
 			
@@ -242,7 +228,7 @@ public class TetrisWin extends JFrame implements ActionListener {
 			GameFigure fg = gameSpace.getCurrentFigure();
 			
 			for (int i=0;i<4;i++) {
-				g.setColor(decodeColor(fg.getCAt(i)));
+				g.setColor(decodeColor(fg.getColor()));
 				g.fillRect(sizeCub+(gameSpace.getCurrentFigureX0()+fg.getXAt(i))*sizeCub-1,
 						2*sizeCub+(gameSpace.getCurrentFigureY0()+fg.getYAt(i))*sizeCub-1, 
 						sizeCub-2, sizeCub-2);
@@ -250,16 +236,16 @@ public class TetrisWin extends JFrame implements ActionListener {
 			
 			//draw figure next
 			GameFigure fgNext = gameSpace.getNextFigure();
-			int offsetNextX = maxWidth - 6*sizeCub;
+			int offsetNextX = maxWidth - 8*sizeCub;
 			
 			for (int i=0;i<4;i++) {
-				g.setColor(decodeColor(fgNext.getCAt(i)));
+				g.setColor(decodeColor(fgNext.getColor()));
 				g.fillRect(offsetNextX+fgNext.getXAt(i)*sizeCub-1,
 						10*sizeCub+fgNext.getYAt(i)*sizeCub-1,	sizeCub-2, sizeCub-2);
 			}
 			
 			//draw score text
-			int offsetTextX = maxWidth - 7*sizeCub;
+			int offsetTextX = offsetNextX - sizeCub;
 			int offsetTextY = 3*sizeCub;
 			g.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,20));
 			g.setColor(Color.BLUE);
@@ -303,7 +289,7 @@ public class TetrisWin extends JFrame implements ActionListener {
 		
 		gameLogSpace = new GameSpace();
 		gameCanvas = new GameCanvas(gameLogSpace);
-		gameCanvas.setPreferredSize(new Dimension(500,400));
+		gameCanvas.setPreferredSize(new Dimension(400,400));
 		
 		GridBagConstraints gbc2 = new GridBagConstraints();
 		GridBagLayout gbl2 = new GridBagLayout();
@@ -318,33 +304,12 @@ public class TetrisWin extends JFrame implements ActionListener {
 		pnlGame.setLayout(gbl2);
 		pnlGame.add(gameCanvas);
 		pnlGame.add(pnlGameBtns);
-		
-		userScore = loadScoresFromFile(FILE_WITH_SCORES);
+
+		userScore = loadScoresFromFile();
 		pnlScore = new JPanel();
 		//insert Score into panel
-		
-		JTable tblScore = new JTable(new AbstractTableModel(){
-			private final static long serialVersionUID = 0001;
-			
-			@Override
-			public int getColumnCount()	{
-				return 2;
-			}
 
-			@Override
-			public int getRowCount() {
-				return MAX_SCOREUSERS;
-			}
-
-			@Override
-			public Object getValueAt(int row, int col) {
-				return (col==0)?userScore[row].playerName:userScore[row].playerScore;
-			}
-			
-			public String getColumnName(int col) {
-				return TEXT_COLS[col];
-			}
-		});
+		tblScore = new JTable(generateScoreTableModel());
 		
 		JScrollPane scrTabScore = new JScrollPane(tblScore);
 		scrTabScore.setPreferredSize(new Dimension(600,300));
@@ -376,11 +341,36 @@ public class TetrisWin extends JFrame implements ActionListener {
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(640,480);
-		this.setLocation(100, 100);
+		this.setLocation(300, 150);
 		this.setTitle(TEXT_TITLE);
 		this.setResizable(false);
 		this.setContentPane(pnlMain);
 		this.setVisible(true);
+	}
+
+	private AbstractTableModel generateScoreTableModel() {
+		return new AbstractTableModel(){
+			private final static long serialVersionUID = 1L;
+
+			@Override
+			public int getColumnCount()	{
+				return 2;
+			}
+
+			@Override
+			public int getRowCount() {
+				return userScore.size();
+			}
+
+			@Override
+			public Object getValueAt(int row, int col) {
+				return (col==0)?userScore.get(row).playerName:userScore.get(row).playerScore;
+			}
+
+			public String getColumnName(int col) {
+				return TEXT_COLS[col];
+			}
+		};
 	}
 	
 	@Override
@@ -411,11 +401,7 @@ public class TetrisWin extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new TetrisWin();
-			}
-		});
+		SwingUtilities.invokeLater(TetrisWin::new);
 	}
 
 }

@@ -60,16 +60,15 @@ public class GameFigure {
 	
 	private int figureCubX[];
 	private int figureCubY[];
-	private int figureCubC[];
+	private int figureCubC;
 	private int figureType;
 	
 	GameFigure() {
 		figureCubX = new int[4];
 		figureCubY = new int[4];
-		figureCubC = new int[4];
 	}
 	
-	public void generateFigure(int typeFigure,int[] colorFigure) {
+	public void generateFigure(int typeFigure,int colorFigure) {
 		figureCubX = FIGURES_X[typeFigure];
 		figureCubY = FIGURES_Y[typeFigure];
 		figureCubC = colorFigure;
@@ -116,8 +115,8 @@ public class GameFigure {
 		return figureCubY[index];
 	}
 	
-	public int getCAt(int index) {
-		return figureCubC[index];
+	public int getColor() {
+		return figureCubC;
 	}
 	
 	public int getTypeFigure() {
