@@ -6,10 +6,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.List;
 import java.util.Scanner;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class TetrisWin extends JFrame implements ActionListener {
     private final static long serialVersionUID = 1L;
@@ -23,7 +26,6 @@ public class TetrisWin extends JFrame implements ActionListener {
     private final static String FILE_WITH_SCORES = "scores.dat";
     private final static String TEXT_SCORE = "Score: ";
     private final static String[] TEXT_COLS = {"Name", "Score"};
-    private final static String DEFAULT_NAME = "NONAME";
     private final static String TEXT_DLGNAME = "Enter name:";
     private final static String TEXT_TABLESCORE = "Table of scores!";
 
@@ -36,42 +38,23 @@ public class TetrisWin extends JFrame implements ActionListener {
     private JTable tblScore;
     private ArrayList<DataUserScore> userScore;
 
-    class DataUserScore {
-        private String playerName;
-        private int playerScore;
 
-        DataUserScore(String name, int scr) {
-            if (name != null) playerName = ((!name.trim().isEmpty())) ? name : DEFAULT_NAME;
-            playerScore = scr;
-        }
-
-        public String getPlayerName() {
-            return playerName;
-        }
-
-        public int getPlayerScore() {
-            return playerScore;
-        }
-    }
 
     private void sortScores() {
         userScore.sort((o1, o2) -> o2.getPlayerScore() - o1.getPlayerScore());
+
+        userScore = userScore.stream()
+                .filter(dataUserScore -> userScore.indexOf(dataUserScore) < MAX_SCOREUSERS)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     private ArrayList<DataUserScore> loadScoresFromFile() {
         ArrayList<DataUserScore> res = new ArrayList<>();
 
         try {
-            Scanner scn = new Scanner(new File(FILE_WITH_SCORES));
-
-            while (scn.hasNext()) {
-                String pName = scn.next();
-                int pScore = scn.nextInt();
-
-                res.add(new DataUserScore(pName, pScore));
-            }
-
-            scn.close();
+            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(FILE_WITH_SCORES));
+            res = (ArrayList<DataUserScore>) objectInputStream.readObject();
+            objectInputStream.close();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -79,14 +62,15 @@ public class TetrisWin extends JFrame implements ActionListener {
         return res;
     }
 
-    private void saveScoresToFile() throws Exception {
-        Formatter fmt = new Formatter(FILE_WITH_SCORES);
-
-        for (int i = 0; i < Math.min(userScore.size(), MAX_SCOREUSERS); i++) {
-            fmt.format("%S%n%d%n", userScore.get(i).getPlayerName(), userScore.get(i).getPlayerScore());
+    private void saveScoresToFile() {
+        try {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(FILE_WITH_SCORES));
+            objectOutputStream.writeObject(userScore);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        } catch (Exception e) {
+            System.out.println(e);
         }
-
-        fmt.close();
     }
 
     private void showScoreDialog() {
@@ -358,7 +342,7 @@ public class TetrisWin extends JFrame implements ActionListener {
 
             @Override
             public Object getValueAt(int row, int col) {
-                return (col == 0) ? userScore.get(row).playerName : userScore.get(row).playerScore;
+                return (col == 0) ? userScore.get(row).getPlayerName() : userScore.get(row).getPlayerScore();
             }
 
             public String getColumnName(int col) {

@@ -163,7 +163,9 @@ class IntroCanvas extends JPanel {
         for (int i = 0; i < N_INTROXY; i++) {
             g.setColor(decodeColor(rnd.nextInt(MAX_NCOLORS)));
             g.fillRect(OFFSET_INTROX * sizeCub + TEXT_INTROXY[i][0] * sizeCub - 1,
-                    OFFSET_INTROY * sizeCub + TEXT_INTROXY[i][1] * sizeCub - 1, sizeCub - 2, sizeCub - 2);
+                    OFFSET_INTROY * sizeCub + TEXT_INTROXY[i][1] * sizeCub - 1,
+                    sizeCub - 2,
+                    sizeCub - 2);
         }
     }
 }

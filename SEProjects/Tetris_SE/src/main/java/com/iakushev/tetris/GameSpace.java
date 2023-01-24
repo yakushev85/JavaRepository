@@ -71,7 +71,10 @@ public class GameSpace {
             for (int iy = 0; iy < SPACE_NY; iy++) {
                 priz = true;
                 for (int ix = 0; ix < SPACE_NX; ix++)
-                    if (spaceCub[ix][iy] < 0) priz = false;
+                    if (spaceCub[ix][iy] < 0) {
+                        priz = false;
+                        break;
+                    }
 
                 if (priz) nRow = iy;
             }
