@@ -51,38 +51,30 @@ public class TetrisWin extends JFrame implements ActionListener {
     private ArrayList<DataUserScore> loadScoresFromFile() {
         ArrayList<DataUserScore> res = new ArrayList<>();
 
-        try {
-            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(FILE_WITH_SCORES));
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(FILE_WITH_SCORES))) {
             res = (ArrayList<DataUserScore>) objectInputStream.readObject();
-            objectInputStream.close();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
         return res;
     }
 
     private void saveScoresToFile() {
-        try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(FILE_WITH_SCORES));
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(FILE_WITH_SCORES))) {
             objectOutputStream.writeObject(userScore);
             objectOutputStream.flush();
-            objectOutputStream.close();
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     private void showScoreDialog() {
         String nameCurPlayer = JOptionPane.showInputDialog(this, TEXT_DLGNAME);
+
         userScore.add(new DataUserScore(nameCurPlayer, gameLogSpace.getLinesScore()));
         sortScores();
-        try {
-            saveScoresToFile();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,
-                    "IOException in file " + FILE_WITH_SCORES + "!");
-        }
+        saveScoresToFile();
 
         tblScore.setModel(generateScoreTableModel());
     }
@@ -154,7 +146,7 @@ public class TetrisWin extends JFrame implements ActionListener {
                         repaint();
                     }
                 } catch (InterruptedException e) {
-                    System.out.println(e);
+                    System.out.println(e.getMessage());
                 }
             }
 
