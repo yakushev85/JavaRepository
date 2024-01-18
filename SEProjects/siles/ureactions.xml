@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reactions SYSTEM "dtd/reactions.dtd">
+<reactions>
+ <!-- Custom reactions -->
+ <reaction>
+  <pattern>^який\s+сьогодні\s+день\??$</pattern>
+  <pattern>^що\s+за\s+день\s+сьогодні\??$</pattern>
+  <pattern>^який\s+день\s+сьогодні\??$</pattern>
+  <outreaction/>
+  <customclass>wad</customclass>
+ </reaction>
+ <reaction>
+  <pattern>^що\s+таке\s+(.*)\??$</pattern>
+  <pattern>^хто\s+такий\s+(.*)\??$</pattern>
+  <pattern>^хто\s+такі\s+(.*)\??$</pattern>
+  <pattern>^що\s+за\s+день\s+(.*)\??$</pattern>
+  <pattern>^що\s+було\s+(.*)\??$</pattern>
+  <outreaction/>
+  <customclass>wiki</customclass>
+ </reaction>
+ <reaction>
+  <pattern>^що\s+цікавого.*\??$</pattern>
+  <outreaction/>
+  <customclass>dyk</customclass>
+ </reaction>
+ <reaction>
+  <pattern>^що\s+новенького.*\??$</pattern>
+  <pattern>^які\s+новини.*\??$</pattern>
+  <outreaction/>
+  <customclass>news</customclass>
+ </reaction>
+ <reaction>
+  <pattern>^розрахуй\s+(.*)$</pattern>
+  <pattern>^підрахуй\s+(.*)$</pattern>
+  <pattern>^скільки\s+буде\s+(.*)$</pattern>
+  <pattern>^(-?\d.*)$</pattern>
+
+  <pattern>^(-?sqrt.*)$</pattern>
+
+  <pattern>^(-?sin.*)$</pattern>
+  <pattern>^(-?cos.*)$</pattern>
+  <pattern>^(-?tan.*)$</pattern>
+
+  <pattern>^(-?asin.*)$</pattern>
+  <pattern>^(-?acos.*)$</pattern>
+  <pattern>^(-?atan.*)$</pattern>
+
+  <pattern>^(-?exp.*)$</pattern>
+  <pattern>^(-?ln.*)$</pattern>
+  <outreaction/>
+  <customclass>math</customclass>
+ </reaction>
+ 
+ <!-- Default reactions -->
+ <reaction>
+  <pattern>^йди(\s)+.*$</pattern>
+  <pattern>^зроби(\s)+.*$</pattern>
+  <pattern>^купи(\s)+.*$</pattern>
+  <pattern>^скачай(\s)+.*$</pattern>
+  <outreaction>Щось нехочеться.</outreaction>
+  <outreaction>Може сам зробиш?!</outreaction>
+ </reaction>
+</reactions>

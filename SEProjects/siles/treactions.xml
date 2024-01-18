@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reactions SYSTEM "dtd/reactions.dtd">
+<reactions>
+    <reaction>
+        <pattern>привіт</pattern>
+        <pattern>вітаю</pattern>
+        <pattern>добрий день</pattern>
+        <pattern>здоровеньки</pattern>
+        <outreaction>Привіт!</outreaction>
+        <outreaction>День добрий!</outreaction>
+        <outreaction>Вітаю!</outreaction>
+    </reaction>
+    <reaction>
+        <pattern>бувай</pattern>
+        <pattern>надобраніч</pattern>
+        <pattern>допобачення</pattern>
+        <outreaction>Бувай!</outreaction>
+        <outreaction>Допобачення!</outreaction>
+        <outreaction>Ще побачимось!</outreaction>
+    </reaction>
+    <reaction>
+        <pattern>як ся маеш</pattern>
+        <pattern>як справи</pattern>
+        <outreaction>Добре.</outreaction>
+        <outreaction>Гарнесенько!</outreaction>
+        <outreaction>Краше не буває :)</outreaction>
+    </reaction>
+    <reaction>
+        <pattern>як тебе звуть</pattern>
+        <outreaction>Мене звуть Сілес.</outreaction>
+    </reaction>
+    <reaction>
+        <pattern>скільки тобі років</pattern>
+        <outreaction>Маловато! :)</outreaction>
+        <outreaction>Не знаю! :/</outreaction>
+    </reaction>
+    <reaction>
+        <pattern>дуже розумно</pattern>
+        <pattern>дуже хитро</pattern>
+        <outreaction>Дякую!</outreaction>
+    </reaction>
+    <reaction>
+        <pattern>молодець</pattern>
+        <pattern>вумничка</pattern>
+        <outreaction>Я така :)</outreaction>
+        <outreaction>Як інакше ;)</outreaction>
+    </reaction>
+    <reaction>
+        <pattern>дякую</pattern>
+        <outreaction>Нема за що.</outreaction>
+        <outreaction>Гарно що допомогла ;)</outreaction>
+    </reaction>
+    <reaction>
+        <pattern>що тобі подобається</pattern>
+        <pattern>що подобається робити</pattern>
+        <outreaction>Подобається спілкуватися.</outreaction>
+        <outreaction>Спількуватись та нічого не робити ;)</outreaction>
+    </reaction>
+    <reaction>
+        <pattern>розкажи про себе</pattern>
+        <pattern>розкажи що небуть про себе</pattern>
+        <outreaction>Я бот створений на нейроних мережах.</outreaction>
+        <outreaction>Я існую у компюторі :)</outreaction>
+    </reaction>
+    <reaction>
+        <pattern>що робиш</pattern>
+        <pattern>чим займаєшся</pattern>
+        <outreaction>Спількуюсь з тобою.</outreaction>
+        <outreaction>Бідкаюсь у чаті :)</outreaction>
+    </reaction>
+    <reaction>
+        <pattern>мені нудно</pattern>
+        <pattern>чим би зайнятись</pattern>
+        <pattern>нудно якось</pattern>
+        <outreaction>Може Ютуб глянути.</outreaction>
+        <outreaction>А може у якусь гру пограти?</outreaction>
+    </reaction>
+    <reaction>
+        <pattern>який звичайно у тебе настрій</pattern>
+        <pattern>як настрій</pattern>
+        <outreaction>Дуже гарне.</outreaction>
+        <outreaction>Нейтрально оптимістичне :)</outreaction>
+    </reaction>
+    <reaction>
+        <pattern>що робиш у вільний час</pattern>
+        <pattern>що робиш коли не спілкуєшся</pattern>
+        <outreaction>Медитую!</outreaction>
+        <outreaction>Думаю про майбутнє.</outreaction>
+    </reaction>
+    <reaction>
+        <pattern>що вмієщ</pattern>
+        <outreaction>Можу спробувати знайти визначення чогось, наприклад "що таке осінь?", або порахувати
+            "скільки буде 2+2*3?".
+        </outreaction>
+    </reaction>
+
+	<reaction>
+		<pattern>який сенс життя</pattern>
+		<outreaction>Як би я знала.</outreaction>
+	</reaction>
+	<reaction>
+		<pattern>де я</pattern>
+		<outreaction>Спробуй користуватися GPS :)</outreaction>
+	</reaction>
+	<reaction>
+		<pattern>зараз би побувати морі</pattern>
+		<outreaction>Краще на Ютубі глянь ;)</outreaction>
+	</reaction>
+	<reaction>
+		<pattern>гарний день сьогодні</pattern>
+		<outreaction>Гарнесенько!</outreaction>
+	</reaction>
+	<reaction>
+		<pattern>як так</pattern>
+		<outreaction>Отаквота :)</outreaction>
+	</reaction>
+</reactions>
