@@ -1,0 +1,73 @@
+<div>
+    <!-- Article -->
+    <div>
+        <h3>{{ article?.title }}</h3>
+        <pre>{{ article?.content}}</pre>
+    </div>
+
+    <!-- New Comment -->
+    <div *ngIf="auth.isAuthenticated$ | async">
+        <form [formGroup]="commentForm">
+          <fieldset [disabled]="isSubmitting">
+            <fieldset class="form-group">
+                <textarea class="form-control form-control-md"
+                    formControlName="content"
+                    type="text"
+                    placeholder="New Comment"></textarea>
+                </fieldset>
+          </fieldset>
+      
+          <p class="mb-3 p-2"><button type="button" class="btn btn-success" [disabled]="!commentForm.valid"  (click)="submitForm()">Create Comment</button></p>
+        </form>
+    </div>
+
+    <!-- Comments -->
+    <div *ngIf="comments.length > 0">
+        <table class="table table-light">
+            <thead>
+            <tr>
+              <th scope="col">Comment</th>
+              <th scope="col">Created At</th>
+              <th scope="col">Author</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let comment of comments">
+              <td>{{ comment.content }}</td>
+              <td>{{ comment.createdAt | date:'medium' }}</td>
+              <td>{{ comment.author.name }}</td>
+            </tr>
+            </tbody>
+          </table>
+          
+          <div>
+            <div class="row">
+                <div class="col-md-9" style="padding-left: 5%">
+          
+                    <ngb-pagination [(page)]="pageNumber"
+                                    [pageSize]="pageSize"
+                                    [collectionSize]="totalElements"
+                                    [maxSize]="5"
+                                    [boundaryLinks]="true"
+                                    (pageChange)="loadComments()">
+          
+                    </ngb-pagination>
+          
+                </div>
+          
+                <div class="col-md-3 mt-2" style="text-align: right;">
+                    <span class="mr-2">Page Size </span>
+          
+                    <select #pageSizeSelect (change)="updatePageSize(pageSizeSelect.value)">
+                        <option>5</option>
+                        <option selected="true">10</option>
+                        <option>20</option>
+                        <option>50</option>
+                    </select>
+                </div>
+          
+            </div>
+          </div>
+    </div>
+    
+</div>
