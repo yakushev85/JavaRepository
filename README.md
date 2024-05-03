@@ -1,11 +1,11 @@
 # JavaRepository
 Repository contains applications which developed using JAVA.
-/EEProjects - demo projects for Web:
+Demo projects for Web:
 
 - demo blog web application using MySQL + Spring Boot + Angular + OAuth [GhoBlog](https://github.com/yakushev85/GeneralJavaRepository/tree/master/EEProjects/GhoBlog)
 - simple web shop application using MySQL + Spring Boot + Angular + JWT Auth [ShopWebApp](https://github.com/yakushev85/GeneralJavaRepository/tree/master/EEProjects/ShopWebApp)
 
-/SEProjects - desktop applications:
+Desktop applications:
 
 - Audio and video converter application using FFMpeg lib [FavwConverter](https://github.com/yakushev85/GeneralJavaRepository/tree/master/SEProjects/FavwConverter)
 - Application for keeping passwords and a sensitive information using JavaFX [OenKeeper](https://github.com/yakushev85/GeneralJavaRepository/tree/master/SEProjects/OenKeeper)
