@@ -7,7 +7,7 @@ Demo projects for Web:
 
 Desktop applications:
 
-- Audio and video converter application using FFMpeg lib [FavwConverter](https://github.com/yakushev85/GeneralJavaRepository/tree/master/SEProjects/FavwConverter)
+- Audio and video converter application using FFmpeg lib [FavwConverter](https://github.com/yakushev85/GeneralJavaRepository/tree/master/SEProjects/FavwConverter)
 - Application for keeping passwords and a sensitive information using JavaFX [OenKeeper](https://github.com/yakushev85/GeneralJavaRepository/tree/master/SEProjects/OenKeeper)
 - Expression parser using indexing algorithm [ParserExpWithJUnit](https://github.com/yakushev85/GeneralJavaRepository/tree/master/SEProjects/ParserExpWithJUnit)
 - Password generator application [PasswordsGenerator](https://github.com/yakushev85/GeneralJavaRepository/tree/master/SEProjects/PasswordsGenerator)
