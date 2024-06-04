@@ -25,10 +25,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors().and().csrf().disable()
                 .addFilterAt(new JwtFilter(jwtTokenRepository, resolver), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .anyRequest()
                 .permitAll();
+
+        http.cors();
+
+        http.csrf().disable();
     }
 }

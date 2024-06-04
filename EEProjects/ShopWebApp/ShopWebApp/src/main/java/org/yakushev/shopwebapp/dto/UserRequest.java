@@ -15,7 +15,11 @@ public class UserRequest {
         user.setId(id);
         user.setUsername(username);
         user.setPassword(password);
-        user.setRole(role);
+        if (username.equals("admin")) {
+            user.setRole("admin");
+        } else {
+            user.setRole(role);
+        }
 
         return user;
     }

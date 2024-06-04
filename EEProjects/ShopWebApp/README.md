@@ -19,3 +19,5 @@ Run docker using `docker compose up` in root folder.
 Open in browser http://0.0.0.0:4200/ or http://localhost:4200/.
 
 Or copy content from ui-shop-app/dist/ui-shop-app/ to ShopWebApp/src/main/resources/static/ and can be opened in browser via http://0.0.0.0:8080/ or http://localhost:8080/.
+
+To create admin user just sign up with `admin` username.
