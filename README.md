@@ -2,8 +2,7 @@
 Repository contains applications which developed using JAVA.
 Demo projects for Web:
 
-- Demo blog web application using MySQL + Spring Boot + Angular + OAuth [GhoBlog](https://github.com/yakushev85/GeneralJavaRepository/tree/master/EEProjects/GhoBlog)
-- Simple web shop application using MySQL + Spring Boot + Angular + JWT Auth [ShopWebApp](https://github.com/yakushev85/GeneralJavaRepository/tree/master/EEProjects/ShopWebApp)
+- Simple web shop application using MySQL + Spring Boot + JWT Auth [ShopWebApp](https://github.com/yakushev85/GeneralJavaRepository/tree/master/EEProjects/ShopWebApp)
 
 Desktop applications:
 
