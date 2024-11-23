@@ -4,11 +4,11 @@ This project was created using Angular, Spring Boot, MySQL and Docker.
 
 ## Step 1
 
-Compile backend app. In subfolder ShopWebApp/ run `mvn install`.
+Compile backend app, run `mvn install`.
 
 ## Step 2
 
-Run docker using `docker compose up` in root folder.
+Run docker using `docker compose up`.
 
 ## Test
 
