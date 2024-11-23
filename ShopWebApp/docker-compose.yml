@@ -24,7 +24,7 @@ services:
     depends_on:
       - swa_database
     volumes:
-      - ./ShopWebApp/target/ShopWebApp-1.1.jar:/application.jar
+      - ./target/ShopWebApp-1.1.jar:/application.jar
     command: ["java", "-jar", "application.jar"]
     networks:
       - backendNetwork
