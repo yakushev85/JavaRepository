@@ -7,10 +7,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yakushev.shopwebapp.model.User;
+import org.yakushev.shopwebapp.repository.PageableUserRepository;
 import org.yakushev.shopwebapp.repository.UserRepository;
 import org.yakushev.shopwebapp.security.JwtTokenRepository;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -19,11 +20,14 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 
 	@Autowired
+	private PageableUserRepository pageableUserRepository;
+
+	@Autowired
 	private JwtTokenRepository jwtTokenRepository;
 
 	@Override
 	public Page<User> getAll(Pageable pageable) {
-		return userRepository.findAll(pageable);
+		return pageableUserRepository.findAll(pageable);
 	}
 
 	@Override

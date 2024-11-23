@@ -8,7 +8,7 @@ import org.yakushev.shopwebapp.model.Product;
 import org.yakushev.shopwebapp.service.ProductService;
 import org.yakushev.shopwebapp.service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 @CrossOrigin(origins = {"http://localhost:8080/", "http://localhost:4200/"})
 @RestController

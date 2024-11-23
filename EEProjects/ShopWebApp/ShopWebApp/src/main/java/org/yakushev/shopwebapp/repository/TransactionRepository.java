@@ -10,6 +10,6 @@ import org.yakushev.shopwebapp.model.Transaction;
 import java.util.List;
 
 @Repository
-public interface TransactionRepository extends PagingAndSortingRepository<Transaction, Long> {
+public interface TransactionRepository extends CrudRepository<Transaction, Long> {
     Page<Transaction> findByUserIdOrderByIdDesc(Long userId, Pageable pageable);
 }

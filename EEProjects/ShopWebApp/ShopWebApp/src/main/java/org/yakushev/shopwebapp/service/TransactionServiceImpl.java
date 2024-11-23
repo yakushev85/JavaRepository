@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yakushev.shopwebapp.dto.TransactionRequest;
 import org.yakushev.shopwebapp.model.Transaction;
+import org.yakushev.shopwebapp.repository.PageableTransactionRepository;
 import org.yakushev.shopwebapp.repository.TransactionRepository;
 import org.yakushev.shopwebapp.security.JwtTokenRepository;
 
@@ -25,6 +26,9 @@ public class TransactionServiceImpl implements TransactionService {
 	private ProductService productService;
 
 	@Autowired
+	private PageableTransactionRepository pageableTransactionRepository;
+
+	@Autowired
 	private UserService userService;
 
 	@Autowired
@@ -32,7 +36,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	public Page<Transaction> getAll(Pageable pageable) {
-		return transactionRepository.findAll(pageable);
+		return pageableTransactionRepository.findAll(pageable);
 	}
 
 	@Override

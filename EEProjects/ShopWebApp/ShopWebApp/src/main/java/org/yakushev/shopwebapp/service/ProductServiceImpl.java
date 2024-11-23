@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yakushev.shopwebapp.model.Product;
+import org.yakushev.shopwebapp.repository.PageableProductRepository;
 import org.yakushev.shopwebapp.repository.ProductRepository;
 import org.yakushev.shopwebapp.security.JwtTokenRepository;
 
@@ -19,11 +20,14 @@ public class ProductServiceImpl implements ProductService {
 	private ProductRepository productRepository;
 
 	@Autowired
+	private PageableProductRepository pageableProductRepository;
+
+	@Autowired
 	private JwtTokenRepository jwtTokenRepository;
 
 	@Override
 	public Page<Product> getAll(Pageable pageable) {
-		return productRepository.findAll(pageable);
+		return pageableProductRepository.findAll(pageable);
 	}
 
 	@Override

@@ -17,14 +17,14 @@ services:
      - backendNetwork
      
   swa_backend:
-    image: openjdk:17
+    image: openjdk:21
     container_name: swa_backend
     ports:
       - 8080:8080
     depends_on:
       - swa_database
     volumes:
-      - ./ShopWebApp/target/ShopWebApp-1.0.jar:/application.jar
+      - ./ShopWebApp/target/ShopWebApp-1.1.jar:/application.jar
     command: ["java", "-jar", "application.jar"]
     networks:
       - backendNetwork
@@ -35,3 +35,4 @@ volumes:
   
 networks:
   backendNetwork:
+  
