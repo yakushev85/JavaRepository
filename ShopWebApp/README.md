@@ -4,7 +4,7 @@ This project was created using Angular, Spring Boot, MySQL and Docker.
 
 ## Step 1
 
-Compile backend app, run `mvn install`.
+Compile jar using `mvn install`.
 
 ## Step 2
 
