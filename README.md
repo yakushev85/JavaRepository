@@ -1,10 +1,5 @@
 # JavaRepository
-Repository contains applications which developed using JAVA.
-Demo projects for Web:
-
-- Simple web shop application using MySQL + Spring Boot + JWT Auth [ShopWebApp](https://github.com/yakushev85/GeneralJavaRepository/tree/master/ShopWebApp)
-
-Desktop applications:
+Repository contains applications which developed using JAVA:
 
 - Audio and video converter application using FFmpeg lib [FavwConverter](https://github.com/yakushev85/GeneralJavaRepository/tree/master/FavwConverter)
 - Application for keeping passwords and a sensitive information using JavaFX [OenKeeper](https://github.com/yakushev85/GeneralJavaRepository/tree/master/OenKeeper)
